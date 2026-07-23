@@ -1,0 +1,246 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .fq-{{ uid }} {
+    --fq-accent: {{ s.color_accent }};
+    --fq-text: {{ s.color_text }};
+    --fq-line: color-mix(in srgb, {{ s.color_text }} 16%, transparent);
+
+    background: {{ s.color_bg }};
+    color: var(--fq-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .fq-{{ uid }} *, .fq-{{ uid }} *::before, .fq-{{ uid }} *::after { box-sizing: border-box; }
+
+  .fq-{{ uid }}__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* ---------- linkerkolom ---------- */
+  .fq-{{ uid }}__eyebrow {
+    margin: 0 0 12px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--fq-accent);
+  }
+  .fq-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.15;
+    font-weight: 400;
+  }
+  .fq-{{ uid }}__title em { font-style: italic; color: var(--fq-accent); }
+  .fq-{{ uid }}__text {
+    margin: 16px 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: .8;
+  }
+  .fq-{{ uid }}__text p { margin: 0 0 12px; }
+  .fq-{{ uid }}__text p:last-child { margin-bottom: 0; }
+  .fq-{{ uid }}__contact {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--fq-accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .fq-{{ uid }}__contact:hover { opacity: .7; }
+
+  /* ---------- accordion ---------- */
+  .fq-{{ uid }}__item { border-top: 1px solid var(--fq-line); }
+  .fq-{{ uid }}__item:last-child { border-bottom: 1px solid var(--fq-line); }
+
+  .fq-{{ uid }}__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 19px 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: color var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .fq-{{ uid }}__question::-webkit-details-marker { display: none; }
+  .fq-{{ uid }}__question:hover { color: var(--fq-accent); }
+  .fq-{{ uid }}__question:focus-visible { outline: 2px solid var(--fq-accent); outline-offset: 3px; }
+
+  .fq-{{ uid }}__icon {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    color: var(--fq-accent);
+    transition: transform .25s ease;
+  }
+  .fq-{{ uid }}__item[open] .fq-{{ uid }}__icon { transform: rotate(45deg); }
+
+  .fq-{{ uid }}__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows .28s var(--ease-out-quad);
+  }
+  .fq-{{ uid }}__answer-inner {
+    min-height: 0;
+    padding: 0 40px 0 0;
+    font-size: 15px;
+    line-height: 1.75;
+    opacity: 0;
+    transition: opacity .28s var(--ease-out-quad);
+  }
+  .fq-{{ uid }}__item[open] .fq-{{ uid }}__answer { grid-template-rows: 1fr; }
+  .fq-{{ uid }}__item[open] .fq-{{ uid }}__answer-inner { opacity: .8; padding-bottom: 22px; }
+  .fq-{{ uid }}__answer p { margin: 0 0 12px; }
+  .fq-{{ uid }}__answer p:last-child { margin-bottom: 0; }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .fq-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .fq-{{ uid }}__inner { grid-template-columns: 1fr; gap: 30px; padding: 0 20px; }
+    .fq-{{ uid }}__question { font-size: 16px; }
+    .fq-{{ uid }}__answer-inner { padding-right: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fq-{{ uid }} *, .fq-{{ uid }} *::before, .fq-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .fq-{{ uid }} :hover { transform: none !important; }
+  }
+</style>
+
+<div class="fq-{{ uid }}" id="faq">
+  <div class="fq-{{ uid }}__inner">
+
+    <div class="fq-{{ uid }}__intro">
+      {%- if s.eyebrow != blank -%}
+        <p class="fq-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.title != blank -%}
+        {%- liquid
+          assign out = s.title
+          if s.emphasis != blank
+            assign em_html = '<em>' | append: s.emphasis | append: '</em>'
+            assign out = out | replace: s.emphasis, em_html
+          endif
+        -%}
+        <h2 class="fq-{{ uid }}__title">{{ out }}</h2>
+      {%- endif -%}
+      {%- if s.text != blank -%}
+        <div class="fq-{{ uid }}__text">{{ s.text }}</div>
+      {%- endif -%}
+      {%- if s.contact_label != blank -%}
+        <a class="fq-{{ uid }}__contact" href="{{ s.contact_link | default: '/pages/contact' }}">{{ s.contact_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="fq-{{ uid }}__list">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.question != blank -%}
+          <details class="fq-{{ uid }}__item" {{ block.shopify_attributes }}{% if forloop.first and s.open_first %} open{% endif %}>
+            <summary class="fq-{{ uid }}__question">
+              <span>{{ block.settings.question }}</span>
+              <svg class="fq-{{ uid }}__icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 2v14M2 9h14"/></svg>
+            </summary>
+            <div class="fq-{{ uid }}__answer"><div class="fq-{{ uid }}__answer-inner">{{ block.settings.answer }}</div></div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{%- if section.blocks.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for block in section.blocks -%}
+          {%- if block.settings.question != blank -%}
+            {
+              "@type": "Question",
+              "name": {{ block.settings.question | json }},
+              "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} }
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "faq-section",
+  "settings": [
+    { "type": "header", "content": "Tekst" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Veelgestelde vragen" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Alles wat je liever niet hoeft te vragen" },
+    { "type": "text", "id": "emphasis", "label": "Accentwoord", "info": "Dit stukje uit de titel wordt cursief in de accentkleur.", "default": "liever niet" },
+    { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Geen drempels, geen kleine lettertjes. Dit zijn de vragen die we het vaakst krijgen.</p>" },
+    { "type": "text", "id": "contact_label", "label": "Contactlink tekst", "default": "Staat je vraag er niet bij? Stel hem gerust" },
+    { "type": "url", "id": "contact_link", "label": "Contactlink" },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "checkbox", "id": "open_first", "label": "Eerste vraag standaard open", "default": true },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titel", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 22, "max": 52, "step": 2, "unit": "px", "label": "Grootte titel", "default": 32 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#f3eee1" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#a97d38" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#1a1a1a" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Vraag",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Vraag", "default": "Hoe discreet is de verzending echt?" },
+        { "type": "richtext", "id": "answer", "label": "Antwoord", "default": "<p>Volledig. Je bestelling komt in een effen doos zonder logo, tekst of afbeelding — ook het verzendlabel verraadt niets over de inhoud.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "faq" },
+        { "type": "faq" },
+        { "type": "faq" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,78 @@
+{% # ponytail: bewust simpel — Home / eerste zinvolle collectie / product %}
+{%- assign crumb_collection = blank -%}
+{%- if closest.product -%}
+  {%- for collection in closest.product.collections -%}
+    {%- unless collection.handle == 'all' or collection.handle == 'frontpage' or collection.handle contains 'voorraad' -%}
+      {%- assign crumb_collection = collection -%}
+      {%- break -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endif -%}
+
+<nav class="breadcrumbs" aria-label="{{ 'blocks.breadcrumbs' | t | default: 'Kruimelpad' }}" {{ block.shopify_attributes }}>
+  <ol class="breadcrumbs__list" role="list">
+    <li class="breadcrumbs__item">
+      <a href="{{ routes.root_url }}" class="breadcrumbs__link">Home</a>
+    </li>
+    {%- if crumb_collection != blank -%}
+      <li class="breadcrumbs__item">
+        <a href="{{ crumb_collection.url }}" class="breadcrumbs__link">{{ crumb_collection.title }}</a>
+      </li>
+    {%- endif -%}
+    {%- if closest.product -%}
+      <li class="breadcrumbs__item breadcrumbs__item--current" aria-current="page">
+        {{ closest.product.title }}
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>
+
+{% stylesheet %}
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8125rem;
+    color: rgb(var(--color-foreground) / 0.6);
+  }
+
+  .breadcrumbs__item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .breadcrumbs__item:not(:first-child)::before {
+    content: '/';
+    opacity: 0.5;
+  }
+
+  .breadcrumbs__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .breadcrumbs__link:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumbs__item--current {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 60vw;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "tag": null,
+  "settings": []
+}
+{% endschema %}

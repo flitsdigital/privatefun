@@ -1,0 +1,388 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .ct-{{ uid }} {
+    --ct-accent: {{ s.color_accent }};
+    --ct-text: {{ s.color_text }};
+    --ct-line: color-mix(in srgb, {{ s.color_text }} 16%, transparent);
+    --ct-panel: color-mix(in srgb, {{ s.color_text }} 5%, transparent);
+
+    background: {{ s.color_bg }};
+    color: var(--ct-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .ct-{{ uid }} *, .ct-{{ uid }} *::before, .ct-{{ uid }} *::after { box-sizing: border-box; }
+
+  .ct-{{ uid }}__inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- kop ---------- */
+  .ct-{{ uid }}__head { max-width: 560px; margin-bottom: 48px; }
+  .ct-{{ uid }}__eyebrow {
+    margin: 0 0 12px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ct-accent);
+  }
+  .ct-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.12;
+    font-weight: 400;
+  }
+  .ct-{{ uid }}__title em { font-style: italic; color: var(--ct-accent); }
+  .ct-{{ uid }}__intro { margin: 16px 0 0; font-size: 16px; line-height: 1.7; opacity: .78; }
+  .ct-{{ uid }}__intro p { margin: 0; }
+
+  /* ---------- layout ---------- */
+  .ct-{{ uid }}__grid {
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* ---------- infokolom ---------- */
+  .ct-{{ uid }}__info-item {
+    display: flex;
+    gap: 14px;
+    padding: 18px 0;
+    border-top: 1px solid var(--ct-line);
+  }
+  .ct-{{ uid }}__info-item:last-of-type { border-bottom: 1px solid var(--ct-line); }
+  .ct-{{ uid }}__info-item svg { width: 19px; height: 19px; flex: none; margin-top: 2px; color: var(--ct-accent); }
+  .ct-{{ uid }}__info-title { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+  .ct-{{ uid }}__info-text { margin: 0; font-size: 14px; line-height: 1.65; opacity: .75; }
+  .ct-{{ uid }}__info-text a { color: var(--ct-accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .ct-{{ uid }}__info-text a:hover { opacity: .8; }
+
+  .ct-{{ uid }}__links { margin-top: 28px; }
+  .ct-{{ uid }}__links-title {
+    margin: 0 0 12px;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ct-accent);
+  }
+  .ct-{{ uid }}__links ul { margin: 0; padding: 0; list-style: none; }
+  .ct-{{ uid }}__links li + li { margin-top: 10px; }
+  .ct-{{ uid }}__links a {
+    font-size: 14px;
+    color: var(--ct-text);
+    opacity: .8;
+    text-decoration: none;
+    transition: color var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .ct-{{ uid }}__links a:hover { color: var(--ct-accent); opacity: 1; }
+
+  /* ---------- formulier ---------- */
+  .ct-{{ uid }}__form {
+    background: var(--ct-panel);
+    border: 1px solid var(--ct-line);
+    padding: 36px;
+  }
+  .ct-{{ uid }}__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ct-{{ uid }}__field { margin-bottom: 14px; }
+  .ct-{{ uid }}__label { display: block; margin-bottom: 7px; font-size: 13px; opacity: .75; }
+  .ct-{{ uid }}__label small { opacity: .7; font-size: 12px; }
+
+  .ct-{{ uid }}__form input,
+  .ct-{{ uid }}__form select,
+  .ct-{{ uid }}__form textarea {
+    width: 100%;
+    background: {{ s.color_bg }};
+    border: 1px solid var(--ct-line);
+    color: var(--ct-text);
+    font: inherit;
+    font-size: 15px;
+    padding: 12px 14px;
+    border-radius: 0;
+    appearance: none;
+  }
+  .ct-{{ uid }}__form textarea { min-height: 150px; resize: vertical; }
+  .ct-{{ uid }}__form input:focus,
+  .ct-{{ uid }}__form select:focus,
+  .ct-{{ uid }}__form textarea:focus { outline: 0; border-color: var(--ct-accent); }
+  .ct-{{ uid }}__form ::placeholder { color: var(--ct-text); opacity: .38; }
+
+  .ct-{{ uid }}__select-wrap { position: relative; }
+  .ct-{{ uid }}__select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 15px; top: 50%;
+    width: 8px; height: 8px;
+    border-right: 1.4px solid var(--ct-accent);
+    border-bottom: 1.4px solid var(--ct-accent);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  .ct-{{ uid }}__submit {
+    display: inline-block;
+    margin-top: 8px;
+    background: var(--ct-accent);
+    color: {{ s.color_bg }};
+    border: 0;
+    padding: 15px 34px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .ct-{{ uid }}__submit:hover { transform: translateY(-2px); opacity: .92; }
+  }
+  .ct-{{ uid }}__submit:focus-visible { outline: 2px solid var(--ct-accent); outline-offset: 4px; }
+
+  .ct-{{ uid }}__note { margin: 16px 0 0; font-size: 12px; line-height: 1.6; opacity: .55; }
+
+  .ct-{{ uid }}__success {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid var(--ct-accent);
+    color: var(--ct-accent);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .ct-{{ uid }}__success svg { width: 17px; height: 17px; flex: none; margin-top: 2px; }
+  .ct-{{ uid }}__error {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid #b3564d;
+    color: #cf7a72;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .ct-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .ct-{{ uid }}__inner { padding: 0 20px; }
+    .ct-{{ uid }}__head { margin-bottom: 32px; }
+    .ct-{{ uid }}__grid { grid-template-columns: 1fr; gap: 36px; }
+    .ct-{{ uid }}__form { padding: 24px 20px; }
+    .ct-{{ uid }}__row { grid-template-columns: 1fr; gap: 0; }
+    .ct-{{ uid }}__submit { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ct-{{ uid }} *, .ct-{{ uid }} *::before, .ct-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .ct-{{ uid }} :hover { transform: none !important; }
+  }
+</style>
+
+<div class="ct-{{ uid }}">
+  <div class="ct-{{ uid }}__inner">
+
+    <div class="ct-{{ uid }}__head">
+      {%- if s.eyebrow != blank -%}
+        <p class="ct-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.title != blank -%}
+        {%- liquid
+          assign out = s.title
+          if s.emphasis != blank
+            assign em_html = '<em>' | append: s.emphasis | append: '</em>'
+            assign out = out | replace: s.emphasis, em_html
+          endif
+        -%}
+        <h1 class="ct-{{ uid }}__title">{{ out }}</h1>
+      {%- endif -%}
+      {%- if s.intro != blank -%}
+        <div class="ct-{{ uid }}__intro">{{ s.intro }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="ct-{{ uid }}__grid">
+
+      <div class="ct-{{ uid }}__info">
+
+        {%- if s.email != blank -%}
+          <div class="ct-{{ uid }}__info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg>
+            <div>
+              <p class="ct-{{ uid }}__info-title">Liever direct mailen?</p>
+              <p class="ct-{{ uid }}__info-text"><a href="mailto:{{ s.email }}">{{ s.email }}</a></p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if s.response_text != blank -%}
+          <div class="ct-{{ uid }}__info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <div>
+              <p class="ct-{{ uid }}__info-title">Reactietijd</p>
+              <p class="ct-{{ uid }}__info-text">{{ s.response_text }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if s.hours_text != blank -%}
+          <div class="ct-{{ uid }}__info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            <div>
+              <p class="ct-{{ uid }}__info-title">Bereikbaarheid</p>
+              <p class="ct-{{ uid }}__info-text">{{ s.hours_text }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if s.discreet_text != blank -%}
+          <div class="ct-{{ uid }}__info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <div>
+              <p class="ct-{{ uid }}__info-title">Discreet, ook per mail</p>
+              <p class="ct-{{ uid }}__info-text">{{ s.discreet_text }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="ct-{{ uid }}__links">
+            <p class="ct-{{ uid }}__links-title">{{ s.links_title }}</p>
+            <ul>
+              {%- for block in section.blocks -%}
+                {%- if block.settings.label != blank -%}
+                  <li {{ block.shopify_attributes }}><a href="{{ block.settings.url }}">{{ block.settings.label }} →</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      <div class="ct-{{ uid }}__form">
+        {%- form 'contact' -%}
+
+          {%- if form.posted_successfully? -%}
+            <div class="ct-{{ uid }}__success" role="status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 7"/></svg>
+              <span>{{ s.success_text }}</span>
+            </div>
+          {%- elsif form.errors -%}
+            <div class="ct-{{ uid }}__error" role="alert">
+              Er ging iets mis bij het versturen. Controleer je e-mailadres en probeer het opnieuw.
+            </div>
+          {%- endif -%}
+
+          <div class="ct-{{ uid }}__field">
+            <label class="ct-{{ uid }}__label" for="ct-subject-{{ uid }}">Waar gaat je vraag over?</label>
+            <div class="ct-{{ uid }}__select-wrap">
+              <select id="ct-subject-{{ uid }}" name="contact[Onderwerp]">
+                <option>Vraag over een bestelling</option>
+                <option>Productadvies</option>
+                <option>Ruilen of retourneren</option>
+                <option>Iets anders</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ct-{{ uid }}__row">
+            <div class="ct-{{ uid }}__field">
+              <label class="ct-{{ uid }}__label" for="ct-name-{{ uid }}">Naam</label>
+              <input id="ct-name-{{ uid }}" type="text" name="contact[name]" autocomplete="name" required>
+            </div>
+            <div class="ct-{{ uid }}__field">
+              <label class="ct-{{ uid }}__label" for="ct-email-{{ uid }}">E-mail</label>
+              <input id="ct-email-{{ uid }}" type="email" name="contact[email]" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="ct-{{ uid }}__field">
+            <label class="ct-{{ uid }}__label" for="ct-phone-{{ uid }}">Telefoonnummer <small>(optioneel)</small></label>
+            <input id="ct-phone-{{ uid }}" type="tel" name="contact[phone]" autocomplete="tel">
+          </div>
+
+          <div class="ct-{{ uid }}__field">
+            <label class="ct-{{ uid }}__label" for="ct-body-{{ uid }}">Je bericht</label>
+            <textarea id="ct-body-{{ uid }}" name="contact[body]" placeholder="Vertel kort waar we mee kunnen helpen. Gaat het om een bestelling? Een ordernummer helpt ons sneller." required></textarea>
+          </div>
+
+          <button class="ct-{{ uid }}__submit" type="submit">{{ s.submit_label }}</button>
+
+          {%- if s.privacy_text != blank -%}
+            <p class="ct-{{ uid }}__note">{{ s.privacy_text }}</p>
+          {%- endif -%}
+
+        {%- endform -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact — uitgebreid",
+  "tag": "section",
+  "class": "contact-custom-section",
+  "settings": [
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Contact" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "We denken graag met je mee" },
+    { "type": "text", "id": "emphasis", "label": "Accentwoord", "default": "graag" },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Zonder oordeel, altijd discreet. Stel je vraag zoals je hem zou stellen aan een goede vriend die er toevallig verstand van heeft.</p>" },
+
+    { "type": "header", "content": "Contactinfo" },
+    { "type": "text", "id": "email", "label": "E-mailadres", "default": "hallo@privatefun.nl" },
+    { "type": "text", "id": "response_text", "label": "Reactietijd", "default": "Binnen één werkdag antwoord, meestal sneller. Bij drukte kan het iets langer duren." },
+    { "type": "text", "id": "hours_text", "label": "Bereikbaarheid", "default": "Maandag t/m vrijdag, 9:00 – 17:30." },
+    { "type": "text", "id": "discreet_text", "label": "Discretie-tekst", "default": "Geen merknaam in de onderwerpregel en we noemen nooit productdetails zonder dat jij erom vraagt." },
+
+    { "type": "header", "content": "Handige links" },
+    { "type": "text", "id": "links_title", "label": "Kop", "default": "Misschien staat je antwoord hier al" },
+
+    { "type": "header", "content": "Formulier" },
+    { "type": "text", "id": "submit_label", "label": "Knoptekst", "default": "Verstuur bericht" },
+    { "type": "text", "id": "success_text", "label": "Succesmelding", "default": "Dank je wel. Je bericht is verstuurd — je hoort binnen één werkdag van ons." },
+    { "type": "text", "id": "privacy_text", "label": "Privacy-tekst", "default": "Je gegevens gebruiken we alleen om je vraag te beantwoorden. Vertrouwelijk, zoals alles hier." },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titel", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 26, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 40 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Handige link",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tekst", "default": "Veelgestelde vragen" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Contact — uitgebreid" }
+  ]
+}
+{% endschema %}

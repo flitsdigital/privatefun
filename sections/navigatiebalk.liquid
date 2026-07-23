@@ -1,0 +1,558 @@
+{%- liquid
+  assign uid = section.id
+  assign trigger = section.settings.trigger_label | downcase | strip
+-%}
+
+<style>
+  {{ section.settings.font_heading | font_face: font_display: 'swap' }}
+  {{ section.settings.font_body | font_face: font_display: 'swap' }}
+
+  /* ponytail: sticky op de group-wrapper — sticky op de sectie zelf blijft binnen de parent hangen */
+  #header-group { position: sticky; top: 0; z-index: 50; }
+  #shopify-section-{{ uid }} { position: relative; z-index: 50; }
+
+  .mm-{{ uid }} {
+    --mm-bg: {{ section.settings.color_bg }};
+    --mm-gold: {{ section.settings.color_gold }};
+    --mm-link: {{ section.settings.color_link }};
+    --mm-hair: {{ section.settings.color_gold }}26;
+    --mm-bar-bg: {{ section.settings.color_bar_bg }};
+    --mm-bar-text: {{ section.settings.color_bar_text }};
+    --mm-max: {{ section.settings.container_width }}px;
+
+    background: var(--mm-bg);
+    color: var(--mm-link);
+    font-family: {{ section.settings.font_body.family }}, {{ section.settings.font_body.fallback_families }};
+  }
+
+  .mm-{{ uid }} *, .mm-{{ uid }} *::before, .mm-{{ uid }} *::after { box-sizing: border-box; }
+
+  /* ---------- bovenbalk ---------- */
+  .mm-{{ uid }}__bar {
+    background: var(--mm-bar-bg);
+    color: var(--mm-bar-text);
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    font-weight: 600;
+  }
+
+  /* ---------- header rij ---------- */
+  .mm-{{ uid }}__inner {
+    max-width: var(--mm-max);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .mm-{{ uid }}__row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: {{ section.settings.header_padding }}px 0;
+  }
+  .mm-{{ uid }}__logo { display: flex; align-items: center; min-width: 0; }
+  .mm-{{ uid }}__logo-text {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+    font-family: {{ section.settings.font_heading.family }}, {{ section.settings.font_heading.fallback_families }};
+    color: var(--mm-gold);
+    font-size: 22px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .mm-{{ uid }}__logo-text img {
+    display: block;
+    height: calc({{ section.settings.logo_height }}px * 1.15);
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .mm-{{ uid }}__nav { display: flex; justify-content: center; gap: 30px; margin: 0; padding: 0; list-style: none; }
+  .mm-{{ uid }}__nav > li { position: static; }
+  .mm-{{ uid }}__nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 0;
+    padding: 10px 0;
+    font: inherit;
+    font-size: 14px;
+    letter-spacing: .04em;
+    color: var(--mm-gold);
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .mm-{{ uid }}__nav-link:hover,
+  .mm-{{ uid }}__nav-link[aria-expanded="true"] { opacity: .65; }
+  .mm-{{ uid }}__nav-link:focus-visible,
+  .mm-{{ uid }}__icon:focus-visible { outline: 1px solid var(--mm-gold); outline-offset: 4px; }
+  .mm-{{ uid }}__caret { width: 9px; height: 9px; transition: transform .2s ease; }
+  .mm-{{ uid }}__nav-link[aria-expanded="true"] .mm-{{ uid }}__caret { transform: rotate(180deg); }
+
+  .mm-{{ uid }}__icons { display: flex; justify-content: flex-end; align-items: center; gap: 18px; }
+  .mm-{{ uid }}__icon {
+    display: inline-flex; background: none; border: 0; padding: 0;
+    color: var(--mm-gold); cursor: pointer; text-decoration: none;
+  }
+  .mm-{{ uid }}__icon svg { width: 19px; height: 19px; }
+  .mm-{{ uid }}__burger { display: none; }
+
+  /* ---------- mega panel ---------- */
+  .mm-{{ uid }}__panel {
+    position: absolute;
+    left: 0; right: 0; top: 100%;
+    background: var(--mm-bg);
+    border-top: 1px solid var(--mm-hair);
+    box-shadow: 0 24px 48px -24px rgba(0,0,0,.8);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+  }
+  .mm-{{ uid }}__panel.is-open { opacity: 1; visibility: visible; transform: translateY(0); }
+
+  .mm-{{ uid }}__cols {
+    max-width: var(--mm-max);
+    margin: 0 auto;
+    padding: 30px 20px 40px;
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns }}, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .mm-{{ uid }}__heading {
+    margin: 0 0 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    color: var(--mm-gold);
+  }
+  .mm-{{ uid }}__list { list-style: none; margin: 0; padding: 0; }
+  .mm-{{ uid }}__list li + li { margin-top: 11px; }
+  .mm-{{ uid }}__list a {
+    font-size: 14px;
+    color: var(--mm-link);
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+  .mm-{{ uid }}__list a:hover { color: var(--mm-gold); }
+
+  .mm-{{ uid }}__overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5);
+    opacity: 0; visibility: hidden;
+    transition: opacity .2s ease, visibility .2s;
+    z-index: -1;
+  }
+  .mm-{{ uid }}__overlay.is-open { opacity: 1; visibility: visible; }
+
+  /* drawer-elementen: alleen mobiel zichtbaar */
+  .mm-{{ uid }}__drawer-head,
+  .mm-{{ uid }}__drawer-utils { display: none; }
+
+  /* ---------- mobiel: fullscreen drawer ---------- */
+  @media (max-width: 900px) {
+    .mm-{{ uid }}__burger { display: inline-flex; justify-self: start; }
+    .mm-{{ uid }}__logo { justify-content: center; }
+
+    .mm-{{ uid }}__nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: var(--mm-bg);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 14px 24px 40px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .mm-{{ uid }}__nav.is-open { display: flex; animation: mm-drawer-{{ uid }} .22s cubic-bezier(.22,.8,.3,1); }
+    @keyframes mm-drawer-{{ uid }} { from { opacity: 0; transform: translateY(10px); } }
+
+    .mm-{{ uid }}__drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 0 14px;
+    }
+    .mm-{{ uid }}__drawer-title {
+      font-family: {{ section.settings.font_heading.family }}, {{ section.settings.font_heading.fallback_families }};
+      font-size: 13px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--mm-gold);
+    }
+
+    .mm-{{ uid }}__nav > li { border-top: 1px solid var(--mm-hair); }
+    .mm-{{ uid }}__nav > li.mm-{{ uid }}__drawer-head { border-top: 0; }
+    .mm-{{ uid }}__nav-link {
+      padding: 17px 0;
+      justify-content: space-between;
+      width: 100%;
+      font-family: {{ section.settings.font_heading.family }}, {{ section.settings.font_heading.fallback_families }};
+      font-size: 21px;
+      letter-spacing: .02em;
+    }
+    .mm-{{ uid }}__caret { width: 12px; height: 12px; }
+
+    .mm-{{ uid }}__panel {
+      position: static;
+      border: 0;
+      box-shadow: none;
+      display: none;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+    .mm-{{ uid }}__panel.is-open { display: block; }
+    .mm-{{ uid }}__cols { grid-template-columns: 1fr; gap: 20px; padding: 2px 0 22px; }
+    .mm-{{ uid }}__heading {
+      margin-bottom: 10px;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .mm-{{ uid }}__list li + li { margin-top: 12px; }
+    .mm-{{ uid }}__list a { font-size: 15px; opacity: .85; }
+
+    .mm-{{ uid }}__drawer-utils {
+      display: flex;
+      gap: 26px;
+      padding: 18px 0 0;
+      margin-top: auto;
+    }
+    .mm-{{ uid }}__drawer-utils a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--mm-gold);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: .04em;
+    }
+    .mm-{{ uid }}__drawer-utils svg { width: 17px; height: 17px; }
+
+    .mm-{{ uid }}__overlay { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mm-{{ uid }} *, .mm-{{ uid }} *::before, .mm-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .mm-{{ uid }} :hover { transform: none !important; }
+  }
+</style>
+
+<div class="mm-{{ uid }}" data-mega-root>
+  {%- if section.settings.announcement != blank -%}
+    <div class="mm-{{ uid }}__bar">{{ section.settings.announcement }}</div>
+  {%- endif -%}
+
+  <div class="mm-{{ uid }}__inner">
+    <div class="mm-{{ uid }}__row">
+
+      <button class="mm-{{ uid }}__icon mm-{{ uid }}__burger" type="button" data-mega-burger aria-expanded="false" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="mm-{{ uid }}__logo">
+        <a href="{{ routes.root_url }}" class="mm-{{ uid }}__logo-text">
+          {%- if section.settings.logo -%}
+            {{ section.settings.logo | image_url: width: 800 | image_tag: alt: shop.name, loading: 'eager' }}
+          {%- else -%}
+            {{ shop.name }}
+          {%- endif -%}
+        </a>
+      </div>
+
+      <nav class="mm-{{ uid }}__nav" data-mega-nav aria-label="Hoofdmenu">
+        <li class="mm-{{ uid }}__drawer-head">
+          <span class="mm-{{ uid }}__drawer-title">Menu</span>
+          <button class="mm-{{ uid }}__icon" type="button" data-mega-close aria-label="Sluit menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 5l14 14M19 5 5 19"/></svg>
+          </button>
+        </li>
+        {%- for link in section.settings.main_menu.links -%}
+          {%- assign title_check = link.title | downcase | strip -%}
+          {%- if title_check == trigger -%}
+            <li>
+              <button class="mm-{{ uid }}__nav-link" type="button" data-mega-trigger aria-expanded="false" aria-controls="mm-panel-{{ uid }}">
+                {{ link.title }}
+                <svg class="mm-{{ uid }}__caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1.5 3.5 5 7l3.5-3.5"/></svg>
+              </button>
+
+              <div class="mm-{{ uid }}__panel" id="mm-panel-{{ uid }}" data-mega-panel>
+                <div class="mm-{{ uid }}__cols">
+                  {%- if section.blocks.size > 0 -%}
+                    {%- for block in section.blocks -%}
+                      <div class="mm-{{ uid }}__col" {{ block.shopify_attributes }}>
+                        {%- if block.settings.heading != blank -%}
+                          <p class="mm-{{ uid }}__heading">{{ block.settings.heading }}</p>
+                        {%- endif -%}
+                        <ul class="mm-{{ uid }}__list">
+                          {%- for link in block.settings.menu.links -%}
+                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    {%- endfor -%}
+                  {%- else -%}
+                    {%- liquid
+                      assign mega_columns = nil
+                      for mega_link in section.settings.main_menu.links
+                        assign mega_title_check = mega_link.title | downcase | strip
+                        if mega_title_check == trigger
+                          assign mega_columns = mega_link.links
+                          break
+                        endif
+                      endfor
+                    -%}
+                    {%- if mega_columns.size > 0 -%}
+                      {%- for column in mega_columns -%}
+                        <div class="mm-{{ uid }}__col">
+                          {%- if column.title != blank -%}
+                            <p class="mm-{{ uid }}__heading">
+                              {%- if column.url != blank and column.url != '#' -%}
+                                <a href="{{ column.url }}" style="color: inherit; text-decoration: none;">{{ column.title }}</a>
+                              {%- else -%}
+                                {{ column.title }}
+                              {%- endif -%}
+                            </p>
+                          {%- endif -%}
+                          <ul class="mm-{{ uid }}__list">
+                            {%- for child in column.links -%}
+                              <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                            {%- endfor -%}
+                          </ul>
+                        </div>
+                      {%- endfor -%}
+                    {%- else -%}
+                      <div class="mm-{{ uid }}__col">
+                        <p class="mm-{{ uid }}__heading">Menu instellen</p>
+                        <ul class="mm-{{ uid }}__list">
+                          <li><a href="{{ routes.collections_url }}">Alle collecties</a></li>
+                        </ul>
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              </div>
+            </li>
+          {%- else -%}
+            <li><a class="mm-{{ uid }}__nav-link" href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endif -%}
+        {%- else -%}
+          <li><a class="mm-{{ uid }}__nav-link" href="{{ routes.collections_url }}">Alle collecties</a></li>
+        {%- endfor -%}
+        <li class="mm-{{ uid }}__drawer-utils">
+          <a href="{{ routes.search_url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            Zoeken
+          </a>
+          <a href="{{ routes.account_url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+            Account
+          </a>
+          <a href="{{ routes.cart_url }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            Winkelmand
+          </a>
+        </li>
+      </nav>
+
+      <div class="mm-{{ uid }}__icons">
+        <a class="mm-{{ uid }}__icon" href="{{ routes.search_url }}" aria-label="Zoeken">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </a>
+        <a class="mm-{{ uid }}__icon" href="{{ routes.account_url }}" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+        </a>
+        <a class="mm-{{ uid }}__icon" href="{{ routes.cart_url }}" aria-label="Winkelmand">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mm-{{ uid }}__overlay" data-mega-overlay hidden></div>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('#shopify-section-{{ uid }} [data-mega-root]');
+    if (!root) return;
+
+    var trigger = root.querySelector('[data-mega-trigger]');
+    var panel   = root.querySelector('[data-mega-panel]');
+    var overlay = root.querySelector('[data-mega-overlay]');
+    var burger  = root.querySelector('[data-mega-burger]');
+    var nav     = root.querySelector('[data-mega-nav]');
+    var desktop = window.matchMedia('(min-width: 901px)');
+    var timer;
+
+    function open() {
+      panel.classList.add('is-open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      if (desktop.matches) { overlay.hidden = false; overlay.classList.add('is-open'); }
+    }
+    function close() {
+      panel.classList.remove('is-open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      overlay.classList.remove('is-open');
+      overlay.hidden = true;
+    }
+    function toggle() {
+      panel.classList.contains('is-open') ? close() : open();
+    }
+
+    if (trigger) {
+      trigger.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
+      trigger.addEventListener('mouseenter', function () {
+        if (!desktop.matches) return;
+        clearTimeout(timer);
+        open();
+      });
+      trigger.addEventListener('focus', function () { if (desktop.matches) open(); });
+    }
+
+    [trigger, panel].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('mouseleave', function () {
+        if (!desktop.matches) return;
+        timer = setTimeout(close, 160);
+      });
+      el.addEventListener('mouseenter', function () { clearTimeout(timer); });
+    });
+
+    if (overlay) overlay.addEventListener('click', close);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { close(); if (trigger) trigger.focus(); }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!root.contains(e.target)) close();
+    });
+
+    if (burger && nav) {
+      burger.addEventListener('click', function () {
+        var isOpen = nav.classList.toggle('is-open');
+        burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (!isOpen) close();
+      });
+    }
+
+    var closeBtn = root.querySelector('[data-mega-close]');
+    if (closeBtn && nav) {
+      closeBtn.addEventListener('click', function () {
+        nav.classList.remove('is-open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+        close();
+      });
+    }
+
+    desktop.addEventListener('change', function () {
+      close();
+      if (nav) nav.classList.remove('is-open');
+      if (burger) burger.setAttribute('aria-expanded', 'false');
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Mega menu",
+  "tag": "header",
+  "class": "mega-menu-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Balk bovenaan",
+      "default": "Discreet geleverd — premium kwaliteit"
+    },
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 20,
+      "max": 90,
+      "step": 2,
+      "unit": "px",
+      "label": "Logohoogte",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "header_padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Ruimte boven/onder header",
+      "default": 14
+    },
+    { "type": "header", "content": "Navigatie" },
+    { "type": "link_list", "id": "main_menu", "label": "Hoofdmenu", "default": "main-menu" },
+    {
+      "type": "text",
+      "id": "trigger_label",
+      "label": "Menu-item dat het mega menu opent",
+      "info": "Moet exact overeenkomen met de titel in je hoofdmenu. Zonder kolom-blokken worden de subitems van dit menu-item automatisch gebruikt.",
+      "default": "Producten"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "label": "Aantal kolommen",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Breedte container",
+      "default": 1200
+    },
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_gold", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_link", "label": "Menulinks", "default": "#e6e3dd" },
+    { "type": "color", "id": "color_bar_bg", "label": "Balk achtergrond", "default": "#f3eee1" },
+    { "type": "color", "id": "color_bar_text", "label": "Balk tekst", "default": "#1a1a1a" },
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_heading", "label": "Logo/koppen", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Kolom",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Kop" },
+        { "type": "link_list", "id": "menu", "label": "Menu met links" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Mega menu" }
+  ]
+}
+{% endschema %}

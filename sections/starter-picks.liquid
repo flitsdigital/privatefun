@@ -1,0 +1,260 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .sp-{{ uid }} {
+    --sp-accent: {{ s.color_accent }};
+    --sp-text: {{ s.color_text }};
+
+    background: {{ s.color_bg }};
+    color: var(--sp-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .sp-{{ uid }} *, .sp-{{ uid }} *::before, .sp-{{ uid }} *::after { box-sizing: border-box; }
+
+  .sp-{{ uid }}__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* ---------- linkerkolom ---------- */
+  .sp-{{ uid }}__eyebrow {
+    margin: 0 0 12px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--sp-accent);
+  }
+  .sp-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.15;
+    font-weight: 400;
+  }
+  .sp-{{ uid }}__text {
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: .8;
+  }
+  .sp-{{ uid }}__text p { margin: 0 0 12px; }
+  .sp-{{ uid }}__text p:last-child { margin-bottom: 0; }
+
+  .sp-{{ uid }}__points {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sp-{{ uid }}__point {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 11px 0;
+    border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  }
+  .sp-{{ uid }}__point:last-child {
+    border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  }
+  .sp-{{ uid }}__point svg { width: 15px; height: 15px; flex: none; margin-top: 3px; color: var(--sp-accent); }
+
+  /* ---------- producten ---------- */
+  .sp-{{ uid }}__grid {
+    display: grid;
+    grid-template-columns: repeat({{ s.columns }}, minmax(0, 1fr));
+    gap: 20px 16px;
+  }
+  .sp-{{ uid }}__card { text-decoration: none; color: inherit; display: block; }
+  .sp-{{ uid }}__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    margin-bottom: 12px;
+  }
+  .sp-{{ uid }}__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-media) var(--ease-media-zoom);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .sp-{{ uid }}__card:hover .sp-{{ uid }}__media img { transform: scale(1.04); }
+  }
+  .sp-{{ uid }}__card:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 3px; }
+
+  .sp-{{ uid }}__name { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.4; }
+  .sp-{{ uid }}__why {
+    margin: 5px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: .7;
+  }
+  .sp-{{ uid }}__price { margin: 8px 0 0; font-size: 14px; }
+  .sp-{{ uid }}__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--sp-accent);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .sp-{{ uid }}__cta svg { width: 12px; height: 12px; }
+  .sp-{{ uid }}__card:hover .sp-{{ uid }}__cta { opacity: .7; }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .sp-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .sp-{{ uid }}__inner {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 0 0 0 20px;
+    }
+    .sp-{{ uid }}__intro { padding-right: 20px; }
+
+    .sp-{{ uid }}__grid {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-right: 20px;
+    }
+    .sp-{{ uid }}__grid::-webkit-scrollbar { display: none; }
+    .sp-{{ uid }}__card { flex: 0 0 58%; scroll-snap-align: start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sp-{{ uid }} *, .sp-{{ uid }} *::before, .sp-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .sp-{{ uid }} :hover { transform: none !important; }
+  }
+</style>
+
+<div class="sp-{{ uid }}">
+  <div class="sp-{{ uid }}__inner">
+
+    <div class="sp-{{ uid }}__intro">
+      {%- if s.eyebrow != blank -%}
+        <p class="sp-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.title != blank -%}
+        <h2 class="sp-{{ uid }}__title">{{ s.title }}</h2>
+      {%- endif -%}
+      {%- if s.text != blank -%}
+        <div class="sp-{{ uid }}__text">{{ s.text }}</div>
+      {%- endif -%}
+
+      {%- if s.points != blank -%}
+        {%- assign points = s.points | split: '|' -%}
+        <ul class="sp-{{ uid }}__points">
+          {%- for point in points -%}
+            <li class="sp-{{ uid }}__point">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 7"/></svg>
+              <span>{{ point | strip }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="sp-{{ uid }}__grid">
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- if p != blank -%}
+          <a class="sp-{{ uid }}__card" href="{{ p.url }}" {{ block.shopify_attributes }}>
+            <div class="sp-{{ uid }}__media">
+              {%- if p.featured_image != blank -%}
+                {{ p.featured_image | image_url: width: 600 | image_tag: alt: p.title, loading: 'lazy', sizes: '(max-width: 899px) 58vw, 20vw' }}
+              {%- endif -%}
+            </div>
+            <h3 class="sp-{{ uid }}__name">{{ p.title }}</h3>
+            {%- if block.settings.why != blank -%}
+              <p class="sp-{{ uid }}__why">{{ block.settings.why }}</p>
+            {%- endif -%}
+            <p class="sp-{{ uid }}__price">{{ p.price | money }}</p>
+            <span class="sp-{{ uid }}__cta">
+              Bekijk product
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h11M9 4l4 4-4 4"/></svg>
+            </span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Nieuw hier",
+  "tag": "section",
+  "class": "starter-picks-section",
+  "settings": [
+    { "type": "header", "content": "Tekst" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Nieuw hier?" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Rustig beginnen mag ook" },
+    { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Je hoeft niet meteen te weten wat je zoekt. Dit zijn onze meest gekozen eerste aankopen: eenvoudig, veelzijdig en zonder gedoe.</p>" },
+    { "type": "textarea", "id": "points", "label": "Geruststellende punten", "info": "Scheid met een | (verticale streep).", "default": "Discreet verpakt, geen logo op de doos|Onze naam staat niet op je bankafschrift|Vragen? We antwoorden binnen een dag" },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Kolommen (desktop)", "default": 3 },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titel", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 22, "max": 52, "step": 2, "unit": "px", "label": "Grootte titel", "default": 32 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#f2e8cf" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#a97d38" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#1a1a1a" }
+  ],
+  "blocks": [
+    {
+      "type": "pick",
+      "name": "Product",
+      "limit": 5,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "why", "label": "Waarom dit product", "info": "Eén korte regel. Dit doet het echte werk.", "default": "Zacht, stil en simpel in gebruik" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nieuw hier",
+      "blocks": [
+        { "type": "pick" },
+        { "type": "pick" },
+        { "type": "pick" }
+      ]
+    }
+  ]
+}
+{% endschema %}

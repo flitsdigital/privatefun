@@ -1,0 +1,283 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .di-{{ uid }} {
+    --di-accent: {{ s.color_accent }};
+    --di-text: {{ s.color_text }};
+    --di-line: color-mix(in srgb, {{ s.color_text }} 16%, transparent);
+
+    background: {{ s.color_bg }};
+    color: var(--di-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .di-{{ uid }} *, .di-{{ uid }} *::before, .di-{{ uid }} *::after { box-sizing: border-box; }
+
+  .di-{{ uid }}__inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    {% if s.image != blank %}
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    {% else %}
+    grid-template-columns: minmax(0, 720px);
+    justify-content: center;
+    {% endif %}
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* ---------- foto ---------- */
+  .di-{{ uid }}__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+  }
+  .di-{{ uid }}__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .di-{{ uid }}__caption {
+    position: absolute;
+    left: 0; bottom: 0;
+    z-index: 2;
+    background: {{ s.color_bg }};
+    color: var(--di-text);
+    font-size: 12px;
+    letter-spacing: .02em;
+    padding: 10px 16px;
+  }
+
+  /* ---------- tekst ---------- */
+  .di-{{ uid }}__eyebrow {
+    margin: 0 0 12px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--di-accent);
+  }
+  .di-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.15;
+    font-weight: 400;
+  }
+  .di-{{ uid }}__intro {
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: .85;
+  }
+  .di-{{ uid }}__intro p { margin: 0; }
+
+  .di-{{ uid }}__facts {
+    margin: 30px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .di-{{ uid }}__fact {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 14px;
+    padding: 18px 0;
+    border-top: 1px solid var(--di-line);
+  }
+  .di-{{ uid }}__fact:last-child { border-bottom: 1px solid var(--di-line); }
+  .di-{{ uid }}__fact svg { width: 18px; height: 18px; color: var(--di-accent); margin-top: 2px; }
+  .di-{{ uid }}__fact-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .di-{{ uid }}__fact-text {
+    margin: 5px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: .8;
+  }
+  .di-{{ uid }}__proof {
+    display: inline-block;
+    margin-top: 9px;
+    padding: 7px 12px;
+    background: color-mix(in srgb, currentColor 8%, transparent);
+    border-left: 2px solid var(--di-accent);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    letter-spacing: .02em;
+  }
+
+  .di-{{ uid }}__cta {
+    display: inline-block;
+    margin-top: 30px;
+    background: var(--di-accent);
+    color: {{ s.color_bg }};
+    padding: 14px 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .di-{{ uid }}__cta:hover { transform: translateY(-2px); opacity: .92; }
+  }
+  .di-{{ uid }}__cta:focus-visible { outline: 2px solid var(--di-accent); outline-offset: 4px; }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .di-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .di-{{ uid }}__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding: 0 20px;
+    }
+    .di-{{ uid }}__media { aspect-ratio: 3 / 2; }
+    .di-{{ uid }}__cta { display: block; text-align: center; }
+  }
+</style>
+
+<div class="di-{{ uid }}">
+  <div class="di-{{ uid }}__inner">
+
+    {%- if s.image != blank -%}
+      <div class="di-{{ uid }}__media">
+        {{ s.image | image_url: width: 1200 | image_tag: alt: s.image_caption, loading: 'lazy', sizes: '(max-width: 899px) 100vw, 50vw' }}
+        {%- if s.image_caption != blank -%}
+          <span class="di-{{ uid }}__caption">{{ s.image_caption }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="di-{{ uid }}__body">
+      {%- if s.eyebrow != blank -%}
+        <p class="di-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.title != blank -%}
+        <h2 class="di-{{ uid }}__title">{{ s.title }}</h2>
+      {%- endif -%}
+      {%- if s.intro != blank -%}
+        <div class="di-{{ uid }}__intro">{{ s.intro }}</div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="di-{{ uid }}__facts">
+          {%- for block in section.blocks -%}
+            {%- assign b = block.settings -%}
+            <li class="di-{{ uid }}__fact" {{ block.shopify_attributes }}>
+              {%- case b.icon -%}
+                {%- when 'box' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16v12H4z"/><path d="M4 8l2-4h12l2 4M12 8v12"/></svg>
+                {%- when 'card' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>
+                {%- when 'lock' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                {%- when 'mail' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                {%- when 'truck' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16V6h11v10M14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 12 5 5L20 7"/></svg>
+              {%- endcase -%}
+
+              <div>
+                <p class="di-{{ uid }}__fact-title">{{ b.title }}</p>
+                {%- if b.text != blank -%}
+                  <p class="di-{{ uid }}__fact-text">{{ b.text }}</p>
+                {%- endif -%}
+                {%- if b.proof != blank -%}
+                  <span class="di-{{ uid }}__proof">{{ b.proof }}</span>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if s.cta_label != blank -%}
+        <a class="di-{{ uid }}__cta" href="{{ s.cta_link | default: '#' }}">{{ s.cta_label }}</a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Discretie",
+  "tag": "section",
+  "class": "discretion-section",
+  "settings": [
+    { "type": "header", "content": "Foto" },
+    { "type": "image_picker", "id": "image", "label": "Foto van de verpakking", "info": "Maak zelf een foto van een echte doos zoals hij aankomt. Geen stockfoto." },
+    { "type": "text", "id": "image_caption", "label": "Bijschrift", "default": "Zo komt je bestelling aan" },
+
+    { "type": "header", "content": "Tekst" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Discretie" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Niemand ziet wat je besteld hebt" },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Geen merknaam, geen afbeelding, geen hint. Niet op de doos, niet op het label en niet op je bankafschrift.</p>" },
+    { "type": "text", "id": "cta_label", "label": "Knoptekst", "default": "Ontdek de collectie" },
+    { "type": "url", "id": "cta_link", "label": "Knoplink" },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titel", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 22, "max": 52, "step": 2, "unit": "px", "label": "Grootte titel", "default": 34 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#f3eee1" },
+    { "type": "color", "id": "color_accent", "label": "Accent", "default": "#a97d38" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#1a1a1a" }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Feit",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Kop", "default": "Neutrale verpakking" },
+        { "type": "text", "id": "text", "label": "Uitleg", "default": "Een bruine doos zonder logo, tekst of afbeelding." },
+        { "type": "text", "id": "proof", "label": "Letterlijke tekst", "info": "Wat de klant écht ziet: de afzender op het label, de naam op het bankafschrift. Laat leeg als er niets te tonen valt." },
+        {
+          "type": "select", "id": "icon", "label": "Icoon", "default": "box",
+          "options": [
+            { "value": "box", "label": "Doos" },
+            { "value": "card", "label": "Bankpas" },
+            { "value": "lock", "label": "Slot" },
+            { "value": "mail", "label": "Post" },
+            { "value": "truck", "label": "Bezorging" },
+            { "value": "check", "label": "Vinkje" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Discretie",
+      "blocks": [
+        { "type": "fact" },
+        { "type": "fact" },
+        { "type": "fact" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,262 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .ps-{{ uid }} {
+    --ps-accent: {{ s.color_accent }};
+    --ps-text: {{ s.color_text }};
+
+    background: {{ s.color_bg }};
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .ps-{{ uid }} *, .ps-{{ uid }} *::before, .ps-{{ uid }} *::after { box-sizing: border-box; }
+
+  .ps-{{ uid }}__inner {
+    max-width: {{ s.max_height | times: 2 | plus: s.gap }}px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: {{ s.gap }}px;
+  }
+
+  .ps-{{ uid }}__card {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: {{ s.ratio }};
+    overflow: hidden;
+    text-decoration: none;
+    background: #1a1a1a;
+  }
+  .ps-{{ uid }}__card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-media) var(--ease-media-zoom);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .ps-{{ uid }}__card:hover img { transform: scale(1.04); }
+  }
+  .ps-{{ uid }}__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    {% if s.text_align == 'center' %}
+      background: {{ s.color_bg }};
+      opacity: {{ s.overlay | divided_by: 200.0 }};
+    {% else %}
+      background: linear-gradient(to top, {{ s.color_bg }} 0%, transparent 65%);
+      opacity: {{ s.overlay | divided_by: 100.0 }};
+    {% endif %}
+  }
+  .ps-{{ uid }}__card:focus-visible { outline: 2px solid var(--ps-accent); outline-offset: -3px; }
+
+  .ps-{{ uid }}__body {
+    position: absolute;
+    z-index: 2;
+    color: var(--ps-text);
+    {% if s.text_align == 'center' %}
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 34px;
+    {% else %}
+      left: 0; right: 0; bottom: 0;
+      padding: 34px;
+    {% endif %}
+  }
+  .ps-{{ uid }}__eyebrow {
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ps-accent);
+  }
+  .ps-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.1;
+    font-weight: 400;
+  }
+  .ps-{{ uid }}__text {
+    margin: 10px 0 0;
+    max-width: 32ch;
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: .8;
+  }
+  .ps-{{ uid }}__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ps-accent);
+  }
+  .ps-{{ uid }}__more svg { width: 14px; height: 14px; transition: transform var(--animation-speed-slow) ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .ps-{{ uid }}__card:hover .ps-{{ uid }}__more svg { transform: translateX(5px); }
+  }
+
+  .ps-{{ uid }}__tag {
+    position: absolute;
+    top: 24px; left: 24px;
+    z-index: 2;
+    background: var(--ps-accent);
+    color: {{ s.color_bg }};
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+  }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .ps-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .ps-{{ uid }}__inner {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+      padding: 0 20px;
+    }
+    .ps-{{ uid }}__card { aspect-ratio: 4 / 3; }
+    .ps-{{ uid }}__body { padding: 26px 24px; }
+    .ps-{{ uid }}__eyebrow { font-size: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ps-{{ uid }} *, .ps-{{ uid }} *::before, .ps-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .ps-{{ uid }} :hover { transform: none !important; }
+  }
+</style>
+
+<div class="ps-{{ uid }}">
+  <div class="ps-{{ uid }}__inner">
+    {%- for block in section.blocks limit: 2 -%}
+      {%- liquid
+        assign b = block.settings
+        assign url = b.link
+        assign img = b.image
+        if b.collection != blank
+          assign url = url | default: b.collection.url
+          assign img = img | default: b.collection.featured_image
+        endif
+      -%}
+      <a class="ps-{{ uid }}__card" href="{{ url | default: '#' }}" {{ block.shopify_attributes }}>
+        {%- if img != blank -%}
+          {{ img | image_url: width: 1200 | image_tag: alt: b.title, loading: 'lazy', sizes: '(max-width: 899px) 100vw, 50vw' }}
+        {%- endif -%}
+
+        {%- if b.tag != blank -%}
+          <span class="ps-{{ uid }}__tag">{{ b.tag }}</span>
+        {%- endif -%}
+
+        <div class="ps-{{ uid }}__body">
+          {%- if b.eyebrow != blank -%}
+            <p class="ps-{{ uid }}__eyebrow">{{ b.eyebrow }}</p>
+          {%- endif -%}
+          {%- if b.title != blank -%}
+            <h2 class="ps-{{ uid }}__title">{{ b.title }}</h2>
+          {%- endif -%}
+          {%- if b.text != blank -%}
+            <p class="ps-{{ uid }}__text">{{ b.text }}</p>
+          {%- endif -%}
+          {%- if b.link_label != blank -%}
+            <span class="ps-{{ uid }}__more">
+              {{ b.link_label }}
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+            </span>
+          {%- endif -%}
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Split — twee kaarten",
+  "tag": "section",
+  "class": "product-split-section",
+  "settings": [
+    { "type": "header", "content": "Weergave" },
+    {
+      "type": "select", "id": "text_align", "label": "Tekst in de kaart", "default": "bottom",
+      "options": [
+        { "value": "center", "label": "Gecentreerd" },
+        { "value": "bottom", "label": "Linksonder" }
+      ]
+    },
+    {
+      "type": "select", "id": "ratio", "label": "Verhouding", "default": "1/1",
+      "options": [
+        { "value": "3/4", "label": "Staand" },
+        { "value": "4/5", "label": "Staand (breed)" },
+        { "value": "1/1", "label": "Vierkant" },
+        { "value": "16/10", "label": "Liggend" },
+        { "value": "16/9", "label": "Liggend (breed)" }
+      ]
+    },
+    { "type": "range", "id": "max_height", "min": 300, "max": 620, "step": 10, "unit": "px", "label": "Grootte kaarten", "default": 520 },
+    { "type": "range", "id": "gap", "min": 0, "max": 24, "step": 2, "unit": "px", "label": "Ruimte tussen de kaarten", "default": 2 },
+    { "type": "range", "id": "overlay", "min": 20, "max": 100, "step": 5, "unit": "%", "label": "Donkerte over de foto", "default": 80 },
+    { "type": "range", "id": "padding_y", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 80 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titels", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 22, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 36 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Kaart",
+      "limit": 2,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Afbeelding" },
+        { "type": "collection", "id": "collection", "label": "Collectie", "info": "Optioneel. Vult automatisch de link en de afbeelding als je die leeg laat." },
+        { "type": "url", "id": "link", "label": "Link", "info": "Leeg = link naar de collectie." },
+        { "type": "text", "id": "tag", "label": "Label linksboven", "info": "Bijv. Nieuw of Bestseller. Laat leeg voor geen label." },
+        { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Voor jullie samen" },
+        { "type": "text", "id": "title", "label": "Titel", "default": "Sets voor twee" },
+        { "type": "text", "id": "text", "label": "Tekst", "default": "Zorgvuldig samengesteld, ontdek het in je eigen tempo." },
+        { "type": "text", "id": "link_label", "label": "Linktekst", "default": "Bekijken" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split — twee kaarten",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

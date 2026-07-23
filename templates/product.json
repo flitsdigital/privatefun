@@ -1,0 +1,777 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */{
+  "sections": {
+    "main": {
+      "type": "product-information",
+      "blocks": {
+        "disclosures_4NahGN": {
+          "type": "disclosures",
+          "name": "t:names.disclosures",
+          "settings": {
+            "heading": "Belangrijk om te weten",
+            "heading_preset": "h4",
+            "open_by_default": false,
+            "icon": "caret",
+            "disclosure_heading_preset": "h6",
+            "text_color": "",
+            "dividers": true,
+            "divider_color": "#E9E4E0",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "carousel",
+            "media_columns": "two",
+            "image_gap": 4,
+            "large_first_image": false,
+            "icons_style": "arrow",
+            "slideshow_controls_style": "thumbnails",
+            "slideshow_mobile_controls_style": "thumbnails",
+            "thumbnail_position": "right",
+            "thumbnail_width": 44,
+            "thumbnail_radius": 0,
+            "aspect_ratio": "1/1",
+            "constrain_to_viewport": true,
+            "media_fit": "contain",
+            "media_radius": 0,
+            "extend_media": false,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
+            "gap": 12,
+            "sticky_details_desktop": true,
+            "background_media": "none",
+            "background_color": "",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "padding-block-start": 16,
+            "padding-block-end": 16,
+            "padding-inline-start": 12,
+            "padding-inline-end": 12
+          },
+          "blocks": {
+            "text_WE3K4w": {
+              "type": "text",
+              "name": "t:names.title",
+              "settings": {
+                "text": "<h1>{{ closest.product.title }}</h1>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-brand-display--family)",
+                "font_size": "1.75rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "#1a1a1a",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "reviews": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "text_color": "",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
+            "price_a7krng": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": true,
+                "show_tax_info": true,
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "text_color": "",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "option_label_text_color": "",
+                "variant_style_class": "default",
+                "custom_variant_background": "#ffffff",
+                "custom_variant_text": "#4A4A4A",
+                "custom_variant_border": "#4A4A4A",
+                "selected_variant_style_class": "default",
+                "custom_selected_variant_background": "#4A4A4A",
+                "custom_selected_variant_text": "#ffffff",
+                "custom_selected_variant_border": "#4A4A4A",
+                "alignment": "left",
+                "padding-block-start": 12,
+                "padding-block-end": 12,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": false,
+                "text_color": "",
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "recipient_button_style": "default",
+                "recipient_button_background": "#ffffff",
+                "recipient_button_text": "#4A4A4A",
+                "recipient_button_border": "#4A4A4A",
+                "selected_recipient_button_style": "default",
+                "selected_recipient_button_background": "#4A4A4A",
+                "selected_recipient_button_text": "#ffffff",
+                "selected_recipient_button_border": "#4A4A4A",
+                "input_style": "default",
+                "input_background_color": "#ffffff",
+                "input_text_color": "#4A4A4A",
+                "input_border_color": "#4A4A4A",
+                "border_width": 1,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "show_accelerated_checkout": false
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {
+                    "input_style": "default",
+                    "input_background_color": "#ffffff",
+                    "input_text_color": "#4A4A4A",
+                    "input_border_color": "#4A4A4A",
+                    "border_width": 1,
+                    "border_radius": 0
+                  },
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button-custom",
+                    "custom_button_background": "#c9a063",
+                    "custom_button_text": "#0b0b0b",
+                    "custom_button_border": "#c9a063"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "usp_trust_block": {
+              "type": "usp-list",
+              "name": "USP lijst",
+              "settings": {
+                "usp_1": "Discreet verpakt — neutrale doos, geen afzender op de verpakking",
+                "usp_2": "Anonieme omschrijving op je bankafschrift",
+                "usp_3": "Voor 22:00 besteld, morgen in huis",
+                "usp_4": "14 dagen bedenktijd — verzegelde hygiëneproducten uitgezonderd"
+              },
+              "blocks": {}
+            },
+            "accordion_Yd4U4w": {
+              "type": "accordion",
+              "name": "Accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "divider_color": "#E9E4E0",
+                "type_preset": "h6",
+                "background_color": "",
+                "text_color": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_P46NdC": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Omschrijving",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "product_description_TH8Net": {
+                      "type": "product-description",
+                      "name": "t:names.product_description",
+                      "settings": {
+                        "text": "{{ closest.product.description }}<p></p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "product_description_TH8Net"
+                  ]
+                },
+                "accordion_row_HUWbDi": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Materiaal & onderhoud",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_wMFRAi": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Reinig je product voor en na gebruik met een milde reiniger of speciaal toycleaner. Gebruik bij siliconen producten uitsluitend glijmiddel op waterbasis. Bewaar op een droge, stofvrije plek. Bekijk de productomschrijving voor het exacte materiaal.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_wMFRAi"
+                  ]
+                },
+                "accordion_row_GTWFgP": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Verzending & retour",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_Nrxfg8": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>We versturen je bestelling altijd discreet: een neutrale doos zonder afzender of vermelding van de inhoud. Voor 23:00 besteld, [lever-belofte invullen]. Je hebt 14 dagen bedenktijd. Let op: verzegelde hygiëneproducten kunnen om gezondheidsredenen niet retour zodra de verzegeling is verbroken.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_Nrxfg8"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_P46NdC",
+                "accordion_row_HUWbDi",
+                "accordion_row_GTWFgP"
+              ]
+            },
+            "inventory_status": {
+              "type": "product-inventory",
+              "name": "Voorraadstatus",
+              "settings": {
+                "inventory_threshold": 10,
+                "show_inventory_quantity": true,
+                "text_color": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "payment_icons_trust": {
+              "type": "payment-icons",
+              "name": "Betaaliconen",
+              "settings": {
+                "horizontal_alignment": "flex-start",
+                "gap": 8
+              },
+              "blocks": {}
+            },
+            "breadcrumbs_nav": {
+              "type": "breadcrumbs",
+              "name": "Breadcrumbs",
+              "settings": {},
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "breadcrumbs_nav",
+            "text_WE3K4w",
+            "reviews",
+            "price_a7krng",
+            "variant_picker_R3rGDr",
+            "inventory_status",
+            "buy_buttons_eYQEYi",
+            "usp_trust_block",
+            "payment_icons_trust",
+            "accordion_Yd4U4w"
+          ]
+        }
+      },
+      "block_order": [
+        "disclosures_4NahGN"
+      ],
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": true,
+        "gap": 24,
+        "enable_sticky_add_to_cart": true,
+        "background_color": "#ffffff",
+        "padding-block-start": 30,
+        "padding-block-end": 0
+      }
+    },
+    "product_recommendations_xmXAhw": {
+      "type": "product-recommendations",
+      "blocks": {
+        "text_R8dDRK": {
+          "type": "text",
+          "name": "t:names.header",
+          "settings": {
+            "text": "<h3>Vaak samen bekeken</h3>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-primary--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 16,
+            "background_color": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_DFpiwN": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_HhWKWd": {
+              "type": "_product-card-group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 4,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "background_media": "none",
+                "background_color": "",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "open_in_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "product_title_Bkhwnx": {
+                  "type": "product-title",
+                  "name": "t:names.product_title",
+                  "settings": {
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h5",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "price_dHCpyf": {
+                  "type": "price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "h6",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "text_color": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "product_title_Bkhwnx",
+                "price_dHCpyf"
+              ]
+            }
+          },
+          "block_order": [
+            "product_card_gallery_DFpiwN",
+            "group_HhWKWd"
+          ]
+        }
+      },
+      "block_order": [
+        "text_R8dDRK"
+      ],
+      "name": "t:names.product_recommendations",
+      "settings": {
+        "product": "{{ closest.product }}",
+        "recommendation_type": "related",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "columns_gap": 12,
+        "rows_gap": 36,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 28,
+        "background_color": "#ffffff",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "faq_pdp": {
+      "type": "faq",
+      "blocks": {
+        "faq_discretie": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe discreet is de verzending echt?",
+            "answer": "<p>Volledig. Je bestelling komt in een effen doos zonder logo, tekst of afbeelding — ook het verzendlabel verraadt niets over de inhoud.</p>"
+          }
+        },
+        "faq_bank": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat staat er op mijn bankafschrift?",
+            "answer": "<p>Een neutrale bedrijfsnaam, niet onze winkelnaam. Niemand die je afschrift ziet weet waar je besteld hebt.</p>"
+          }
+        },
+        "faq_levering": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe snel heb ik mijn bestelling in huis?",
+            "answer": "<p>Voor 22:00 besteld is morgen in huis. Liever niet thuis ontvangen? Kies bij het afrekenen een afhaalpunt bij jou in de buurt.</p>"
+          }
+        },
+        "faq_retour": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik een product ruilen of retourneren?",
+            "answer": "<p>Ongeopende producten in verzegelde verpakking kun je binnen 14 dagen retourneren. Om hygiënische redenen kunnen geopende producten helaas niet retour — twijfel je over een keuze, stel ons gerust eerst je vraag.</p>"
+          }
+        },
+        "faq_beginnen": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe gaan jullie om met mijn gegevens?",
+            "answer": "<p>Je gegevens worden nooit gedeeld voor marketing van derden. Je ontvangt alleen e-mails over je bestelling, tenzij je jezelf aanmeldt voor meer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_discretie",
+        "faq_bank",
+        "faq_levering",
+        "faq_retour",
+        "faq_beginnen"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "eyebrow": "Veelgestelde vragen",
+        "title": "Alles wat je liever niet hoeft te vragen",
+        "emphasis": "liever niet",
+        "text": "<p>Geen drempels, geen kleine lettertjes. Dit zijn de vragen die we het vaakst krijgen.</p>",
+        "contact_label": "Staat je vraag er niet bij? Stel hem gerust",
+        "contact_link": "/pages/contact",
+        "open_first": false,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#f3eee1",
+        "color_accent": "#a97d38",
+        "color_text": "#1a1a1a"
+      }
+    },
+    "reviews_pdp": {
+      "type": "reviews",
+      "blocks": {
+        "review_MFCkMr": {
+          "type": "review",
+          "settings": {
+            "quote": "Binnen een dag in huis en de doos verraadt echt niets.",
+            "name": "Sanne V.",
+            "detail": "Utrecht",
+            "stars": "5",
+            "source": "trustpilot"
+          }
+        },
+        "review_yQAaQj": {
+          "type": "review",
+          "settings": {
+            "quote": "Discreet geregeld zoals beloofd. Zelfs de afschrijving op mijn rekening is neutraal.",
+            "name": "Mark J.",
+            "detail": "Rotterdam",
+            "stars": "5",
+            "source": "google"
+          }
+        },
+        "review_VNdrUr": {
+          "type": "review",
+          "settings": {
+            "quote": "Eerste keer dat ik zoiets bestelde. Fijne kwaliteit en de site legt alles rustig uit.",
+            "name": "Lisa & Tom",
+            "detail": "Eindhoven",
+            "stars": "4",
+            "source": "trustpilot"
+          }
+        },
+        "review_kNfXY3": {
+          "type": "review",
+          "settings": {
+            "quote": "Vraag gesteld over een product en binnen een paar uur antwoord. Topservice.",
+            "name": "Anouk B.",
+            "detail": "Groningen",
+            "stars": "5",
+            "source": "google"
+          }
+        }
+      },
+      "block_order": [
+        "review_MFCkMr",
+        "review_yQAaQj",
+        "review_VNdrUr",
+        "review_kNfXY3"
+      ],
+      "name": "Reviews",
+      "settings": {
+        "eyebrow": "Wat klanten zeggen",
+        "title": "Zonder omhaal",
+        "tp_score": "4,7",
+        "tp_count": "312 reviews",
+        "tp_url": "",
+        "g_score": "4,8",
+        "g_count": "184 reviews",
+        "g_url": "",
+        "embed": "",
+        "cta_label": "Bekijk alle producten",
+        "cta_link": "/collections/all",
+        "per_view": 3,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 34,
+        "quote_size": 17,
+        "color_bg": "#0b0b0b",
+        "color_accent": "#c9a063",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product_recommendations_xmXAhw",
+    "reviews_pdp",
+    "faq_pdp"
+  ]
+}

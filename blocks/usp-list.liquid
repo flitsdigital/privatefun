@@ -1,0 +1,71 @@
+{% # ponytail: vaste 4 iconen (doos/kaart/bezorging/retour) — meer flexibiliteit pas als het nodig is %}
+{%- assign s = block.settings -%}
+
+<ul class="usp-list" role="list" {{ block.shopify_attributes }}>
+  {%- if s.usp_1 != blank -%}
+    <li class="usp-list__item">
+      <svg class="usp-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg>
+      <span>{{ s.usp_1 }}</span>
+    </li>
+  {%- endif -%}
+  {%- if s.usp_2 != blank -%}
+    <li class="usp-list__item">
+      <svg class="usp-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      <span>{{ s.usp_2 }}</span>
+    </li>
+  {%- endif -%}
+  {%- if s.usp_3 != blank -%}
+    <li class="usp-list__item">
+      <svg class="usp-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h13v10H1z"/><path d="M14 10h4l3 3v4h-7"/><circle cx="6" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/></svg>
+      <span>{{ s.usp_3 }}</span>
+    </li>
+  {%- endif -%}
+  {%- if s.usp_4 != blank -%}
+    <li class="usp-list__item">
+      <svg class="usp-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+      <span>{{ s.usp_4 }}</span>
+    </li>
+  {%- endif -%}
+</ul>
+
+{% stylesheet %}
+  .usp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 12px 0;
+    list-style: none;
+    width: 100%;
+  }
+
+  .usp-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgb(var(--color-foreground) / 0.75);
+  }
+
+  .usp-list__icon {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    color: #c9a063;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "USP lijst",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "usp_1", "label": "USP 1 (doos-icoon)" },
+    { "type": "text", "id": "usp_2", "label": "USP 2 (betaalkaart-icoon)" },
+    { "type": "text", "id": "usp_3", "label": "USP 3 (bezorg-icoon)" },
+    { "type": "text", "id": "usp_4", "label": "USP 4 (retour-icoon)" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,458 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .rv-{{ uid }} {
+    --rv-accent: {{ s.color_accent }};
+    --rv-text: {{ s.color_text }};
+    --rv-line: color-mix(in srgb, {{ s.color_text }} 15%, transparent);
+    --rv-card: color-mix(in srgb, {{ s.color_text }} 6%, transparent);
+
+    background: {{ s.color_bg }};
+    color: var(--rv-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .rv-{{ uid }} *, .rv-{{ uid }} *::before, .rv-{{ uid }} *::after { box-sizing: border-box; }
+
+  .rv-{{ uid }}__inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- kop ---------- */
+  .rv-{{ uid }}__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 34px;
+  }
+  .rv-{{ uid }}__eyebrow {
+    margin: 0 0 10px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--rv-accent);
+  }
+  .rv-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.15;
+    font-weight: 400;
+  }
+
+  .rv-{{ uid }}__scores { display: flex; gap: 28px; flex-wrap: wrap; }
+  .rv-{{ uid }}__score { text-decoration: none; color: inherit; display: block; }
+  .rv-{{ uid }}__score-top {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .rv-{{ uid }}__score-top svg { width: 14px; height: 14px; color: var(--rv-accent); flex: none; }
+  .rv-{{ uid }}__score-brand {
+    flex: none;
+    display: block;
+    object-fit: contain;
+  }
+  .rv-{{ uid }}__score-brand--trustpilot { width: 16px; height: 16px; }
+  .rv-{{ uid }}__score-brand--google { width: 16px; height: 16px; }
+  .rv-{{ uid }}__score-label {
+    font-weight: 600;
+    opacity: 1;
+    letter-spacing: .01em;
+  }
+  .rv-{{ uid }}__score-sub {
+    margin: 5px 0 0;
+    font-size: 12px;
+    opacity: .6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .rv-{{ uid }}__score:hover .rv-{{ uid }}__score-sub { border-bottom-color: var(--rv-accent); }
+  .rv-{{ uid }}__score:focus-visible { outline: 2px solid var(--rv-accent); outline-offset: 4px; }
+
+  /* ---------- slider ---------- */
+  .rv-{{ uid }}__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - {{ s.per_view | minus: 1 | times: 16 }}px) / {{ s.per_view }});
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .rv-{{ uid }}__track::-webkit-scrollbar { display: none; }
+
+  .rv-{{ uid }}__card {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    background: var(--rv-card);
+    padding: 26px 24px;
+  }
+  .rv-{{ uid }}__stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 14px;
+    color: var(--rv-accent);
+  }
+  .rv-{{ uid }}__stars svg { width: 13px; height: 13px; }
+  .rv-{{ uid }}__quote {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.quote_size }}px;
+    line-height: 1.5;
+    font-weight: 400;
+    flex: 1;
+  }
+  .rv-{{ uid }}__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rv-line);
+    font-size: 12px;
+    opacity: .62;
+  }
+  .rv-{{ uid }}__name { font-weight: 600; opacity: 1; }
+  .rv-{{ uid }}__dot { opacity: .5; }
+  .rv-{{ uid }}__source {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--rv-accent);
+    opacity: 1;
+  }
+  .rv-{{ uid }}__source svg { width: 11px; height: 11px; }
+  .rv-{{ uid }}__source-brand {
+    display: block;
+    object-fit: contain;
+    flex: none;
+  }
+  .rv-{{ uid }}__source-brand--trustpilot { width: 14px; height: 14px; }
+  .rv-{{ uid }}__source-brand--google { width: 14px; height: 14px; }
+
+  /* ---------- pijlen ---------- */
+  .rv-{{ uid }}__nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .rv-{{ uid }}__arrow {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--rv-line);
+    color: var(--rv-text);
+    cursor: pointer;
+    transition: border-color var(--animation-speed-medium) var(--animation-timing-hover), color var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .rv-{{ uid }}__arrow:hover:not(:disabled) { border-color: var(--rv-accent); color: var(--rv-accent); }
+  .rv-{{ uid }}__arrow:disabled { opacity: .3; cursor: default; }
+  .rv-{{ uid }}__arrow:focus-visible { outline: 2px solid var(--rv-accent); outline-offset: 3px; }
+  .rv-{{ uid }}__arrow svg { width: 16px; height: 16px; }
+
+  .rv-{{ uid }}__embed { margin-top: 40px; }
+
+  .rv-{{ uid }}__cta {
+    display: inline-block;
+    margin-top: 34px;
+    background: var(--rv-accent);
+    color: {{ s.color_bg }};
+    padding: 14px 30px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .rv-{{ uid }}__cta:hover { transform: translateY(-2px); opacity: .92; }
+  }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .rv-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .rv-{{ uid }}__inner { padding: 0 20px; }
+    .rv-{{ uid }}__head { align-items: flex-start; gap: 22px; margin-bottom: 26px; }
+    .rv-{{ uid }}__track { grid-auto-columns: 82%; gap: 12px; }
+    .rv-{{ uid }}__cta { display: block; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rv-{{ uid }} *, .rv-{{ uid }} *::before, .rv-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .rv-{{ uid }} :hover { transform: none !important; }
+    .rv-{{ uid }}__track { scroll-behavior: auto; }
+  }
+</style>
+
+<div class="rv-{{ uid }}">
+  <div class="rv-{{ uid }}__inner">
+
+    <div class="rv-{{ uid }}__head">
+      <div>
+        {%- if s.eyebrow != blank -%}
+          <p class="rv-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+        {%- if s.title != blank -%}
+          <h2 class="rv-{{ uid }}__title">{{ s.title }}</h2>
+        {%- endif -%}
+      </div>
+
+      <div class="rv-{{ uid }}__scores">
+        {%- if s.tp_score != blank -%}
+          <a class="rv-{{ uid }}__score" href="{{ s.tp_url | default: '#' }}" target="_blank" rel="noopener">
+            <span class="rv-{{ uid }}__score-top">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.6 6 .8-4.4 4.2 1.1 6L12 16.8 6.7 19.6l1.1-6L3.4 9.4l6-.8z"/></svg>
+              {{ s.tp_score }}
+            </span>
+            <span class="rv-{{ uid }}__score-sub">
+              <img
+                class="rv-{{ uid }}__score-brand rv-{{ uid }}__score-brand--trustpilot"
+                src="{{ 'logo-trustpilot.svg' | asset_url }}"
+                alt=""
+                width="16"
+                height="16"
+                loading="lazy"
+              >
+              <span class="rv-{{ uid }}__score-label">Trustpilot</span>
+              <span class="rv-{{ uid }}__dot" aria-hidden="true">·</span>
+              {{ s.tp_count }}
+            </span>
+          </a>
+        {%- endif -%}
+        {%- if s.g_score != blank -%}
+          <a class="rv-{{ uid }}__score" href="{{ s.g_url | default: '#' }}" target="_blank" rel="noopener">
+            <span class="rv-{{ uid }}__score-top">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.6 6 .8-4.4 4.2 1.1 6L12 16.8 6.7 19.6l1.1-6L3.4 9.4l6-.8z"/></svg>
+              {{ s.g_score }}
+            </span>
+            <span class="rv-{{ uid }}__score-sub">
+              <img
+                class="rv-{{ uid }}__score-brand rv-{{ uid }}__score-brand--google"
+                src="{{ 'logo-google.svg' | asset_url }}"
+                alt="Google"
+                width="16"
+                height="16"
+                loading="lazy"
+              >
+              {{ s.g_count }}
+            </span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="rv-{{ uid }}__track" data-rv-track>
+      {%- for block in section.blocks -%}
+        {%- assign b = block.settings -%}
+        <article class="rv-{{ uid }}__card" {{ block.shopify_attributes }}>
+          {%- if b.stars != '0' -%}
+            <div class="rv-{{ uid }}__stars" aria-label="{{ b.stars }} van 5 sterren">
+              {%- assign n = b.stars | plus: 0 -%}
+              {%- for i in (1..n) -%}
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3 2.6 5.6 6 .8-4.4 4.2 1.1 6L12 16.8 6.7 19.6l1.1-6L3.4 9.4l6-.8z"/></svg>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <p class="rv-{{ uid }}__quote">{{ b.quote }}</p>
+
+          <div class="rv-{{ uid }}__meta">
+            {%- if b.name != blank -%}<span class="rv-{{ uid }}__name">{{ b.name }}</span>{%- endif -%}
+            {%- if b.detail != blank -%}
+              <span class="rv-{{ uid }}__dot">·</span><span>{{ b.detail }}</span>
+            {%- endif -%}
+            {%- if b.source != 'none' -%}
+              <span class="rv-{{ uid }}__dot">·</span>
+              <span class="rv-{{ uid }}__source">
+                {%- if b.source == 'trustpilot' -%}
+                  <img
+                    class="rv-{{ uid }}__source-brand rv-{{ uid }}__source-brand--trustpilot"
+                    src="{{ 'logo-trustpilot.svg' | asset_url }}"
+                    alt="Trustpilot"
+                    width="14"
+                    height="14"
+                    loading="lazy"
+                  >
+                {%- elsif b.source == 'google' -%}
+                  <img
+                    class="rv-{{ uid }}__source-brand rv-{{ uid }}__source-brand--google"
+                    src="{{ 'logo-google.svg' | asset_url }}"
+                    alt="Google"
+                    width="14"
+                    height="14"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m4 12 5 5L20 7"/></svg>
+                  Geverifieerde koper
+                {%- endif -%}
+              </span>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > s.per_view -%}
+      <div class="rv-{{ uid }}__nav">
+        <button class="rv-{{ uid }}__arrow" type="button" data-rv-prev aria-label="Vorige reviews">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3 5 8l5 5"/></svg>
+        </button>
+        <button class="rv-{{ uid }}__arrow" type="button" data-rv-next aria-label="Volgende reviews">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 3 5 5-5 5"/></svg>
+        </button>
+      </div>
+    {%- endif -%}
+
+    {%- if s.embed != blank -%}
+      <div class="rv-{{ uid }}__embed">{{ s.embed }}</div>
+    {%- endif -%}
+
+    {%- if s.cta_label != blank -%}
+      <a class="rv-{{ uid }}__cta" href="{{ s.cta_link | default: '#' }}">{{ s.cta_label }}</a>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root  = document.querySelector('#shopify-section-{{ uid }}');
+    if (!root) return;
+    var track = root.querySelector('[data-rv-track]');
+    var prev  = root.querySelector('[data-rv-prev]');
+    var next  = root.querySelector('[data-rv-next]');
+    if (!track || !prev || !next) return;
+
+    function step() {
+      var card = track.firstElementChild;
+      if (!card) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function update() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max;
+    }
+
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left:  step(), behavior: 'smooth' }); });
+
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "reviews-section",
+  "settings": [
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Wat klanten zeggen" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Zonder omhaal" },
+
+    { "type": "header", "content": "Trustpilot" },
+    { "type": "text", "id": "tp_score", "label": "Score", "default": "4,7" },
+    { "type": "text", "id": "tp_count", "label": "Aantal", "default": "312 reviews" },
+    { "type": "url", "id": "tp_url", "label": "Link naar je Trustpilot-pagina" },
+
+    { "type": "header", "content": "Google" },
+    { "type": "text", "id": "g_score", "label": "Score", "default": "4,8" },
+    { "type": "text", "id": "g_count", "label": "Aantal", "default": "184 reviews" },
+    { "type": "url", "id": "g_url", "label": "Link naar je Google-pagina" },
+
+    { "type": "header", "content": "Live widget" },
+    { "type": "html", "id": "embed", "label": "Code van Trustpilot of Google", "info": "Optioneel. Plak hier de TrustBox-code of de embed van je review-app." },
+
+    { "type": "header", "content": "Knop" },
+    { "type": "text", "id": "cta_label", "label": "Knoptekst", "default": "Ontdek de collectie" },
+    { "type": "url", "id": "cta_link", "label": "Knoplink" },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "range", "id": "per_view", "min": 2, "max": 4, "step": 1, "label": "Kaarten naast elkaar", "default": 3 },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titel en citaten", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 22, "max": 52, "step": 2, "unit": "px", "label": "Grootte titel", "default": 34 },
+    { "type": "range", "id": "quote_size", "min": 14, "max": 26, "step": 1, "unit": "px", "label": "Grootte citaat", "default": 17 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 12,
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Citaat", "default": "Binnen een dag in huis en de doos verraadt echt niets." },
+        { "type": "text", "id": "name", "label": "Naam of initiaal", "default": "Sanne V." },
+        { "type": "text", "id": "detail", "label": "Detail", "default": "Utrecht" },
+        {
+          "type": "select", "id": "stars", "label": "Sterren", "default": "5",
+          "options": [
+            { "value": "5", "label": "5" },
+            { "value": "4", "label": "4" },
+            { "value": "3", "label": "3" },
+            { "value": "0", "label": "Geen sterren tonen" }
+          ]
+        },
+        {
+          "type": "select", "id": "source", "label": "Bron", "default": "trustpilot",
+          "options": [
+            { "value": "trustpilot", "label": "Trustpilot" },
+            { "value": "google", "label": "Google" },
+            { "value": "shop", "label": "Geverifieerde koper" },
+            { "value": "none", "label": "Geen bron tonen" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

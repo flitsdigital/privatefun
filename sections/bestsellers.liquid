@@ -1,0 +1,391 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+  assign products = s.collection.products
+  assign gap = 16
+  assign reserved = s.per_view | times: gap | plus: s.peek
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .bs-{{ uid }} {
+    --bs-accent: {{ s.color_accent }};
+    --bs-text: {{ s.color_text }};
+    --bs-line: color-mix(in srgb, {{ s.color_text }} 18%, transparent);
+    --bs-fade: {{ s.peek | plus: 20 }}px;
+
+    background: {{ s.color_bg }};
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    color: var(--bs-text);
+  }
+  .bs-{{ uid }} *, .bs-{{ uid }} *::before, .bs-{{ uid }} *::after { box-sizing: border-box; }
+
+  .bs-{{ uid }}__inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- kop ---------- */
+  .bs-{{ uid }}__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 34px;
+  }
+  .bs-{{ uid }}__eyebrow {
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--bs-accent);
+  }
+  .bs-{{ uid }}__title {
+    margin: 0;
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px;
+    line-height: 1.15;
+    font-weight: 400;
+  }
+  .bs-{{ uid }}__all {
+    flex: none;
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--bs-accent);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 3px;
+    transition: opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .bs-{{ uid }}__all:hover { opacity: .7; }
+
+  /* ---------- slider met peek + fade ---------- */
+  .bs-{{ uid }}__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - {{ reserved }}px) / {{ s.per_view }});
+    gap: {{ gap }}px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--bs-fade)), transparent 100%);
+    mask-image: linear-gradient(to right, #000 calc(100% - var(--bs-fade)), transparent 100%);
+  }
+  .bs-{{ uid }}__track::-webkit-scrollbar { display: none; }
+
+  .bs-{{ uid }}__track[data-pos="middle"] {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--bs-fade), #000 calc(100% - var(--bs-fade)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--bs-fade), #000 calc(100% - var(--bs-fade)), transparent 100%);
+  }
+  .bs-{{ uid }}__track[data-pos="end"] {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--bs-fade), #000 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--bs-fade), #000 100%);
+  }
+  .bs-{{ uid }}__track[data-pos="none"] {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .bs-{{ uid }}__card {
+    scroll-snap-align: start;
+    position: relative;
+    display: block;
+  }
+  .bs-{{ uid }}__media-link { position: absolute; inset: 0; display: block; }
+  .bs-{{ uid }}__info { text-decoration: none; color: inherit; display: block; }
+  .bs-{{ uid }} quick-add-component[data-quick-add-button="add"] .quick-add__button--add,
+  .bs-{{ uid }} quick-add-component[data-quick-add-button="choose"] .quick-add__button--choose { display: flex; opacity: 0; transition: opacity var(--animation-speed-medium) var(--animation-timing-hover); }
+  .bs-{{ uid }}__card:is(:hover, :focus-within) .quick-add__button { opacity: 1; }
+  .bs-{{ uid }}__media {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: #1a1a1a;
+    margin-bottom: 14px;
+  }
+  .bs-{{ uid }}__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-media) var(--ease-media-zoom),
+      opacity var(--animation-speed-slow) ease, filter var(--animation-speed-slow) ease;
+  }
+  .bs-{{ uid }}__media img.is-hover { opacity: 0; filter: blur(4px); }
+  @media (hover: hover) and (pointer: fine) {
+    .bs-{{ uid }}__card:hover .bs-{{ uid }}__media img { transform: scale(1.04); }
+  }
+  .bs-{{ uid }}__card:hover .bs-{{ uid }}__media img.is-hover { opacity: 1; filter: blur(0); }
+  .bs-{{ uid }}__media-link:focus-visible,
+  .bs-{{ uid }}__info:focus-visible { outline: 2px solid var(--bs-accent); outline-offset: 3px; }
+
+  .bs-{{ uid }}__rank {
+    position: absolute;
+    top: 12px; left: 12px;
+    z-index: 2;
+    background: var(--bs-accent);
+    color: {{ s.color_bg }};
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    padding: 5px 10px;
+  }
+  .bs-{{ uid }}__name { margin: 0; font-size: 15px; line-height: 1.4; font-weight: 500; }
+  .bs-{{ uid }}__meta { display: flex; align-items: baseline; gap: 10px; margin-top: 6px; }
+  .bs-{{ uid }}__price { font-size: 15px; }
+  .bs-{{ uid }}__was { font-size: 14px; opacity: .5; text-decoration: line-through; }
+
+  .bs-{{ uid }}__reviews {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 7px;
+    font-size: 13px;
+    opacity: .65;
+  }
+  .bs-{{ uid }}__reviews svg { width: 13px; height: 13px; color: var(--bs-accent); flex: none; }
+
+  /* ---------- pijlen ---------- */
+  .bs-{{ uid }}__nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .bs-{{ uid }}__arrow {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--bs-line);
+    color: var(--bs-text);
+    cursor: pointer;
+    transition: border-color var(--animation-speed-medium) var(--animation-timing-hover), color var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .bs-{{ uid }}__arrow:hover:not(:disabled) { border-color: var(--bs-accent); color: var(--bs-accent); }
+  .bs-{{ uid }}__arrow:disabled { opacity: .3; cursor: default; }
+  .bs-{{ uid }}__arrow:focus-visible { outline: 2px solid var(--bs-accent); outline-offset: 3px; }
+  .bs-{{ uid }}__arrow svg { width: 16px; height: 16px; }
+
+  /* ---------- mobiel ---------- */
+  @media (max-width: 899px) {
+    .bs-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .bs-{{ uid }}__inner { padding: 0 20px; }
+    .bs-{{ uid }}__head { margin-bottom: 24px; }
+    .bs-{{ uid }}__track { grid-auto-columns: 62%; gap: 12px; }
+    .bs-{{ uid }}__eyebrow { font-size: 12px; }
+    .bs-{{ uid }} .quick-add__button { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bs-{{ uid }} *, .bs-{{ uid }} *::before, .bs-{{ uid }} *::after {
+      transition-property: opacity, color, background-color, border-color !important;
+      animation: none !important;
+    }
+    .bs-{{ uid }} :hover { transform: none !important; }
+    .bs-{{ uid }}__track { scroll-behavior: auto; }
+  }
+</style>
+
+<div class="bs-{{ uid }}" id="bestsellers">
+  <div class="bs-{{ uid }}__inner">
+
+    <div class="bs-{{ uid }}__head">
+      <div>
+        {%- if s.eyebrow != blank -%}
+          <p class="bs-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>
+        {%- endif -%}
+        {%- if s.title != blank -%}
+          <h2 class="bs-{{ uid }}__title">{{ s.title }}</h2>
+        {%- endif -%}
+      </div>
+      {%- if s.collection != blank and s.all_label != blank -%}
+        <a class="bs-{{ uid }}__all" href="{{ s.collection.url }}">{{ s.all_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="bs-{{ uid }}__track" data-bs-track data-pos="start" data-autoplay="{{ s.autoplay }}">
+      {%- liquid
+        # ponytail: uitverkochte producten tonen geen koopkans — overslaan
+        assign shown = 0
+      -%}
+      {%- for product in products -%}
+        {%- unless product.available -%}{%- continue -%}{%- endunless -%}
+        {%- if shown >= s.count -%}{%- break -%}{%- endif -%}
+        {%- assign shown = shown | plus: 1 -%}
+        <div class="bs-{{ uid }}__card">
+          <div class="bs-{{ uid }}__media">
+            <a class="bs-{{ uid }}__media-link" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+              {%- if s.show_rank -%}
+                <span class="bs-{{ uid }}__rank">{{ shown }}</span>
+              {%- endif -%}
+
+              {%- if product.featured_image != blank -%}
+                {{ product.featured_image | image_url: width: 700 | image_tag: alt: product.title, loading: 'lazy', sizes: '(max-width: 899px) 62vw, 25vw' }}
+              {%- endif -%}
+
+              {%- if s.hover_image and product.images[1] != blank -%}
+                {{ product.images[1] | image_url: width: 700 | image_tag: alt: product.title, loading: 'lazy', class: 'is-hover' }}
+              {%- endif -%}
+            </a>
+            {%- render 'quick-add', product: product, section_id: section.id -%}
+          </div>
+
+          <a class="bs-{{ uid }}__info" href="{{ product.url }}" tabindex="-1">
+            <h3 class="bs-{{ uid }}__name">{{ product.title }}</h3>
+
+            <div class="bs-{{ uid }}__meta">
+              <span class="bs-{{ uid }}__price">{{ product.price | money }}</span>
+              {%- if product.compare_at_price > product.price -%}
+                <span class="bs-{{ uid }}__was">{{ product.compare_at_price | money }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- if s.show_reviews and product.metafields.reviews.rating_count > 0 -%}
+              <div class="bs-{{ uid }}__reviews">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.6 6 .8-4.4 4.2 1.1 6L12 16.8 6.7 19.6l1.1-6L3.4 9.4l6-.8z"/></svg>
+                <span>{{ product.metafields.reviews.rating.value.rating }} · {{ product.metafields.reviews.rating_count }} reviews</span>
+              </div>
+            {%- endif -%}
+          </a>
+        </div>
+      {%- else -%}
+        <p style="opacity:.6">Kies een collectie in de instellingen.</p>
+      {%- endfor -%}
+    </div>
+
+    <div class="bs-{{ uid }}__nav" data-bs-nav hidden>
+      <button class="bs-{{ uid }}__arrow" type="button" data-bs-prev aria-label="Vorige producten">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3 5 8l5 5"/></svg>
+      </button>
+      <button class="bs-{{ uid }}__arrow" type="button" data-bs-next aria-label="Volgende producten">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 3 5 5-5 5"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script type="module">
+  import '@theme/product-form';
+  import '@theme/quick-add';
+</script>
+
+<script>
+  (function () {
+    var root = document.querySelector('#shopify-section-{{ uid }}');
+    if (!root) return;
+    var track = root.querySelector('[data-bs-track]');
+    var nav   = root.querySelector('[data-bs-nav]');
+    var prev  = root.querySelector('[data-bs-prev]');
+    var next  = root.querySelector('[data-bs-next]');
+    if (!track || !nav || !prev || !next) return;
+
+    var timer = null;
+    var autoplay = track.dataset.autoplay === 'true';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function step() {
+      var card = track.firstElementChild;
+      if (!card) return track.clientWidth;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function update() {
+      var max = track.scrollWidth - track.clientWidth;
+      if (max <= 4) {
+        nav.hidden = true;
+        track.dataset.pos = 'none';
+        return;
+      }
+      nav.hidden = false;
+      var atStart = track.scrollLeft <= 2;
+      var atEnd = track.scrollLeft >= max - 2;
+      track.dataset.pos = atStart ? 'start' : (atEnd ? 'end' : 'middle');
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+    }
+
+    function advance() {
+      var max = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= max - 2) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+      }
+    }
+
+    function start() {
+      if (!autoplay || reduce) return;
+      stop();
+      timer = setInterval(advance, {{ s.autoplay_speed }} * 1000);
+    }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); start(); });
+    next.addEventListener('click', function () { track.scrollBy({ left:  step(), behavior: 'smooth' }); start(); });
+
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('touchstart', stop, { passive: true });
+
+    update();
+    start();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bestsellers",
+  "tag": "section",
+  "class": "bestsellers-section",
+  "settings": [
+    { "type": "header", "content": "Inhoud" },
+    { "type": "collection", "id": "collection", "label": "Collectie", "info": "Sorteer deze collectie in Shopify op 'Bestselling', dan staat de best verkochte vooraan." },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Wat anderen kiezen" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Onze bestsellers" },
+    { "type": "text", "id": "all_label", "label": "Link rechtsboven", "default": "Bekijk alles" },
+    { "type": "range", "id": "count", "min": 4, "max": 16, "step": 1, "label": "Aantal producten laden", "default": 10 },
+
+    { "type": "header", "content": "Slider" },
+    { "type": "range", "id": "per_view", "min": 2, "max": 5, "step": 1, "label": "Zichtbaar naast elkaar", "default": 4 },
+    { "type": "range", "id": "peek", "min": 0, "max": 120, "step": 10, "unit": "px", "label": "Volgende kaart laten zien", "default": 60, "info": "De rand vervaagt hier automatisch." },
+    { "type": "checkbox", "id": "autoplay", "label": "Automatisch doorschuiven", "default": false },
+    { "type": "range", "id": "autoplay_speed", "min": 3, "max": 12, "step": 1, "unit": "s", "label": "Snelheid", "default": 5 },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "checkbox", "id": "show_rank", "label": "Nummer tonen (1, 2, 3…)", "default": true },
+    { "type": "checkbox", "id": "hover_image", "label": "Tweede foto bij hover", "default": true },
+    { "type": "checkbox", "id": "show_reviews", "label": "Beoordeling tonen", "default": true, "info": "Alleen zichtbaar als er reviews zijn." },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 80 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titel", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+    { "type": "range", "id": "title_size", "min": 22, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 34 },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "presets": [
+    { "name": "Bestsellers" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "contact_main": {
+      "type": "contact-custom",
+      "blocks": {
+        "link_faq": {
+          "type": "link",
+          "settings": {
+            "label": "Veelgestelde vragen",
+            "url": "/#faq"
+          }
+        },
+        "link_bestsellers": {
+          "type": "link",
+          "settings": {
+            "label": "Onze bestsellers",
+            "url": "/#bestsellers"
+          }
+        },
+        "link_privacy": {
+          "type": "link",
+          "settings": {
+            "label": "Privacybeleid",
+            "url": "/policies/privacy-policy"
+          }
+        }
+      },
+      "block_order": [
+        "link_faq",
+        "link_bestsellers",
+        "link_privacy"
+      ],
+      "name": "Contact — uitgebreid",
+      "settings": {
+        "eyebrow": "Contact",
+        "title": "We denken graag met je mee",
+        "emphasis": "graag",
+        "intro": "<p>Zonder oordeel, altijd discreet. Stel je vraag zoals je hem zou stellen aan een goede vriend die er toevallig verstand van heeft.</p>",
+        "email": "hallo@privatefun.nl",
+        "response_text": "Binnen één werkdag antwoord, meestal sneller. Bij drukte kan het iets langer duren.",
+        "hours_text": "Maandag t/m vrijdag, 9:00 – 17:30.",
+        "discreet_text": "Geen merknaam in de onderwerpregel en we noemen nooit productdetails zonder dat jij erom vraagt.",
+        "links_title": "Misschien staat je antwoord hier al",
+        "submit_label": "Verstuur bericht",
+        "success_text": "Dank je wel. Je bericht is verstuurd — je hoort binnen één werkdag van ons.",
+        "privacy_text": "Je gegevens gebruiken we alleen om je vraag te beantwoorden. Vertrouwelijk, zoals alles hier.",
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 40,
+        "color_bg": "#0b0b0b",
+        "color_accent": "#c9a063",
+        "color_text": "#e6e3dd"
+      }
+    },
+    "contact_faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_discretie": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe discreet is de verzending echt?",
+            "answer": "<p>Volledig. Je bestelling komt in een effen doos zonder logo, tekst of afbeelding — ook het verzendlabel verraadt niets over de inhoud.</p>"
+          }
+        },
+        "faq_levering": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe snel heb ik mijn bestelling in huis?",
+            "answer": "<p>Voor 22:00 besteld is morgen in huis. Liever niet thuis ontvangen? Kies bij het afrekenen een afhaalpunt bij jou in de buurt.</p>"
+          }
+        },
+        "faq_retour": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik een product ruilen of retourneren?",
+            "answer": "<p>Ongeopende producten in verzegelde verpakking kun je binnen 14 dagen retourneren. Om hygiënische redenen kunnen geopende producten helaas niet retour.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_discretie",
+        "faq_levering",
+        "faq_retour"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "eyebrow": "Snel antwoord",
+        "title": "De vragen die we het vaakst krijgen",
+        "emphasis": "het vaakst",
+        "text": "<p>Grote kans dat je hiermee al geholpen bent — scheelt je wachten op een mailtje.</p>",
+        "contact_label": "",
+        "open_first": false,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#f3eee1",
+        "color_accent": "#a97d38",
+        "color_text": "#1a1a1a"
+      }
+    }
+  },
+  "order": [
+    "contact_main",
+    "contact_faq"
+  ]
+}
