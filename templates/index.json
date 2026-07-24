@@ -283,6 +283,7 @@
       "settings": {
         "eyebrow": "Waar zoek je naar?",
         "title": "Begin bij wat bij je past",
+        "intro": "<p>Drie ingangen, één rustige ervaring. Ontdek het in je eigen tempo.</p>",
         "link_label": "Bekijken",
         "overlay_opacity": 85,
         "padding_y": 80,

@@ -161,6 +161,9 @@
         {%- if s.title != blank -%}
           <h2 class="cc-{{ uid }}__title">{{ s.title }}</h2>
         {%- endif -%}
+        {%- if s.intro != blank -%}
+          <div class="cc-{{ uid }}__intro" style="max-width: 46ch; margin-top: 14px; color: {{ s.color_text | default: '#e6e3dd' }}; opacity: .72; font-size: 15px; line-height: 1.7;">{{ s.intro }}</div>
+        {%- endif -%}
       </div>
     {%- endif -%}
 
@@ -217,6 +220,7 @@
     { "type": "header", "content": "Kop" },
     { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Waar zoek je naar?" },
     { "type": "text", "id": "title", "label": "Titel", "default": "Begin bij wat bij je past" },
+    { "type": "richtext", "id": "intro", "label": "Ondertitel", "default": "<p>Drie ingangen, één rustige ervaring. Ontdek het in je eigen tempo.</p>" },
     { "type": "text", "id": "link_label", "label": "Tekst onder elke kaart", "default": "Bekijken" },
 
     { "type": "header", "content": "Weergave" },
