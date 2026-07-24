@@ -209,7 +209,13 @@
                 assign display_label = value.label
                 if is_tag_filter
                   if value.label contains ' / '
+                    assign tag_prefix = value.label | split: ' / ' | first
                     assign display_label = value.label | split: ' / ' | last
+                    if collection.all_types and collection.all_types.size > 0
+                      unless collection.all_types contains tag_prefix
+                        continue
+                      endunless
+                    endif
                   else
                     continue
                   endif
