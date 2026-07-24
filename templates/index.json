@@ -226,6 +226,23 @@
         "color_cta_text": "#0b0b0b"
       }
     },
+    "usp_bar_main": {
+      "type": "usp-bar",
+      "name": "USP-balk",
+      "blocks": {
+        "usp_1": { "type": "usp", "settings": { "text": "Neutrale verpakking" } },
+        "usp_2": { "type": "usp", "settings": { "text": "Discreet op je afschrift" } },
+        "usp_3": { "type": "usp", "settings": { "text": "Voor 22:00 besteld, morgen in huis" } },
+        "usp_4": { "type": "usp", "settings": { "text": "Vragen? Antwoord binnen een dag" } }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "color_bg": "#0b0b0b",
+        "color_accent": "#c9a063",
+        "color_text": "#a49f97",
+        "padding_y": 18
+      }
+    },
     "collection_cards_QkcYjU": {
       "type": "collection-cards",
       "blocks": {
@@ -590,6 +607,7 @@
   "order": [
     "media_with_content_HP7Qpp",
     "hero_section_FWipt7",
+    "usp_bar_main",
     "collection_cards_QkcYjU",
     "bestsellers_FAb9ri",
     "starter_picks_nDih3a",
