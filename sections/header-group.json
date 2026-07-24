@@ -70,9 +70,9 @@
         "enable_sticky_header": "never",
         "divider_width": 1,
         "divider_size": "page-width",
-        "divider_color": "#E9E4E0",
+        "divider_color": "#e9e4e0",
         "border_width": 1,
-        "bottom_border_color": "#E9E4E0",
+        "bottom_border_color": "#e9e4e0",
         "actions_display_style": "icon",
         "actions_font_size": "0.875rem",
         "actions_font": "body",
@@ -97,15 +97,51 @@
     },
     "navigatiebalk_4H7Nye": {
       "type": "navigatiebalk",
-      "name": "Mega menu",
       "blocks": {
-        "col_haar": { "type": "column", "settings": { "heading": "Voor haar", "menu": "voor-haar" } },
-        "col_hem": { "type": "column", "settings": { "heading": "Voor hem", "menu": "voor-hem-mega" } },
-        "col_koppels": { "type": "column", "settings": { "heading": "Voor koppels", "menu": "voor-koppels-mega" } },
-        "col_bdsm": { "type": "column", "settings": { "heading": "Bondage & BDSM", "menu": "bdsm-mega" } },
-        "col_drogist": { "type": "column", "settings": { "heading": "Drogist", "menu": "drogist-mega" } }
+        "col_haar": {
+          "type": "column",
+          "settings": {
+            "heading": "Voor haar",
+            "menu": "voor-haar"
+          }
+        },
+        "col_hem": {
+          "type": "column",
+          "settings": {
+            "heading": "Voor hem",
+            "menu": "voor-hem-mega"
+          }
+        },
+        "col_koppels": {
+          "type": "column",
+          "settings": {
+            "heading": "Voor koppels",
+            "menu": "voor-koppels-mega"
+          }
+        },
+        "col_bdsm": {
+          "type": "column",
+          "settings": {
+            "heading": "Bondage & BDSM",
+            "menu": "bdsm-mega"
+          }
+        },
+        "col_drogist": {
+          "type": "column",
+          "settings": {
+            "heading": "Drogist",
+            "menu": "drogist-mega"
+          }
+        }
       },
-      "block_order": ["col_haar", "col_hem", "col_koppels", "col_bdsm", "col_drogist"],
+      "block_order": [
+        "col_haar",
+        "col_hem",
+        "col_koppels",
+        "col_bdsm",
+        "col_drogist"
+      ],
+      "name": "Mega menu",
       "settings": {
         "announcement": "Voor 22:00 besteld, morgen in huis — altijd discreet verpakt",
         "logo": "shopify://shop_images/Logo_Fullcolor_RGB_updated.png",
@@ -116,7 +152,7 @@
         "columns": 5,
         "container_width": 1200,
         "color_bg": "#0b0b0b",
-        "color_gold": "#CE9D27",
+        "color_gold": "{{ settings.color_palette.foreground }}",
         "color_link": "#e6e3dd",
         "color_bar_bg": "#060606",
         "color_bar_text": "#e6e3dd",

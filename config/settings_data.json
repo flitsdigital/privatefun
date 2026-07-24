@@ -6,18 +6,16 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "current": {
     "logo_height": 36,
     "logo_height_mobile": 28,
-    "page_background_color": "#0b0b0b",
     "page_text_color": "#e6e3dd",
     "type_body_font": "assistant_n4",
     "type_subheading_font": "assistant_n4",
     "type_heading_font": "playfair_display_n4",
     "type_accent_font": "assistant_n6",
-    "brand_font_display": "playfair_display_n4",
-    "brand_font_body": "assistant_n4",
     "type_size_paragraph": "14",
     "type_size_h2": "40",
     "type_font_h3": "subheading",
@@ -32,20 +30,21 @@
     "type_line_height_h6": "display-normal",
     "type_letter_spacing_h6": "heading-loose",
     "type_case_h6": "uppercase",
+    "page_background_color": "#0b0b0b",
     "badge_corner_radius": 0,
-    "badge_sale_background_color": "#CE9D27",
+    "badge_sale_background_color": "#c9a063",
     "badge_sale_text_color": "#0b0b0b",
     "badge_sold_out_background_color": "#1a1a1a",
     "badge_sold_out_text_color": "#a49f97",
     "badge_font_family": "accent",
     "badge_text_transform": "uppercase",
-    "palette_primary_button_background": "#CE9D27",
+    "palette_primary_button_background": "#c9a063",
     "palette_primary_button_text": "#0b0b0b",
-    "palette_primary_button_border": "#CE9D27",
+    "palette_primary_button_border": "#c9a063",
     "button_border_radius_primary": 0,
     "palette_secondary_button_background": "#0b0b0b",
-    "palette_secondary_button_text": "#CE9D27",
-    "palette_secondary_button_border": "#CE9D27",
+    "palette_secondary_button_text": "#c9a063",
+    "palette_secondary_button_border": "#c9a063",
     "secondary_button_border_width": 1,
     "button_border_radius_secondary": 0,
     "cart_type": "drawer",
@@ -61,25 +60,28 @@
     "popover_text_color": "#e6e3dd",
     "currency_code_enabled_product_pages": false,
     "currency_code_enabled_product_cards": false,
+    "mobile_quick_add": true,
     "quick_add_background": "#1a1a1a",
     "quick_add_text": "#e6e3dd",
     "variant_swatch_radius": 0,
     "palette_variant_background": "#0b0b0b",
     "palette_variant_text": "#e6e3dd",
     "palette_variant_border": "#3a352c",
-    "palette_selected_variant_background": "#CE9D27",
+    "palette_selected_variant_background": "#c9a063",
     "palette_selected_variant_text": "#0b0b0b",
-    "palette_selected_variant_border": "#CE9D27",
+    "palette_selected_variant_border": "#c9a063",
     "variant_button_radius": 0,
     "variant_button_width": "default-width-buttons",
+    "brand_font_display": "playfair_display_n4",
+    "brand_font_body": "assistant_n4",
+    "content_for_index": [],
     "color_palette": {
       "background": "#0b0b0b",
       "foreground": "#e6e3dd",
       "color1": "#CE9D27",
       "color3": "#2a2620",
-      "color4": "#a49f97"
-    },
-    "mobile_quick_add": true
+      "color4": "#A49F97"
+    }
   },
   "presets": {
     "Dwell": {
