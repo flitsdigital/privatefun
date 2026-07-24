@@ -397,7 +397,12 @@
     #shopify-section-{{ uid }} .mm-{{ uid }}__nav { grid-row: 1; grid-column: 1; justify-content: flex-start; }
     #shopify-section-{{ uid }} .mm-{{ uid }}__logo { grid-row: 1; grid-column: 2; justify-content: center; }
     #shopify-section-{{ uid }} .mm-{{ uid }}__icons { grid-row: 1; grid-column: 3; }
-    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text img { height: 100px !important; }
+    /* logo groter zonder hogere balk: 96px venster, 132px beeld -> verticale lucht wordt weggesneden */
+    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text { height: 96px; overflow: hidden; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text img { height: 132px !important; }
+    /* nav + iconen groter */
+    #shopify-section-{{ uid }} .mm-{{ uid }}__nav-link { font-size: 16px; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__icon svg { width: 23px; height: 23px; }
   }
 </style>
 <script>
