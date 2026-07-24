@@ -813,5 +813,8 @@
     @media screen and (min-width: 750px) {
       .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
     }
+    /* Vierkante productfoto's forceren (theme-editor zet image_ratio steeds terug) */
+    .product-grid .card-gallery { --gallery-aspect-ratio: 1 !important; aspect-ratio: 1 / 1 !important; }
+    .product-grid .card-gallery .product-media-container { aspect-ratio: 1 / 1 !important; }
   {% endstyle %}
 {%- endif -%}
