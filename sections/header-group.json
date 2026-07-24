@@ -98,6 +98,14 @@
     "navigatiebalk_4H7Nye": {
       "type": "navigatiebalk",
       "name": "Mega menu",
+      "blocks": {
+        "col_haar": { "type": "column", "settings": { "heading": "Voor haar", "menu": "voor-haar" } },
+        "col_hem": { "type": "column", "settings": { "heading": "Voor hem", "menu": "voor-hem-mega" } },
+        "col_koppels": { "type": "column", "settings": { "heading": "Voor koppels", "menu": "voor-koppels-mega" } },
+        "col_bdsm": { "type": "column", "settings": { "heading": "Bondage & BDSM", "menu": "bdsm-mega" } },
+        "col_drogist": { "type": "column", "settings": { "heading": "Drogist", "menu": "drogist-mega" } }
+      },
+      "block_order": ["col_haar", "col_hem", "col_koppels", "col_bdsm", "col_drogist"],
       "settings": {
         "announcement": "Voor 22:00 besteld, morgen in huis — altijd discreet verpakt",
         "logo": "shopify://shop_images/Logo_Fullcolor_RGB_updated.png",
@@ -105,7 +113,7 @@
         "header_padding": 0,
         "main_menu": "main-menu",
         "trigger_label": "Producten",
-        "columns": 4,
+        "columns": 5,
         "container_width": 1200,
         "color_bg": "#0b0b0b",
         "color_gold": "#c9a063",
