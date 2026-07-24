@@ -164,7 +164,7 @@
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button-unstyled",
-                "custom_button_background": "#4A4A4A",
+                "custom_button_background": "#4a4a4a",
                 "custom_button_text": "#ffffff",
                 "custom_button_border": "#ffffff",
                 "link_text_color": "",
@@ -191,7 +191,7 @@
         "media_height": "80svh",
         "section_width": "page-width",
         "extend_media": true,
-        "background_color": "#7D5449",
+        "background_color": "#7d5449",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
@@ -229,14 +229,39 @@
     },
     "usp_bar_main": {
       "type": "usp-bar",
-      "name": "USP-balk",
       "blocks": {
-        "usp_1": { "type": "usp", "settings": { "text": "Zorgvuldig geselecteerd" } },
-        "usp_2": { "type": "usp", "settings": { "text": "Body-safe materialen" } },
-        "usp_3": { "type": "usp", "settings": { "text": "Voor 22:00 besteld, morgen in huis" } },
-        "usp_4": { "type": "usp", "settings": { "text": "Vragen? Antwoord binnen een dag" } }
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "text": "Neutrale verpakking"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "text": "Discreet op je afschrift"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "text": "Voor 22:00 besteld, morgen in huis"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "text": "Vragen? Antwoord binnen een dag"
+          }
+        }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "name": "USP-balk",
       "settings": {
         "color_bg": "#0b0b0b",
         "color_accent": "#c9a063",
@@ -306,6 +331,10 @@
         "title": "Onze bestsellers",
         "all_label": "Bekijk alles",
         "count": 12,
+        "per_view": 4,
+        "peek": 60,
+        "autoplay": false,
+        "autoplay_speed": 5,
         "show_rank": true,
         "hover_image": true,
         "show_reviews": true,
@@ -324,14 +353,14 @@
         "pick_KgANda": {
           "type": "pick",
           "settings": {
-            "product": "aardbei-mousserende-wijn-braziliaanse-balletjes-pak-2-eenheden",
+            "product": "4-sex-dobbelstenen",
             "why": "Laagdrempelig begin: massage die vanzelf ontspant"
           }
         },
         "pick_FhywFr": {
           "type": "pick",
           "settings": {
-            "product": "10-speed-oplaadbare-bullet-zwart",
+            "product": "amorable-babydoll-met-g-string",
             "why": "Klein, fluisterstil en oplaadbaar — dé eerste keuze"
           }
         },
