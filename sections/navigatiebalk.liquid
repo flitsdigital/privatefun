@@ -390,6 +390,12 @@
 <style>
   #shopify-section-{{ uid }} [data-mega-root] { transition: box-shadow .3s ease; }
   #shopify-section-{{ uid }} [data-mega-root].is-scrolled { box-shadow: 0 1px 0 rgba(230,227,221,.08), 0 12px 32px rgba(0,0,0,.45); }
+  @media screen and (min-width: 901px) {
+    #shopify-section-{{ uid }} .mm-{{ uid }}__burger { display: none; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__nav { grid-column: 1; justify-content: flex-start; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__logo { grid-column: 2; justify-content: center; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__icons { grid-column: 3; }
+  }
 </style>
 <script>
   (function () {
