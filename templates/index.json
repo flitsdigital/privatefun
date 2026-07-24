@@ -201,8 +201,8 @@
       "name": "Hero ",
       "settings": {
         "eyebrow": "Discreet plezier, thuisbezorgd",
-        "heading": "Wat je thuis doet blijft thuis",
-        "emphasis": "blijft",
+        "heading": "Alles voor een intiemer moment.",
+        "emphasis": "intiemer",
         "subtext": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>",
         "cta_label": "Ontdek de collectie",
         "cta_link": "/collections/all",
@@ -222,7 +222,7 @@
         "heading_size": 56,
         "sub_size": 17,
         "color_bg": "#241a0e",
-        "color_accent": "#CE9D27",
+        "color_accent": "#ce9d27",
         "color_text": "#ffffff",
         "color_cta_text": "#0b0b0b"
       }
@@ -264,7 +264,7 @@
       "name": "USP-balk",
       "settings": {
         "color_bg": "{{ settings.color_palette.background }}",
-        "color_accent": "#CE9D27",
+        "color_accent": "#ce9d27",
         "color_text": "#a49f97",
         "padding_y": 18
       }
@@ -318,7 +318,7 @@
         "title_size": 34,
         "card_size": 26,
         "color_bg": "#0b0b0b",
-        "color_accent": "#CE9D27",
+        "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
     },
@@ -343,7 +343,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#CE9D27",
+        "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
     },
@@ -388,8 +388,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#15120A",
-        "color_accent": "#CE9D27",
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
     },
@@ -439,7 +439,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#CE9D27",
+        "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
     },
@@ -566,7 +566,7 @@
         "title_size": 34,
         "quote_size": 17,
         "color_bg": "#0b0b0b",
-        "color_accent": "#CE9D27",
+        "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
     },
@@ -629,8 +629,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#15120A",
-        "color_accent": "#CE9D27",
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
     }
