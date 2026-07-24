@@ -200,6 +200,7 @@
       "type": "Hero-section",
       "name": "Hero ",
       "settings": {
+        "eyebrow": "Discreet plezier, thuisbezorgd",
         "heading": "Wat je thuis doet blijft thuis",
         "emphasis": "blijft",
         "subtext": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>",

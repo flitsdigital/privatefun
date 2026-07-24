@@ -38,8 +38,14 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: {{ s.color_bg }};
-    opacity: {{ overlay }};
+    background:
+      radial-gradient(135% 115% at 50% 30%, transparent 34%, {{ s.color_bg }} 122%),
+      linear-gradient(to bottom,
+        color-mix(in srgb, {{ s.color_bg }} 42%, transparent) 0%,
+        transparent 34%,
+        transparent 58%,
+        color-mix(in srgb, {{ s.color_bg }} 82%, transparent) 100%);
+    opacity: {{ overlay | plus: 0.22 }};
   }
 
   /* ---------- inhoud ---------- */
@@ -51,6 +57,15 @@
     margin: 0 auto;
     text-align: center;
     text-shadow: 0 1px 3px rgb(0 0 0 / 25%), 0 2px 30px rgb(0 0 0 / 35%);
+  }
+  .hc-{{ uid }}__eyebrow {
+    margin: 0 0 14px;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--hc-accent);
   }
   .hc-{{ uid }}__heading {
     margin: 0;
@@ -210,6 +225,10 @@
 
   <div class="hc-{{ uid }}__content">
 
+    {%- if s.eyebrow != blank -%}
+      <p class="hc-{{ uid }}__eyebrow" data-rise="1">{{ s.eyebrow }}</p>
+    {%- endif -%}
+
     {%- if s.heading != blank -%}
       {%- liquid
         assign out = s.heading
@@ -219,7 +238,7 @@
         endif
         assign out = out | newline_to_br
       -%}
-      <h1 class="hc-{{ uid }}__heading" data-rise="1">{{ out }}</h1>
+      <h1 class="hc-{{ uid }}__heading" data-rise="2">{{ out }}</h1>
     {%- endif -%}
 
     {%- if s.subtext != blank -%}
@@ -311,6 +330,7 @@
   "class": "hero-centered-section",
   "settings": [
     { "type": "header", "content": "Tekst" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Discreet plezier, thuisbezorgd" },
     { "type": "textarea", "id": "heading", "label": "Kop", "info": "Enter = nieuwe regel. Zo bepaal je zelf de regelval.", "default": "Wat je thuis doet\nblijft thuis" },
     { "type": "text", "id": "emphasis", "label": "Accentwoord", "info": "Dit stukje uit de kop wordt cursief in de accentkleur. Moet exact zo in de kop staan en mag niet over twee regels lopen.", "default": "blijft thuis" },
     { "type": "richtext", "id": "subtext", "label": "Subtekst", "default": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>" },
