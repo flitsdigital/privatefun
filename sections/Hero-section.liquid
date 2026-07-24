@@ -39,13 +39,21 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(135% 115% at 50% 30%, transparent 34%, {{ s.color_bg }} 122%),
+      /* leesbaarheids-pool recht achter de tekst */
+      radial-gradient(ellipse 78% 68% at 50% 46%,
+        rgb(0 0 0 / 0.68) 0%,
+        rgb(0 0 0 / 0.34) 44%,
+        rgb(0 0 0 / 0.08) 68%,
+        transparent 82%),
+      /* zachte vignet naar de randen */
+      radial-gradient(135% 115% at 50% 30%, transparent 46%, {{ s.color_bg }} 124%),
+      /* verticale diepte — midden niet meer volledig transparant */
       linear-gradient(to bottom,
-        color-mix(in srgb, {{ s.color_bg }} 42%, transparent) 0%,
-        transparent 34%,
-        transparent 58%,
-        color-mix(in srgb, {{ s.color_bg }} 82%, transparent) 100%);
-    opacity: {{ overlay | plus: 0.22 }};
+        color-mix(in srgb, {{ s.color_bg }} 58%, transparent) 0%,
+        color-mix(in srgb, {{ s.color_bg }} 30%, transparent) 42%,
+        color-mix(in srgb, {{ s.color_bg }} 42%, transparent) 64%,
+        color-mix(in srgb, {{ s.color_bg }} 86%, transparent) 100%);
+    opacity: {{ overlay | plus: 0.26 }};
   }
 
   /* ---------- inhoud ---------- */
@@ -351,7 +359,7 @@
 
     { "type": "header", "content": "Achtergrond" },
     { "type": "image_picker", "id": "image", "label": "Afbeelding" },
-    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Donkerte over de foto", "default": 40 },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Donkerte over de foto", "default": 55 },
     { "type": "range", "id": "height", "min": 320, "max": 900, "step": 20, "unit": "px", "label": "Hoogte", "default": 520 },
 
     { "type": "header", "content": "Typografie" },

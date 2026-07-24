@@ -729,15 +729,6 @@
   }
 {% endstyle %}
 
-{%- comment -%} Merk-goud in alle koppen, site-breed {%- endcomment -%}
-{% style %}
-  .h1, .h2, .h3,
-  h1, h2, h3,
-  [class*="__heading"], [class*="__title"] {
-    color: #c9a063 !important;
-  }
-{% endstyle %}
-
 {%- comment -%} Merk-designsysteem 'Na Middernacht' — donker doorgetrokken op content-pagina's {%- endcomment -%}
 {%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart' -%}
   {% style %}
