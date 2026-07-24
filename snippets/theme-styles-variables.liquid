@@ -795,3 +795,20 @@
     .add-to-cart-text { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
   {% endstyle %}
 {%- endif -%}
+
+{%- comment -%} 'Na Middernacht' — collectie: sticky filterkolom op desktop {%- endcomment -%}
+{%- if request.page_type == 'collection' -%}
+  {% style %}
+    @media screen and (min-width: 990px) {
+      .facets--vertical .facets__form-wrapper,
+      .facets-block-wrapper--vertical {
+        position: sticky;
+        top: 110px;
+        align-self: start;
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+    }
+  {% endstyle %}
+{%- endif -%}
