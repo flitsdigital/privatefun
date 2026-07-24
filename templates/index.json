@@ -359,9 +359,9 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#f3eee1",
-        "color_accent": "#a97d38",
-        "color_text": "#1a1a1a"
+        "color_bg": "#17120b",
+        "color_accent": "#c9a063",
+        "color_text": "#e6e3dd"
       }
     },
     "product_split_yNHD6h": {
@@ -463,7 +463,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#a97d38",
+        "color_accent": "#c9a063",
         "color_text": "#e6e3dd"
       }
     },
@@ -600,9 +600,9 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#f3eee1",
-        "color_accent": "#a97d38",
-        "color_text": "#1a1a1a"
+        "color_bg": "#17120b",
+        "color_accent": "#c9a063",
+        "color_text": "#e6e3dd"
       }
     }
   },
