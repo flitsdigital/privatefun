@@ -810,5 +810,8 @@
         scrollbar-width: thin;
       }
     }
+    @media screen and (min-width: 750px) {
+      .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
+    }
   {% endstyle %}
 {%- endif -%}
