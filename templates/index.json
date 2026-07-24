@@ -223,7 +223,7 @@
         "heading_size": 56,
         "sub_size": 17,
         "color_bg": "#241a0e",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#ffffff",
         "color_cta_text": "#0b0b0b"
       }
@@ -265,7 +265,7 @@
       "name": "USP-balk",
       "settings": {
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#a49f97",
         "padding_y": 18
       }
@@ -319,7 +319,7 @@
         "title_size": 34,
         "card_size": 26,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -344,7 +344,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -389,8 +389,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#17120b",
-        "color_accent": "#c9a063",
+        "color_bg": "#1a1308",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -440,7 +440,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -493,7 +493,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -567,7 +567,7 @@
         "title_size": 34,
         "quote_size": 17,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -630,8 +630,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#17120b",
-        "color_accent": "#c9a063",
+        "color_bg": "#1a1308",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     }
@@ -874,7 +874,7 @@
         "heading_size": 56,
         "sub_size": 17,
         "color_bg": "#241a0e",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#ffffff",
         "color_cta_text": "#0b0b0b"
       }
@@ -916,7 +916,7 @@
       "name": "USP-balk",
       "settings": {
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#a49f97",
         "padding_y": 18
       }
@@ -970,7 +970,7 @@
         "title_size": 34,
         "card_size": 26,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -995,7 +995,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -1040,8 +1040,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#17120b",
-        "color_accent": "#c9a063",
+        "color_bg": "#1a1308",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -1091,7 +1091,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -1144,7 +1144,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -1218,7 +1218,7 @@
         "title_size": 34,
         "quote_size": 17,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -1281,8 +1281,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#17120b",
-        "color_accent": "#c9a063",
+        "color_bg": "#1a1308",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     }
