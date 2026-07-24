@@ -387,10 +387,20 @@
   <div class="mm-{{ uid }}__overlay" data-mega-overlay hidden></div>
 </div>
 
+<style>
+  #shopify-section-{{ uid }} [data-mega-root] { transition: box-shadow .3s ease; }
+  #shopify-section-{{ uid }} [data-mega-root].is-scrolled { box-shadow: 0 1px 0 rgba(230,227,221,.08), 0 12px 32px rgba(0,0,0,.45); }
+</style>
 <script>
   (function () {
     var root = document.querySelector('#shopify-section-{{ uid }} [data-mega-root]');
     if (!root) return;
+
+    var onScroll = function () {
+      root.classList.toggle('is-scrolled', (window.scrollY || document.documentElement.scrollTop) > 40);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     var trigger = root.querySelector('[data-mega-trigger]');
     var panel   = root.querySelector('[data-mega-panel]');
