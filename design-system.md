@@ -14,7 +14,7 @@ Afgeleid van de **homepage** (`templates/index.json` + de custom secties). Dit i
 | Achtergrond (ink) | `#0b0b0b` | Hoofd donkere secties, announcement bar |
 | Card / tile | `#1a1a1a` | Beeldvlakken, product-tiles op donker |
 | Hero espresso | `#241a0e` | Alleen de hero-achtergrond |
-| Accent goud | `#c9a063` | Eyebrows, links, knoppen, iconen |
+| Accent goud | `#CE9D27` | Eyebrows, links, knoppen, iconen |
 | Tekst | `#e6e3dd` | Body op donker (warm off-white) |
 | Tekst (max contrast) | `#ffffff` | Hero-kop |
 | Lijnen | `color-mix(in srgb, #e6e3dd 15–18%, transparent)` | Dividers, borders op donker |
@@ -29,7 +29,7 @@ Afgeleid van de **homepage** (`templates/index.json` + de custom secties). Dit i
 | Lijnen | `color-mix(in srgb, #1a1a1a 16%, transparent)` | Dividers op crème |
 
 ### Regel: goud past zich aan de achtergrond aan
-- Op **donker** → `#c9a063`
+- Op **donker** → `#CE9D27`
 - Op **crème** → `#a97d38`
 
 ### Sectie-ritme
@@ -92,11 +92,11 @@ Mobiel: sectie-titels schalen naar ±24–28px; hero naar ±38–42px.
 
 | Type | Achtergrond | Tekst | Rand | Vorm |
 |---|---|---|---|---|
-| **Primair (goud)** | `#c9a063` | `#0b0b0b` / `#1a1a1a` | geen | radius 0, padding `14px 30px` |
+| **Primair (goud)** | `#CE9D27` | `#0b0b0b` / `#1a1a1a` | geen | radius 0, padding `14px 30px` |
 | **Secundair / ghost** | transparant | accent goud | 1px goud of tekstkleur | radius 0, padding `13px 28px` |
 
 Alle knop-labels: 12–13px, uppercase, `letter-spacing .12em`, weight 600.
-De gouden ATC-knop op de PDP volgt dit al (`#c9a063` bg, `#0b0b0b` tekst).
+De gouden ATC-knop op de PDP volgt dit al (`#CE9D27` bg, `#0b0b0b` tekst).
 
 ---
 
@@ -149,7 +149,7 @@ Pagina's die nog volledig het basisthema volgen: **collectie**, **cart**, **zoek
 ## 7. Snelle checklist bij nieuw werk
 - [ ] Kop = Playfair 400 · body = Assistant
 - [ ] Achtergrond = ink `#0b0b0b` of crème `#f3eee1` (geen kaal wit)
-- [ ] Goud = `#c9a063` (donker) of `#a97d38` (crème)
+- [ ] Goud = `#CE9D27` (donker) of `#a97d38` (crème)
 - [ ] Eyebrow / knop / badge volgen de micro-stijlen (§2)
 - [ ] `border-radius: 0`
 - [ ] Sectie-padding 80–92px, container max 1240px, 24px zij-padding

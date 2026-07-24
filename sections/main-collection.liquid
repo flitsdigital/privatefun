@@ -22,6 +22,20 @@
   }
 {% endjavascript %}
 
+{% javascript %}
+  // Standaard 'Op voorraad' aangevinkt op collectiepagina's (verbergt uitverkocht)
+  (function () {
+    try {
+      if (window.Shopify && window.Shopify.designMode) return;
+      if (/\/collections\/[^/]+/.test(window.location.pathname) && !/filter\./.test(window.location.search)) {
+        var s = window.location.search;
+        var sep = s ? '&' : '?';
+        window.location.replace(window.location.pathname + s + sep + 'filter.v.availability=1');
+      }
+    } catch (e) {}
+  })();
+{% endjavascript %}
+
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 {% liquid
   if section.settings.background_color != blank
@@ -41,6 +55,12 @@
     infinite-scroll="{{ section.settings.enable_infinite_scroll }}"
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
+
+    <nav class="collection-breadcrumbs" aria-label="Kruimelpad" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 20px; font-size: 13px; letter-spacing: .02em; color: rgb(var(--color-foreground-rgb) / .6);">
+      <a href="{{ routes.root_url }}" style="color: inherit; text-decoration: none;">Home</a>
+      <span style="opacity: .5; margin: 0 7px;">/</span>
+      <span aria-current="page" style="color: rgb(var(--color-foreground-rgb) / .9);">{{ collection.title }}</span>
+    </nav>
 
     <div
       class="collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
@@ -165,7 +185,7 @@
       "id": "products_per_page",
       "label": "t:settings.products_per_page",
       "min": 8,
-      "max": 36,
+      "max": 60,
       "step": 4,
       "default": 24,
       "visible_if": "{{ section.settings.enable_infinite_scroll == false }}"

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "contact_main": {
@@ -95,9 +104,9 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#f3eee1",
-        "color_accent": "#a97d38",
-        "color_text": "#1a1a1a"
+        "color_bg": "#17120b",
+        "color_accent": "#c9a063",
+        "color_text": "#e6e3dd"
       }
     }
   },

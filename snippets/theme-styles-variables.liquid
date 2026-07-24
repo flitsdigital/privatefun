@@ -729,8 +729,8 @@
   }
 {% endstyle %}
 
-{%- comment -%} Merk-designsysteem op content-pagina's (collectie + product) — thema "Licht" {%- endcomment -%}
-{%- if request.page_type == 'product' or request.page_type == 'collection' -%}
+{%- comment -%} Merk-designsysteem 'Na Middernacht' — donker doorgetrokken op content-pagina's {%- endcomment -%}
+{%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart' -%}
   {% style %}
     /* Koppen → Playfair, body → Assistant (labels/eyebrows houden accent-font).
        Op :root want de --font-hN--family presets substitueren daar. */
@@ -739,10 +739,9 @@
       --font-subheading--family: var(--font-brand-display--family);
       --font-body--family: var(--font-brand-body--family);
     }
-    /* Koppen in ink — alleen native theme-koppen (.hN / text-block), NIET de custom
-       dark-secties (reviews/faq) die hun eigen lichte tekstkleur zetten */
+    /* Koppen volgen de lichte voorgrondkleur op donker; nooit bold — kracht uit grootte + serif */
     .h1, .h2, .h3, .h5,
-    .text-block.h1, .text-block.h2, .text-block.h3, .text-block.h5 { color: #1a1a1a; }
+    .text-block.h1, .text-block.h2, .text-block.h3, .text-block.h5 { font-weight: 400; }
     /* Lijsten in RTE (o.a. productomschrijving) tonen expliciet bullets */
     .rte :is(ul, ol) { padding-inline-start: 1.25em; margin-block: .4em 1em; }
     .rte ul { list-style: disc outside; }
@@ -750,9 +749,9 @@
     .rte li { display: list-item; }
     /* Primaire knoppen → goud (ATC gebruikt al .button-custom) */
     .button:not(.button-secondary, .button-unstyled, .button-custom) {
-      --color-primary-button-background: #c9a063;
+      --color-primary-button-background: #CE9D27;
       --color-primary-button-text: #0b0b0b;
-      --color-primary-button-border: #c9a063;
+      --color-primary-button-border: #CE9D27;
     }
   {% endstyle %}
 {%- endif -%}
@@ -775,6 +774,44 @@
         justify-content: center;
         column-gap: 48px;
       }
+    }
+
+    /* ── 'Na Middernacht' · PDP-verfijning ── */
+    /* Producttitel: rustige serif met strakke regelval */
+    .product-details h1, .product-details .product-title { letter-spacing: -0.01em; line-height: 1.15; }
+    /* 'Was'-prijs subtiel gedempt zodat de actuele prijs spreekt */
+    .compare-at-price { color: rgb(var(--color-foreground-rgb) / 0.45); }
+    /* USP-blok als omlijst premium kader met hairlines */
+    .usp-list {
+      border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+      border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+      padding-block: 20px;
+      margin-block: 10px 4px;
+      row-gap: 12px;
+    }
+    /* Accordion: meer lucht, rustige koppen */
+    .accordion .details__header { letter-spacing: 0.01em; padding-block: 18px; }
+    /* Add-to-cart label: uppercase, letterspaced (premium knop-stijl) */
+    .add-to-cart-text { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
+  {% endstyle %}
+{%- endif -%}
+
+{%- comment -%} 'Na Middernacht' — collectie: sticky filterkolom op desktop {%- endcomment -%}
+{%- if request.page_type == 'collection' -%}
+  {% style %}
+    @media screen and (min-width: 990px) {
+      .facets--vertical .facets__form-wrapper,
+      .facets-block-wrapper--vertical {
+        position: sticky;
+        top: 110px;
+        align-self: start;
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+    }
+    @media screen and (min-width: 750px) {
+      .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
     }
   {% endstyle %}
 {%- endif -%}

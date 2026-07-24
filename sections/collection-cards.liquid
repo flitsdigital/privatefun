@@ -161,6 +161,9 @@
         {%- if s.title != blank -%}
           <h2 class="cc-{{ uid }}__title">{{ s.title }}</h2>
         {%- endif -%}
+        {%- if s.intro != blank -%}
+          <div class="cc-{{ uid }}__intro" style="max-width: 46ch; margin: 14px auto 0; text-align: center; color: {{ s.color_text | default: '#e6e3dd' }}; opacity: .72; font-size: 15px; line-height: 1.7;">{{ s.intro }}</div>
+        {%- endif -%}
       </div>
     {%- endif -%}
 
@@ -217,6 +220,7 @@
     { "type": "header", "content": "Kop" },
     { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Waar zoek je naar?" },
     { "type": "text", "id": "title", "label": "Titel", "default": "Begin bij wat bij je past" },
+    { "type": "richtext", "id": "intro", "label": "Ondertitel", "default": "<p>Drie ingangen, één rustige ervaring. Ontdek het in je eigen tempo.</p>" },
     { "type": "text", "id": "link_label", "label": "Tekst onder elke kaart", "default": "Bekijken" },
 
     { "type": "header", "content": "Weergave" },
@@ -231,7 +235,7 @@
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
-    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
     { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
   ],
   "blocks": [

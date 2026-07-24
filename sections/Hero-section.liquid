@@ -38,8 +38,22 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: {{ s.color_bg }};
-    opacity: {{ overlay }};
+    background:
+      /* leesbaarheids-pool recht achter de tekst */
+      radial-gradient(ellipse 78% 68% at 50% 46%,
+        rgb(0 0 0 / 0.68) 0%,
+        rgb(0 0 0 / 0.34) 44%,
+        rgb(0 0 0 / 0.08) 68%,
+        transparent 82%),
+      /* zachte vignet naar de randen */
+      radial-gradient(135% 115% at 50% 30%, transparent 46%, {{ s.color_bg }} 124%),
+      /* verticale diepte — midden niet meer volledig transparant */
+      linear-gradient(to bottom,
+        color-mix(in srgb, {{ s.color_bg }} 58%, transparent) 0%,
+        color-mix(in srgb, {{ s.color_bg }} 30%, transparent) 42%,
+        color-mix(in srgb, {{ s.color_bg }} 42%, transparent) 64%,
+        color-mix(in srgb, {{ s.color_bg }} 86%, transparent) 100%);
+    opacity: {{ overlay | plus: 0.26 }};
   }
 
   /* ---------- inhoud ---------- */
@@ -51,6 +65,15 @@
     margin: 0 auto;
     text-align: center;
     text-shadow: 0 1px 3px rgb(0 0 0 / 25%), 0 2px 30px rgb(0 0 0 / 35%);
+  }
+  .hc-{{ uid }}__eyebrow {
+    margin: 0 0 14px;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--hc-accent);
   }
   .hc-{{ uid }}__heading {
     margin: 0;
@@ -210,6 +233,10 @@
 
   <div class="hc-{{ uid }}__content">
 
+    {%- if s.eyebrow != blank -%}
+      <p class="hc-{{ uid }}__eyebrow" data-rise="1">{{ s.eyebrow }}</p>
+    {%- endif -%}
+
     {%- if s.heading != blank -%}
       {%- liquid
         assign out = s.heading
@@ -219,7 +246,7 @@
         endif
         assign out = out | newline_to_br
       -%}
-      <h1 class="hc-{{ uid }}__heading" data-rise="1">{{ out }}</h1>
+      <h1 class="hc-{{ uid }}__heading" data-rise="2">{{ out }}</h1>
     {%- endif -%}
 
     {%- if s.subtext != blank -%}
@@ -311,6 +338,7 @@
   "class": "hero-centered-section",
   "settings": [
     { "type": "header", "content": "Tekst" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Discreet plezier, thuisbezorgd" },
     { "type": "textarea", "id": "heading", "label": "Kop", "info": "Enter = nieuwe regel. Zo bepaal je zelf de regelval.", "default": "Wat je thuis doet\nblijft thuis" },
     { "type": "text", "id": "emphasis", "label": "Accentwoord", "info": "Dit stukje uit de kop wordt cursief in de accentkleur. Moet exact zo in de kop staan en mag niet over twee regels lopen.", "default": "blijft thuis" },
     { "type": "richtext", "id": "subtext", "label": "Subtekst", "default": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>" },
@@ -331,7 +359,7 @@
 
     { "type": "header", "content": "Achtergrond" },
     { "type": "image_picker", "id": "image", "label": "Afbeelding" },
-    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Donkerte over de foto", "default": 40 },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Donkerte over de foto", "default": 55 },
     { "type": "range", "id": "height", "min": 320, "max": 900, "step": 20, "unit": "px", "label": "Hoogte", "default": 520 },
 
     { "type": "header", "content": "Typografie" },
@@ -342,7 +370,7 @@
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
-    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
     { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" },
     { "type": "color", "id": "color_cta_text", "label": "Knop tekst", "default": "#1a1a1a" }
   ],

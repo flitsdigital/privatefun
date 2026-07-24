@@ -164,7 +164,7 @@
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button-unstyled",
-                "custom_button_background": "#4A4A4A",
+                "custom_button_background": "#4a4a4a",
                 "custom_button_text": "#ffffff",
                 "custom_button_border": "#ffffff",
                 "link_text_color": "",
@@ -191,7 +191,7 @@
         "media_height": "80svh",
         "section_width": "page-width",
         "extend_media": true,
-        "background_color": "#7D5449",
+        "background_color": "#7d5449",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
@@ -200,6 +200,7 @@
       "type": "Hero-section",
       "name": "Hero ",
       "settings": {
+        "eyebrow": "Discreet plezier, thuisbezorgd",
         "heading": "Wat je thuis doet blijft thuis",
         "emphasis": "blijft",
         "subtext": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>",
@@ -221,9 +222,51 @@
         "heading_size": 56,
         "sub_size": 17,
         "color_bg": "#241a0e",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#ffffff",
         "color_cta_text": "#0b0b0b"
+      }
+    },
+    "usp_bar_main": {
+      "type": "usp-bar",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "text": "Neutrale verpakking"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "text": "Discreet op je afschrift"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "text": "Voor 22:00 besteld, morgen in huis"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "text": "Vragen? Antwoord binnen een dag"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "name": "USP-balk",
+      "settings": {
+        "color_bg": "#0b0b0b",
+        "color_accent": "#CE9D27",
+        "color_text": "#a49f97",
+        "padding_y": 18
       }
     },
     "collection_cards_QkcYjU": {
@@ -266,6 +309,7 @@
       "settings": {
         "eyebrow": "Waar zoek je naar?",
         "title": "Begin bij wat bij je past",
+        "intro": "<p>Drie ingangen, één rustige ervaring. Ontdek het in je eigen tempo.</p>",
         "link_label": "Bekijken",
         "overlay_opacity": 85,
         "padding_y": 80,
@@ -274,7 +318,7 @@
         "title_size": 34,
         "card_size": 26,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -287,6 +331,10 @@
         "title": "Onze bestsellers",
         "all_label": "Bekijk alles",
         "count": 12,
+        "per_view": 4,
+        "peek": 60,
+        "autoplay": false,
+        "autoplay_speed": 5,
         "show_rank": true,
         "hover_image": true,
         "show_reviews": true,
@@ -295,7 +343,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -305,14 +353,14 @@
         "pick_KgANda": {
           "type": "pick",
           "settings": {
-            "product": "aardbei-mousserende-wijn-braziliaanse-balletjes-pak-2-eenheden",
+            "product": "4-sex-dobbelstenen",
             "why": "Laagdrempelig begin: massage die vanzelf ontspant"
           }
         },
         "pick_FhywFr": {
           "type": "pick",
           "settings": {
-            "product": "10-speed-oplaadbare-bullet-zwart",
+            "product": "amorable-babydoll-met-g-string",
             "why": "Klein, fluisterstil en oplaadbaar — dé eerste keuze"
           }
         },
@@ -340,9 +388,9 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#f3eee1",
-        "color_accent": "#a97d38",
-        "color_text": "#1a1a1a"
+        "color_bg": "#15120A",
+        "color_accent": "#CE9D27",
+        "color_text": "#e6e3dd"
       }
     },
     "product_split_yNHD6h": {
@@ -391,7 +439,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -444,7 +492,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-        "color_accent": "#a97d38",
+        "color_accent": "{{ settings.color_palette.color1 }}",
         "color_text": "#e6e3dd"
       }
     },
@@ -500,8 +548,8 @@
       ],
       "name": "Reviews",
       "settings": {
-        "eyebrow": "Wat klanten zeggen",
-        "title": "Zonder omhaal",
+        "eyebrow": "Ervaringen",
+        "title": "Wat klanten zeggen",
         "tp_score": "4,7",
         "tp_count": "312 reviews",
         "tp_url": "",
@@ -518,7 +566,7 @@
         "title_size": 34,
         "quote_size": 17,
         "color_bg": "#0b0b0b",
-        "color_accent": "#c9a063",
+        "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
     },
@@ -581,15 +629,16 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-        "color_bg": "#f3eee1",
-        "color_accent": "#a97d38",
-        "color_text": "#1a1a1a"
+        "color_bg": "#15120A",
+        "color_accent": "#CE9D27",
+        "color_text": "#e6e3dd"
       }
     }
   },
   "order": [
     "media_with_content_HP7Qpp",
     "hero_section_FWipt7",
+    "usp_bar_main",
     "collection_cards_QkcYjU",
     "bestsellers_FAb9ri",
     "starter_picks_nDih3a",

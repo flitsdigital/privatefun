@@ -118,7 +118,7 @@
       >
         {% liquid
           assign has_active_values = false
-          assign inital_visible_values = 10
+          assign inital_visible_values = 200
           if is_swatch
             assign inital_visible_values = 22
           endif
@@ -201,6 +201,25 @@
             {%- for value in filter.values -%}
               {% liquid
                 assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index | replace: '.', '-' | append: '-' | append: filter_style | append: '-' | append: in_drawer
+                # Categorie-tags opschonen: prefix strippen + losse rommel-tags verbergen
+                assign is_tag_filter = false
+                if filter.param_name contains 'tag'
+                  assign is_tag_filter = true
+                endif
+                assign display_label = value.label
+                if is_tag_filter
+                  if value.label contains ' / '
+                    assign tag_prefix = value.label | split: ' / ' | first
+                    assign display_label = value.label | split: ' / ' | last
+                    if collection.all_types and collection.all_types.size > 0
+                      unless collection.all_types contains tag_prefix
+                        continue
+                      endunless
+                    endif
+                  else
+                    continue
+                  endif
+                endif
                 assign is_disabled = false
                 if value.count == 0 and value.active == false
                   assign is_disabled = true
@@ -269,7 +288,7 @@
                       for="{{ input_id }}"
                       tabindex="-1"
                     >
-                      {{- value.label }}
+                      {{- display_label }}
                     </label>
                   </fieldset>
                 {% elsif is_swatch %}
@@ -320,7 +339,7 @@
                         for="{{ input_id }}"
                         tabindex="-1"
                       >
-                        {{- value.label }}
+                        {{- display_label }}
                       </label>
                     </label>
                   </fieldset>
@@ -351,7 +370,7 @@
                         for="{{ input_id }}"
                         tabindex="0"
                       >
-                        {{- value.label }}
+                        {{- display_label }}
                         {% if is_disabled %}
                           <svg
                             aria-hidden="true"
@@ -369,7 +388,7 @@
                     {% render 'checkbox',
                       name: value.param_name,
                       value: value.value,
-                      label: value.label,
+                      label: display_label,
                       checked: value.active,
                       id: input_id,
                       disabled: is_disabled,
