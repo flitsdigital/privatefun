@@ -231,8 +231,8 @@
       "type": "usp-bar",
       "name": "USP-balk",
       "blocks": {
-        "usp_1": { "type": "usp", "settings": { "text": "Neutrale verpakking" } },
-        "usp_2": { "type": "usp", "settings": { "text": "Discreet op je afschrift" } },
+        "usp_1": { "type": "usp", "settings": { "text": "Zorgvuldig geselecteerd" } },
+        "usp_2": { "type": "usp", "settings": { "text": "Body-safe materialen" } },
         "usp_3": { "type": "usp", "settings": { "text": "Voor 22:00 besteld, morgen in huis" } },
         "usp_4": { "type": "usp", "settings": { "text": "Vragen? Antwoord binnen een dag" } }
       },
