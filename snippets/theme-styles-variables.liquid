@@ -775,5 +775,23 @@
         column-gap: 48px;
       }
     }
+
+    /* ── 'Na Middernacht' · PDP-verfijning ── */
+    /* Producttitel: rustige serif met strakke regelval */
+    .product-details h1, .product-details .product-title { letter-spacing: -0.01em; line-height: 1.15; }
+    /* 'Was'-prijs subtiel gedempt zodat de actuele prijs spreekt */
+    .compare-at-price { color: rgb(var(--color-foreground-rgb) / 0.45); }
+    /* USP-blok als omlijst premium kader met hairlines */
+    .usp-list {
+      border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+      border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+      padding-block: 20px;
+      margin-block: 10px 4px;
+      row-gap: 12px;
+    }
+    /* Accordion: meer lucht, rustige koppen */
+    .accordion .details__header { letter-spacing: 0.01em; padding-block: 18px; }
+    /* Add-to-cart label: uppercase, letterspaced (premium knop-stijl) */
+    .add-to-cart-text { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
   {% endstyle %}
 {%- endif -%}
