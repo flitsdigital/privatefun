@@ -42,6 +42,12 @@
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
+    <nav class="collection-breadcrumbs" aria-label="Kruimelpad" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 20px; font-size: 13px; letter-spacing: .02em; color: rgb(var(--color-foreground-rgb) / .6);">
+      <a href="{{ routes.root_url }}" style="color: inherit; text-decoration: none;">Home</a>
+      <span style="opacity: .5; margin: 0 7px;">/</span>
+      <span aria-current="page" style="color: rgb(var(--color-foreground-rgb) / .9);">{{ collection.title }}</span>
+    </nav>
+
     <div
       class="collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
     >
