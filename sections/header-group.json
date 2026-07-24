@@ -101,7 +101,7 @@
       "settings": {
         "announcement": "Voor 22:00 besteld, morgen in huis — altijd discreet verpakt",
         "logo": "shopify://shop_images/Logo_Fullcolor_RGB_updated.png",
-        "logo_height": 120,
+        "logo_height": 48,
         "header_padding": 0,
         "main_menu": "main-menu",
         "trigger_label": "Producten",
