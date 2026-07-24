@@ -27,8 +27,10 @@
   (function () {
     try {
       if (window.Shopify && window.Shopify.designMode) return;
-      if (!window.location.search && /\/collections\/[^/]+/.test(window.location.pathname)) {
-        window.location.replace(window.location.pathname + '?filter.v.availability=1');
+      if (/\/collections\/[^/]+/.test(window.location.pathname) && !/filter\./.test(window.location.search)) {
+        var s = window.location.search;
+        var sep = s ? '&' : '?';
+        window.location.replace(window.location.pathname + s + sep + 'filter.v.availability=1');
       }
     } catch (e) {}
   })();
