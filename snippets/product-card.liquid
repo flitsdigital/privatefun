@@ -115,6 +115,24 @@
       {% if block_settings.padding-block-end > 0 %}--zoom-out-padding-block-end: min(var(--padding-xs), {{ block_settings.padding-block-end | times: 0.7}}px);{% endif %}
     "
   >
+    {%- unless onboarding -%}
+      {%- liquid
+        assign on_sale = false
+        if product.compare_at_price > product.price
+          assign on_sale = true
+        endif
+      -%}
+      {%- if on_sale or product.tags contains 'bestseller' or product.tags contains 'nieuw' or product.tags contains 'new' -%}
+        <div class="product-card__badges">
+          {%- if on_sale -%}
+            {%- assign disc = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+            <span class="product-card__badge product-card__badge--sale">-{{ disc }}%</span>
+          {%- endif -%}
+          {%- if product.tags contains 'bestseller' -%}<span class="product-card__badge product-card__badge--bestseller">Bestseller</span>{%- endif -%}
+          {%- if product.tags contains 'nieuw' or product.tags contains 'new' -%}<span class="product-card__badge product-card__badge--new">Nieuw</span>{%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endunless -%}
     {{ children }}
   </div>
 </product-card>
@@ -133,4 +151,10 @@
       display: none;
     }
   }
+  .product-card__content { position: relative; }
+  .product-card__badges { position: absolute; top: 12px; left: 12px; z-index: 3; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; pointer-events: none; }
+  .product-card__badge { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 8px; line-height: 1; }
+  .product-card__badge--sale { background: #c9a063; color: #0b0b0b; }
+  .product-card__badge--bestseller { background: rgba(11,11,11,.72); color: #e6e3dd; border: 1px solid rgba(230,227,221,.25); }
+  .product-card__badge--new { background: rgba(11,11,11,.72); color: #c9a063; border: 1px solid rgba(201,160,99,.4); }
 {% endstylesheet %}
