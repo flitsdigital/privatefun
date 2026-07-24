@@ -364,7 +364,7 @@
           </a>
           <a href="{{ routes.cart_url }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-            Winkelmand
+            Winkelmand{%- if cart.item_count > 0 %} ({{ cart.item_count }}){% endif -%}
           </a>
         </li>
       </nav>
@@ -376,8 +376,9 @@
         <a class="mm-{{ uid }}__icon" href="{{ routes.account_url }}" aria-label="Account">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
         </a>
-        <a class="mm-{{ uid }}__icon" href="{{ routes.cart_url }}" aria-label="Winkelmand">
+        <a class="mm-{{ uid }}__icon" href="{{ routes.cart_url }}" aria-label="Winkelmand" style="position:relative;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          {%- if cart.item_count > 0 -%}<span class="mm-{{ uid }}__cart-count" style="position:absolute;top:-5px;right:-7px;min-width:16px;height:16px;padding:0 4px;background:#c9a063;color:#0b0b0b;font-size:10px;font-weight:700;line-height:16px;text-align:center;">{{ cart.item_count }}</span>{%- endif -%}
         </a>
       </div>
     </div>
