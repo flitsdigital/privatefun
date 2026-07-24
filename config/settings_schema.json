@@ -1466,6 +1466,20 @@
     "name": "t:names.cart",
     "settings": [
       {
+        "type": "header",
+        "content": "Gratis verzending"
+      },
+      {
+        "type": "range",
+        "id": "cart_free_shipping_threshold",
+        "min": 0,
+        "max": 250,
+        "step": 5,
+        "unit": "\u20ac",
+        "label": "Gratis verzending vanaf (0 = uit)",
+        "default": 50
+      },
+      {
         "type": "select",
         "id": "cart_type",
         "label": "t:settings.cart_type",
