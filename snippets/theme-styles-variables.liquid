@@ -839,8 +839,22 @@
 {%- comment -%} PDP: witte pagina zodat productfoto's (witte achtergrond) naadloos overlopen {%- endcomment -%}
 {%- if request.page_type == 'product' -%}
   {% style %}
-    /* witte pagina-basis: eventuele randen tussen secties blijven wit i.p.v. donker */
+    /* Witte productpagina: licht kleurenschema op de product-content.
+       Header, footer en de zelf-gekleurde secties (reviews/FAQ) houden hun donkere stijl,
+       want die gebruiken hun eigen kleur-variabelen i.p.v. de thema-tokens. */
     body { background: #ffffff; }
+    #MainContent {
+      --color-background: #ffffff;
+      --color-background-rgb: 255 255 255;
+      --color-foreground: #1a1a1a;
+      --color-foreground-rgb: 26 26 26;
+      --color: #1a1a1a;
+      --color-rgb: 26 26 26;
+      --color-border: rgba(26,26,26,0.14);
+      --color-border-rgb: 26 26 26;
+      --color-background-secondary: #f4f3f0;
+      --color-background-secondary-rgb: 244 243 240;
+    }
     .product-media-gallery,
     .product-information__media,
     .media-gallery { background: #ffffff; }
