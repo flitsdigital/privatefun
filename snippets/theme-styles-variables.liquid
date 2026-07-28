@@ -814,15 +814,15 @@
       .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
     }
 
-    /* ---- Witte collectiepagina: volledig, coherent licht kleurenschema op #MainContent ---- */
+    /* ---- Witte collectiepagina: volledig CSS-zelfvoorzienend (niet afhankelijk van collection.json) ---- */
     body { background: #ffffff; }
     #MainContent {
-      /* palette omdraaien zodat contrast-override overal DONKERE tekst op wit kiest */
-      --palette-lightest: #ffffff;
-      --palette-lightest-rgb: 255 255 255;
+      /* KERN: beide palette-uitersten op donker -> contrast-override kiest ALTIJD donkere tekst,
+         ook als Shopify de sectie-achtergrond terugzet naar zwart. */
+      --palette-lightest: #1a1a1a;
+      --palette-lightest-rgb: 26 26 26;
       --palette-darkest: #1a1a1a;
       --palette-darkest-rgb: 26 26 26;
-      /* basiskleuren */
       --color-background: #ffffff;
       --color-background-rgb: 255 255 255;
       --color-foreground: #1a1a1a;
@@ -833,16 +833,31 @@
       --color-border-rgb: 26 26 26;
       --color-background-secondary: #f4f3f0;
       --color-background-secondary-rgb: 244 243 240;
-      /* invoervelden (prijs-inputs + checkboxes) licht i.p.v. zwart */
       --color-input-background: #ffffff;
       --color-input-text: #1a1a1a;
       --color-input-text-rgb: 26 26 26;
       --color-input-border: rgba(26,26,26,0.30);
       color: #1a1a1a;
     }
+    /* forceer ALLE achtergronden wit (secties + productkaarten) */
     #MainContent .section-background { background-color: #ffffff !important; }
     #MainContent .product-grid-container,
     #MainContent .collection-wrapper { background: #ffffff; }
+    #MainContent product-card,
+    #MainContent .product-card,
+    #MainContent .product-card__content { background: #ffffff !important; }
+    /* checkboxes: witte doos met donkere rand i.p.v. zwart blok */
+    #MainContent .checkbox__input,
+    #MainContent .facets__pill-input {
+      background: #ffffff !important;
+      border: 1px solid rgba(26,26,26,0.40) !important;
+      -webkit-appearance: none; appearance: none;
+    }
+    #MainContent .checkbox__input:checked,
+    #MainContent .facets__pill-input:checked {
+      background: #1a1a1a !important;
+      border-color: #1a1a1a !important;
+    }
     /* alle filteropties volledig zichtbaar en klikbaar (niks uitsluiten) */
     #MainContent .facets__inputs-list-item--disabled,
     #MainContent .facets__inputs-list-item--disabled *,
