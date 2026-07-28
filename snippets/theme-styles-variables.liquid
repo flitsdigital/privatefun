@@ -814,46 +814,42 @@
       .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
     }
 
-    /* ---- Witte collectiepagina (zelfde #MainContent-aanpak als de PDP) ---- */
+    /* ---- Witte collectiepagina: volledig, coherent licht kleurenschema op #MainContent ---- */
     body { background: #ffffff; }
     #MainContent {
+      /* palette omdraaien zodat contrast-override overal DONKERE tekst op wit kiest */
+      --palette-lightest: #ffffff;
+      --palette-lightest-rgb: 255 255 255;
+      --palette-darkest: #1a1a1a;
+      --palette-darkest-rgb: 26 26 26;
+      /* basiskleuren */
       --color-background: #ffffff;
       --color-background-rgb: 255 255 255;
       --color-foreground: #1a1a1a;
       --color-foreground-rgb: 26 26 26;
       --color: #1a1a1a;
       --color-rgb: 26 26 26;
-      --color-border: rgba(26,26,26,0.14);
+      --color-border: rgba(26,26,26,0.16);
       --color-border-rgb: 26 26 26;
       --color-background-secondary: #f4f3f0;
       --color-background-secondary-rgb: 244 243 240;
+      /* invoervelden (prijs-inputs + checkboxes) licht i.p.v. zwart */
+      --color-input-background: #ffffff;
+      --color-input-text: #1a1a1a;
+      --color-input-text-rgb: 26 26 26;
+      --color-input-border: rgba(26,26,26,0.30);
       color: #1a1a1a;
     }
     #MainContent .section-background { background-color: #ffffff !important; }
-
-    /* filters, sorteerbalk, aantallen en breadcrumb leesbaar op wit */
-    #MainContent .facets,
-    #MainContent .facets__form-wrapper,
-    #MainContent .facets-block-wrapper--vertical,
-    #MainContent .facets__heading,
-    #MainContent .facets__label,
-    #MainContent .facets__summary,
-    #MainContent .facets__disclosure,
-    #MainContent .product-count,
-    #MainContent .collection-toolbar,
-    #MainContent facet-sort,
-    #MainContent .facets__sort,
-    #MainContent .breadcrumb,
-    #MainContent .breadcrumb a { color: #1a1a1a; }
-
-    /* GEEN uitgeschakelde look meer: elke filteroptie volledig zichtbaar en klikbaar */
+    #MainContent .product-grid-container,
+    #MainContent .collection-wrapper { background: #ffffff; }
+    /* alle filteropties volledig zichtbaar en klikbaar (niks uitsluiten) */
     #MainContent .facets__inputs-list-item--disabled,
     #MainContent .facets__inputs-list-item--disabled *,
     #MainContent .variant-option--swatches-disabled {
       opacity: 1 !important;
       pointer-events: auto !important;
       cursor: pointer !important;
-      color: #1a1a1a !important;
     }
     #MainContent .facets__inputs-list-item label { cursor: pointer; }
   {% endstyle %}
