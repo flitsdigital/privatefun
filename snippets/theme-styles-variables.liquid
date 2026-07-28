@@ -814,57 +814,70 @@
       .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
     }
 
-    /* ---- Witte collectiepagina: volledig CSS-zelfvoorzienend (niet afhankelijk van collection.json) ---- */
-    body { background: #ffffff; }
+    /* ---- Witte collectiepagina: keihard gehardcode, contrast-onafhankelijk ---- */
+    body { background: #ffffff !important; }
+    #MainContent { background: #ffffff !important; }
     #MainContent {
-      /* KERN: beide palette-uitersten op donker -> contrast-override kiest ALTIJD donkere tekst,
-         ook als Shopify de sectie-achtergrond terugzet naar zwart. */
-      --palette-lightest: #1a1a1a;
-      --palette-lightest-rgb: 26 26 26;
-      --palette-darkest: #1a1a1a;
-      --palette-darkest-rgb: 26 26 26;
-      --color-background: #ffffff;
-      --color-background-rgb: 255 255 255;
-      --color-foreground: #1a1a1a;
-      --color-foreground-rgb: 26 26 26;
-      --color: #1a1a1a;
-      --color-rgb: 26 26 26;
-      --color-border: rgba(26,26,26,0.16);
-      --color-border-rgb: 26 26 26;
-      --color-background-secondary: #f4f3f0;
-      --color-background-secondary-rgb: 244 243 240;
-      --color-input-background: #ffffff;
-      --color-input-text: #1a1a1a;
-      --color-input-text-rgb: 26 26 26;
-      --color-input-border: rgba(26,26,26,0.30);
+      --palette-lightest: #1a1a1a; --palette-lightest-rgb: 26 26 26;
+      --palette-darkest: #1a1a1a; --palette-darkest-rgb: 26 26 26;
+      --color-background: #ffffff; --color-background-rgb: 255 255 255;
+      --color-foreground: #1a1a1a; --color-foreground-rgb: 26 26 26;
+      --color: #1a1a1a; --color-rgb: 26 26 26;
+      --color-border: rgba(26,26,26,0.16); --color-border-rgb: 26 26 26;
+      --color-background-secondary: #f4f3f0; --color-background-secondary-rgb: 244 243 240;
+      --color-input-background: #ffffff; --color-input-text: #1a1a1a; --color-input-text-rgb: 26 26 26; --color-input-border: rgba(26,26,26,0.30);
       color: #1a1a1a;
     }
-    /* forceer ALLE achtergronden wit (secties + productkaarten) */
-    #MainContent .section-background { background-color: #ffffff !important; }
+    /* HET ECHTE PROBLEEM: elk color-custom-blok krijgt van het thema een letterlijke lichte
+       tekstkleur + zwarte achtergrond. Die blokken hier direct overschrijven. */
+    #MainContent [class*="color-custom-"] {
+      --color-background: #ffffff !important;
+      --color-background-rgb: 255 255 255 !important;
+      --color-foreground: #1a1a1a !important;
+      --color-foreground-rgb: 26 26 26 !important;
+      --color-border: rgba(26,26,26,0.16) !important;
+      --color-border-rgb: 26 26 26 !important;
+      background-color: #ffffff !important;
+      color: #1a1a1a !important;
+    }
+    /* alle bekende zwarte vlakken keihard wit */
+    #MainContent .section-background,
+    #MainContent results-list,
     #MainContent .product-grid-container,
-    #MainContent .collection-wrapper { background: #ffffff; }
+    #MainContent .collection-wrapper,
+    #MainContent .product-grid,
     #MainContent product-card,
     #MainContent .product-card,
-    #MainContent .product-card__content { background: #ffffff !important; }
+    #MainContent .product-card__content,
+    #MainContent .product-card__link,
+    #MainContent .card,
+    #MainContent .card__content,
+    #MainContent .card__inner,
+    #MainContent .product-grid__item,
+    #MainContent .facets,
+    #MainContent .facets__panel,
+    #MainContent .facets__inputs { background-color: #ffffff !important; }
     /* checkboxes: witte doos met donkere rand i.p.v. zwart blok */
     #MainContent .checkbox__input,
     #MainContent .facets__pill-input {
       background: #ffffff !important;
-      border: 1px solid rgba(26,26,26,0.40) !important;
+      border: 1px solid rgba(26,26,26,0.45) !important;
       -webkit-appearance: none; appearance: none;
     }
     #MainContent .checkbox__input:checked,
-    #MainContent .facets__pill-input:checked {
-      background: #1a1a1a !important;
-      border-color: #1a1a1a !important;
-    }
-    /* alle filteropties volledig zichtbaar en klikbaar (niks uitsluiten) */
+    #MainContent .facets__pill-input:checked { background: #1a1a1a !important; border-color: #1a1a1a !important; }
+    /* teksten donker afdwingen (titel, filters, breadcrumb, aantallen, sorteren) */
+    #MainContent .facets *,
+    #MainContent .collection-breadcrumbs,
+    #MainContent .collection-breadcrumbs * { color: #1a1a1a !important; }
+    /* uitverkocht-badge donker houden (niet wit-op-wit) */
+    #MainContent .product-card__badge--sold-out,
+    #MainContent [class*="badge--sold"] { background: #0b0b0b !important; color: #ffffff !important; }
+    /* alle filteropties volledig zichtbaar en klikbaar */
     #MainContent .facets__inputs-list-item--disabled,
     #MainContent .facets__inputs-list-item--disabled *,
     #MainContent .variant-option--swatches-disabled {
-      opacity: 1 !important;
-      pointer-events: auto !important;
-      cursor: pointer !important;
+      opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important;
     }
     #MainContent .facets__inputs-list-item label { cursor: pointer; }
   {% endstyle %}
