@@ -815,3 +815,42 @@
     }
   {% endstyle %}
 {%- endif -%}
+
+{%- comment -%} Uniforme productkaart-media: rechthoekig behoudt verhouding, vierkant krijgt witruimte i.p.v. bijsnijden {%- endcomment -%}
+{% style %}
+  .card-gallery {
+    background: #ffffff;
+    --media-fit: contain;
+  }
+  .card-gallery .product-media-container,
+  .card-gallery slideshow-slide,
+  .card-gallery .slideshow-slide { background: #ffffff; }
+  .card-gallery .product-media-container > img,
+  .card-gallery .product-media-container > video,
+  .card-gallery img,
+  .card-gallery video {
+    object-fit: contain !important;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+  }
+{% endstyle %}
+
+{%- comment -%} PDP: witte pagina zodat productfoto's (witte achtergrond) naadloos overlopen {%- endcomment -%}
+{%- if request.page_type == 'product' -%}
+  {% style %}
+    /* witte pagina-basis: eventuele randen tussen secties blijven wit i.p.v. donker */
+    body { background: #ffffff; }
+    .product-media-gallery,
+    .product-information__media,
+    .media-gallery { background: #ffffff; }
+    .product-media-gallery .product-media-container > img,
+    .product-media-gallery .product-media-container > video,
+    .media-gallery .product-media-container > img,
+    .product-media-gallery img,
+    .media-gallery img {
+      object-fit: contain !important;
+      background: #ffffff;
+    }
+  {% endstyle %}
+{%- endif -%}

@@ -101,7 +101,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "text_color": "#f4f1ea",
+                "text_color": "#1a1a1a",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -440,7 +440,7 @@
         "limit_details_width": true,
         "gap": 24,
         "enable_sticky_add_to_cart": true,
-        "background_color": "#0b0b0b",
+        "background_color": "#ffffff",
         "padding-block-start": 30,
         "padding-block-end": 0
       }
@@ -624,7 +624,7 @@
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 28,
-        "background_color": "#0b0b0b",
+        "background_color": "#ffffff",
         "padding-block-start": 48,
         "padding-block-end": 48
       }
