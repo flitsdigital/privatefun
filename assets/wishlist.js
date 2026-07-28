@@ -42,6 +42,8 @@
       btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       btn.setAttribute('aria-label', active ? 'Verwijder uit favorieten' : 'Bewaar als favoriet');
       btn.setAttribute('title', active ? 'Verwijder uit favorieten' : 'Bewaar als favoriet');
+      var lbl = btn.querySelector('[data-wl-text]');
+      if (lbl) lbl.textContent = active ? 'Bewaard als favoriet' : 'Bewaar als favoriet';
     });
   }
 

@@ -243,6 +243,7 @@
                 },
                 "accelerated-checkout": {
                   "type": "accelerated-checkout",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -263,6 +264,7 @@
             },
             "payment_icons_trust": {
               "type": "payment-icons",
+              "disabled": true,
               "name": "Betaaliconen",
               "settings": {
                 "horizontal_alignment": "flex-start",
@@ -299,7 +301,7 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Omschrijving",
-                    "open_by_default": true,
+                    "open_by_default": false,
                     "icon": "none",
                     "width": 20
                   },
