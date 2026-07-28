@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "favorites-grid",
+      "settings": {
+        "eyebrow": "Jouw selectie",
+        "title": "Favorieten",
+        "empty_text": "Je hebt nog geen favorieten bewaard. Tik op het hartje bij een product om het hier te bewaren.",
+        "cta_label": "Ontdek de collectie",
+        "cta_link": "/collections/all",
+        "title_size": 40,
+        "padding_y": 80,
+        "color_bg": "#0b0b0b",
+        "color_accent": "#CE9D27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["main"]
+}

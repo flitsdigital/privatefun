@@ -1,0 +1,31 @@
+{%- doc -%}
+  Favoriet-knop (hartje). Slaat lokaal op (localStorage), geen login nodig.
+  @param {object} product - Het productobject
+  @param {string} [context] - 'card' (standaard) of 'pdp'
+{%- enddoc -%}
+{%- liquid
+  assign ctx = context | default: 'card'
+  assign img = product.featured_image | default: product.featured_media.preview_image
+  assign img_url = ''
+  if img != blank
+    assign img_url = img | image_url: width: 500
+  endif
+-%}
+<button
+  type="button"
+  class="wishlist-btn wishlist-btn--{{ ctx }}"
+  data-wishlist-toggle
+  data-wl-id="{{ product.id }}"
+  data-wl-handle="{{ product.handle }}"
+  data-wl-title="{{ product.title | escape }}"
+  data-wl-url="{{ product.url }}"
+  data-wl-image="{{ img_url }}"
+  data-wl-price="{{ product.price | money }}"
+  aria-pressed="false"
+  aria-label="Bewaar als favoriet"
+  title="Bewaar als favoriet"
+>
+  <svg class="wishlist-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 20.5l-1.4-1.28C5.4 14.5 2.5 11.86 2.5 8.6 2.5 6.06 4.5 4.1 7 4.1c1.54 0 3.02.72 3.95 1.86l.05.06.05-.06C11.98 4.82 13.46 4.1 15 4.1c2.5 0 4.5 1.96 4.5 4.5 0 3.26-2.9 5.9-8.1 10.62L12 20.5z"/>
+  </svg>
+</button>

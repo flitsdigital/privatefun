@@ -211,11 +211,20 @@
                   if value.label contains ' / '
                     assign tag_prefix = value.label | split: ' / ' | first
                     assign display_label = value.label | split: ' / ' | last
+                    assign keep_tag = false
                     if collection.all_types and collection.all_types.size > 0
-                      unless collection.all_types contains tag_prefix
-                        continue
-                      endunless
+                      for ptype in collection.all_types
+                        if ptype contains tag_prefix or tag_prefix contains ptype
+                          assign keep_tag = true
+                          break
+                        endif
+                      endfor
+                    else
+                      assign keep_tag = true
                     endif
+                    unless keep_tag
+                      continue
+                    endunless
                   else
                     continue
                   endif

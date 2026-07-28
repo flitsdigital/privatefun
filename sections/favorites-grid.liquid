@@ -1,0 +1,92 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+<style>
+  .wl-{{ uid }} {
+    background: {{ s.color_bg }};
+    color: {{ s.color_text }};
+    padding: {{ s.padding_y }}px 0;
+    font-family: var(--font-brand-body--family, inherit);
+  }
+  .wl-{{ uid }}__inner { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  .wl-{{ uid }}__head { text-align: center; margin: 0 auto 40px; max-width: 640px; }
+  .wl-{{ uid }}__eyebrow { margin: 0 0 12px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: {{ s.color_accent }}; font-weight: 500; }
+  .wl-{{ uid }}__title { margin: 0; font-family: var(--font-brand-display--family, serif); font-weight: 400; font-size: {{ s.title_size }}px; line-height: 1.12; }
+  .wl-{{ uid }}__count { margin: 12px 0 0; font-size: 14px; opacity: .7; }
+
+  .wl-{{ uid }}__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px 20px;
+  }
+  .wl-card { position: relative; display: flex; flex-direction: column; }
+  .wl-card__media { display: block; background: #fff; aspect-ratio: 4 / 5; overflow: hidden; }
+  .wl-card__media img { width: 100%; height: 100%; object-fit: contain; background: #fff; display: block; }
+  .wl-card__noimg { width: 100%; height: 100%; background: #f2f2f2; }
+  .wl-card__title { margin: 12px 0 4px; color: {{ s.color_text }}; text-decoration: none; font-size: 15px; line-height: 1.4; }
+  .wl-card__title:hover { color: {{ s.color_accent }}; }
+  .wl-card__price { font-size: 15px; color: {{ s.color_accent }}; }
+  .wl-card__remove {
+    position: absolute; top: 8px; right: 8px; z-index: 2;
+    width: 30px; height: 30px; border: none; cursor: pointer;
+    background: rgba(11,11,11,.55); color: #fff; font-size: 18px; line-height: 1;
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  }
+  .wl-card__remove:hover { background: rgba(11,11,11,.8); color: {{ s.color_accent }}; }
+
+  .wl-{{ uid }}__empty { text-align: center; padding: 30px 0 10px; }
+  .wl-{{ uid }}__empty-icon { width: 46px; height: 46px; color: {{ s.color_accent }}; margin: 0 auto 18px; }
+  .wl-{{ uid }}__empty p { font-size: 16px; opacity: .8; margin: 0 0 22px; }
+  .wl-{{ uid }}__cta {
+    display: inline-block; padding: 14px 30px; background: {{ s.color_accent }}; color: {{ s.color_bg }};
+    font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; text-decoration: none;
+    transition: opacity .2s ease;
+  }
+  .wl-{{ uid }}__cta:hover { opacity: .9; }
+
+  @media (max-width: 749px) {
+    .wl-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .wl-{{ uid }}__grid { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+    .wl-{{ uid }}__title { font-size: {{ s.title_size | times: 0.72 | round }}px; }
+  }
+</style>
+
+<div class="wl-{{ uid }}" data-wishlist-page>
+  <div class="wl-{{ uid }}__inner">
+    <div class="wl-{{ uid }}__head">
+      {%- if s.eyebrow != blank -%}<p class="wl-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      <h1 class="wl-{{ uid }}__title">{{ s.title }}</h1>
+      <p class="wl-{{ uid }}__count" data-wishlist-page-count>0 favorieten</p>
+    </div>
+
+    <div class="wl-{{ uid }}__grid" data-wishlist-grid></div>
+
+    <div class="wl-{{ uid }}__empty" data-wishlist-empty hidden>
+      <svg class="wl-{{ uid }}__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5l-1.4-1.28C5.4 14.5 2.5 11.86 2.5 8.6 2.5 6.06 4.5 4.1 7 4.1c1.54 0 3.02.72 3.95 1.86l.1.12.1-.12C11.98 4.82 13.46 4.1 15 4.1c2.5 0 4.5 1.96 4.5 4.5 0 3.26-2.9 5.9-8.1 10.62L12 20.5z"/></svg>
+      <p>{{ s.empty_text }}</p>
+      <a class="wl-{{ uid }}__cta" href="{{ s.cta_link | default: '/collections/all' }}">{{ s.cta_label }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Favorieten",
+  "tag": "section",
+  "class": "favorites-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Jouw selectie" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Favorieten" },
+    { "type": "text", "id": "empty_text", "label": "Tekst bij lege lijst", "default": "Je hebt nog geen favorieten bewaard. Tik op het hartje bij een product om het hier te bewaren." },
+    { "type": "text", "id": "cta_label", "label": "Knoptekst (leeg)", "default": "Ontdek de collectie" },
+    { "type": "url", "id": "cta_link", "label": "Knoplink (leeg)" },
+    { "type": "range", "id": "title_size", "min": 26, "max": 60, "step": 2, "unit": "px", "label": "Grootte titel", "default": 40 },
+    { "type": "range", "id": "padding_y", "min": 30, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 80 },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "presets": [ { "name": "Favorieten" } ]
+}
+{% endschema %}

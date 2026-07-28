@@ -362,6 +362,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
             Account
           </a>
+          <a href="/pages/favorieten">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20.5l-1.4-1.28C5.4 14.5 2.5 11.86 2.5 8.6 2.5 6.06 4.5 4.1 7 4.1c1.54 0 3.02.72 3.95 1.86l.05.06.05-.06C11.98 4.82 13.46 4.1 15 4.1c2.5 0 4.5 1.96 4.5 4.5 0 3.26-2.9 5.9-8.1 10.62L12 20.5z"/></svg>
+            Favorieten
+          </a>
           <a href="{{ routes.cart_url }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
             Winkelmand{%- if cart.item_count > 0 %} ({{ cart.item_count }}){% endif -%}
@@ -375,6 +379,10 @@
         </a>
         <a class="mm-{{ uid }}__icon" href="{{ routes.account_url }}" aria-label="Account">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+        </a>
+        <a class="mm-{{ uid }}__icon" href="/pages/favorieten" aria-label="Favorieten" style="position:relative;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20.5l-1.4-1.28C5.4 14.5 2.5 11.86 2.5 8.6 2.5 6.06 4.5 4.1 7 4.1c1.54 0 3.02.72 3.95 1.86l.05.06.05-.06C11.98 4.82 13.46 4.1 15 4.1c2.5 0 4.5 1.96 4.5 4.5 0 3.26-2.9 5.9-8.1 10.62L12 20.5z"/></svg>
+          <span data-wishlist-count class="mm-{{ uid }}__cart-count" style="position:absolute;top:-5px;right:-7px;min-width:16px;height:16px;padding:0 4px;background:#CE9D27;color:#0b0b0b;font-size:10px;font-weight:700;line-height:16px;text-align:center;display:none;">0</span>
         </a>
         <a class="mm-{{ uid }}__icon" href="{{ routes.cart_url }}" aria-label="Winkelmand" style="position:relative;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
