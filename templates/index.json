@@ -200,11 +200,15 @@
       "type": "Hero-section",
       "name": "Hero ",
       "settings": {
-        "eyebrow": "Discreet plezier, thuisbezorgd",
-        "heading": "Wat je thuis doet blijft thuis",
-        "emphasis": "blijft",
+        "eyebrow": "",
+        "heading": "Alles voor een intiemer moment.",
+        "emphasis": "intiemer",
         "subtext": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>",
+<<<<<<< HEAD
         "cta_label": "Ontdek de collectie",
+=======
+        "cta_label": "ontdek alle categorieën",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "cta_link": "/collections/all",
         "link_label": "Bestsellers",
         "link_url": "#bestsellers",
@@ -215,14 +219,22 @@
         "g_count": "184 reviews",
         "g_url": "",
         "image": "shopify://shop_images/AdobeStock_480916530.jpg",
+<<<<<<< HEAD
         "overlay_opacity": 62,
+=======
+        "overlay_opacity": 50,
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "height": 540,
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "heading_size": 56,
         "sub_size": 17,
         "color_bg": "#241a0e",
+<<<<<<< HEAD
         "color_accent": "#CE9D27",
+=======
+        "color_accent": "#ce9d27",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#ffffff",
         "color_cta_text": "#0b0b0b"
       }
@@ -263,8 +275,13 @@
       ],
       "name": "USP-balk",
       "settings": {
+<<<<<<< HEAD
         "color_bg": "#0b0b0b",
         "color_accent": "#CE9D27",
+=======
+        "color_bg": "{{ settings.color_palette.background }}",
+        "color_accent": "#ce9d27",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#a49f97",
         "padding_y": 18
       }
@@ -318,7 +335,11 @@
         "title_size": 34,
         "card_size": 26,
         "color_bg": "#0b0b0b",
+<<<<<<< HEAD
         "color_accent": "#CE9D27",
+=======
+        "color_accent": "#ce9d27",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -343,7 +364,11 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
+<<<<<<< HEAD
         "color_accent": "#CE9D27",
+=======
+        "color_accent": "#ce9d27",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -388,8 +413,13 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
+<<<<<<< HEAD
         "color_bg": "#1a1308",
         "color_accent": "#CE9D27",
+=======
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -439,7 +469,11 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
+<<<<<<< HEAD
         "color_accent": "#CE9D27",
+=======
+        "color_accent": "#ce9d27",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -492,7 +526,11 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
+<<<<<<< HEAD
         "color_accent": "#CE9D27",
+=======
+        "color_accent": "{{ settings.color_palette.color1 }}",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -548,8 +586,13 @@
       ],
       "name": "Reviews",
       "settings": {
+<<<<<<< HEAD
         "eyebrow": "Wat klanten zeggen",
         "title": "Zonder omhaal",
+=======
+        "eyebrow": "Ervaringen",
+        "title": "Wat klanten zeggen",
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "tp_score": "4,7",
         "tp_count": "312 reviews",
         "tp_url": "",
@@ -566,6 +609,7 @@
         "title_size": 34,
         "quote_size": 17,
         "color_bg": "#0b0b0b",
+<<<<<<< HEAD
         "color_accent": "#CE9D27",
         "color_text": "#e6e3dd"
       }
@@ -674,6 +718,77 @@
   }
 }
   },
+=======
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    },
+    "faq_hp": {
+      "type": "faq",
+      "blocks": {
+        "faq_discretie": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe discreet is de verzending echt?",
+            "answer": "<p>Volledig. Je bestelling komt in een effen doos zonder logo, tekst of afbeelding — ook het verzendlabel verraadt niets over de inhoud.</p>"
+          }
+        },
+        "faq_bank": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat staat er op mijn bankafschrift?",
+            "answer": "<p>Een neutrale bedrijfsnaam, niet onze winkelnaam. Niemand die je afschrift ziet weet waar je besteld hebt.</p>"
+          }
+        },
+        "faq_levering": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe snel heb ik mijn bestelling in huis?",
+            "answer": "<p>Voor 22:00 besteld is morgen in huis. Liever niet thuis ontvangen? Kies bij het afrekenen een afhaalpunt bij jou in de buurt.</p>"
+          }
+        },
+        "faq_retour": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik een product ruilen of retourneren?",
+            "answer": "<p>Ongeopende producten in verzegelde verpakking kun je binnen 14 dagen retourneren. Om hygiënische redenen kunnen geopende producten helaas niet retour — twijfel je over een keuze, stel ons gerust eerst je vraag.</p>"
+          }
+        },
+        "faq_beginnen": {
+          "type": "faq",
+          "settings": {
+            "question": "Ik weet niet waar ik moet beginnen. Wat raden jullie aan?",
+            "answer": "<p>Begin rustig: onze starterskeuzes hierboven zijn precies daarvoor gekozen — eenvoudig, veelzijdig en zonder gedoe. Kom je er niet uit, mail ons dan. We denken graag mee, zonder oordeel.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_discretie",
+        "faq_bank",
+        "faq_levering",
+        "faq_retour",
+        "faq_beginnen"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "eyebrow": "Veelgestelde vragen",
+        "title": "Alles wat je liever niet hoeft te vragen",
+        "emphasis": "liever niet",
+        "text": "<p>Geen drempels, geen kleine lettertjes. Dit zijn de vragen die we het vaakst krijgen.</p>",
+        "contact_label": "Staat je vraag er niet bij? Stel hem gerust",
+        "contact_link": "/pages/contact",
+        "open_first": true,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
   "order": [
     "media_with_content_HP7Qpp",
     "hero_section_FWipt7",
@@ -684,6 +799,10 @@
     "product_split_yNHD6h",
     "discretion_aeg7pt",
     "reviews_irNAGL",
+<<<<<<< HEAD
     "faq_home_hp"
+=======
+    "faq_hp"
+>>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
   ]
 }
