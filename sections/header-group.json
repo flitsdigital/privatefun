@@ -102,6 +102,7 @@
           "type": "column",
           "settings": {
             "heading": "Voor haar",
+            "url": "/collections/voor-haar",
             "menu": "voor-haar"
           }
         },
@@ -109,6 +110,7 @@
           "type": "column",
           "settings": {
             "heading": "Voor hem",
+            "url": "/collections/voor-hem",
             "menu": "voor-hem-mega"
           }
         },
@@ -116,6 +118,7 @@
           "type": "column",
           "settings": {
             "heading": "Voor koppels",
+            "url": "/collections/voor-koppels",
             "menu": "voor-koppels-mega"
           }
         },
@@ -123,6 +126,7 @@
           "type": "column",
           "settings": {
             "heading": "Bondage & BDSM",
+            "url": "/collections/bondage-bdsm",
             "menu": "bdsm-mega"
           }
         },
@@ -130,6 +134,7 @@
           "type": "column",
           "settings": {
             "heading": "Drogist",
+            "url": "/collections/drogist",
             "menu": "drogist-mega"
           }
         }

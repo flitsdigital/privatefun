@@ -91,7 +91,7 @@
     transition: opacity var(--animation-speed-medium) var(--animation-timing-hover);
   }
   .mm-{{ uid }}__nav-link:hover,
-  .mm-{{ uid }}__nav-link[aria-expanded="true"] { opacity: .65; }
+  .mm-{{ uid }}__nav-link[aria-expanded="true"] { color: #CE9D27; opacity: 1; }
   .mm-{{ uid }}__nav-link:focus-visible,
   .mm-{{ uid }}__icon:focus-visible { outline: 1px solid var(--mm-gold); outline-offset: 4px; }
   .mm-{{ uid }}__caret { width: 9px; height: 9px; transition: transform .2s ease; }
@@ -128,21 +128,28 @@
     gap: 24px;
   }
   .mm-{{ uid }}__heading {
-    margin: 0 0 14px;
-    font-size: 12px;
+    margin: 0 0 15px;
+    font-size: 16px;
     font-weight: 600;
-    letter-spacing: .03em;
-    color: var(--mm-gold);
+    letter-spacing: .01em;
+    color: #CE9D27;
   }
+  .mm-{{ uid }}__heading a {
+    color: #CE9D27;
+    text-decoration: none;
+    display: inline-block;
+    transition: color .15s ease, opacity .15s ease;
+  }
+  .mm-{{ uid }}__heading a:hover { color: #e2b84a; }
   .mm-{{ uid }}__list { list-style: none; margin: 0; padding: 0; }
   .mm-{{ uid }}__list li + li { margin-top: 11px; }
   .mm-{{ uid }}__list a {
     font-size: 14px;
     color: var(--mm-link);
     text-decoration: none;
-    transition: color .15s ease;
+    transition: color .15s ease, padding-left .15s ease;
   }
-  .mm-{{ uid }}__list a:hover { color: var(--mm-gold); }
+  .mm-{{ uid }}__list a:hover { color: #CE9D27; padding-left: 4px; }
 
   .mm-{{ uid }}__overlay {
     position: fixed; inset: 0;
@@ -296,7 +303,13 @@
                     {%- for block in section.blocks -%}
                       <div class="mm-{{ uid }}__col" {{ block.shopify_attributes }}>
                         {%- if block.settings.heading != blank -%}
-                          <p class="mm-{{ uid }}__heading">{{ block.settings.heading }}</p>
+                          <p class="mm-{{ uid }}__heading">
+                            {%- if block.settings.url != blank -%}
+                              <a href="{{ block.settings.url }}">{{ block.settings.heading }}</a>
+                            {%- else -%}
+                              {{ block.settings.heading }}
+                            {%- endif -%}
+                          </p>
                         {%- endif -%}
                         <ul class="mm-{{ uid }}__list">
                           {%- for link in block.settings.menu.links -%}
@@ -581,6 +594,7 @@
       "limit": 5,
       "settings": [
         { "type": "text", "id": "heading", "label": "Kop" },
+        { "type": "url", "id": "url", "label": "Kop-link (klikbaar)" },
         { "type": "link_list", "id": "menu", "label": "Menu met links" }
       ]
     }

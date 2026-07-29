@@ -114,11 +114,31 @@
   document.addEventListener('wishlist:change', function () { updateCount(); });
 
   function init() { syncButtons(); updateCount(); renderPage(); }
-  if (document.readyState !== 'loading') init();
-  else document.addEventListener('DOMContentLoaded', init);
-  // Horizon rehydrates sections on navigation; re-sync on those events too.
-  document.addEventListener('shopify:section:load', init);
-  window.addEventListener('pageshow', init);
 
-  window.PFWishlist = { read: read, toggle: toggle, sync: init };
+  // MutationObserver-vangnet: Horizon wisselt bij navigatie de pagina-inhoud client-side,
+  // waardoor DOMContentLoaded niet opnieuw vuurt. We her-renderen zodra er nieuwe nodes
+  // verschijnen (bv. de favorietenpagina). Observer wordt tijdens init losgekoppeld om
+  // een oneindige lus door onze eigen innerHTML-wijziging te voorkomen.
+  var scheduled = false, mo = null;
+  function observe() { if (mo && document.body) { try { mo.observe(document.body, { childList: true, subtree: true }); } catch (e) {} } }
+  function safeInit() { if (mo) mo.disconnect(); init(); observe(); }
+  function scheduleInit() {
+    if (scheduled) return;
+    scheduled = true;
+    setTimeout(function () { scheduled = false; safeInit(); }, 40);
+  }
+  if (typeof MutationObserver !== 'undefined') {
+    mo = new MutationObserver(function () { scheduleInit(); });
+  }
+
+  if (document.readyState !== 'loading') { init(); observe(); }
+  else document.addEventListener('DOMContentLoaded', function () { init(); observe(); });
+  // Horizon rehydrates sections on navigation; re-sync on those events too.
+  document.addEventListener('shopify:section:load', safeInit);
+  document.addEventListener('shopify:section:select', safeInit);
+  window.addEventListener('pageshow', safeInit);
+  window.addEventListener('popstate', scheduleInit);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) scheduleInit(); });
+
+  window.PFWishlist = { read: read, toggle: toggle, sync: safeInit };
 })();
