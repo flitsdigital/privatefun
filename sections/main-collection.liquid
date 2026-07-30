@@ -144,6 +144,28 @@
     }
   })();
 </script>
+<script>
+  (function () {
+    function enableFilters() {
+      document.querySelectorAll('.facets input, .facets .checkbox__input, .facets .facets__pill-input').forEach(function (el) {
+        if (el.disabled) el.disabled = false;
+        el.removeAttribute('disabled');
+      });
+      document.querySelectorAll('.facets .checkbox--disabled, .facets .facets__inputs-list-item--disabled').forEach(function (el) {
+        el.classList.remove('checkbox--disabled');
+        el.classList.remove('facets__inputs-list-item--disabled');
+      });
+    }
+    enableFilters();
+    document.addEventListener('DOMContentLoaded', enableFilters);
+    // facets.js re-rendert de sectie bij elke filterklik -> opnieuw inschakelen
+    document.addEventListener('collection:update', function () { setTimeout(enableFilters, 30); });
+    var box = document.querySelector('.facets-block-wrapper--vertical') || document.querySelector('.facets');
+    if (box && typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function () { enableFilters(); }).observe(box, { childList: true, subtree: true });
+    }
+  })();
+</script>
 
 {% schema %}
 {

@@ -869,6 +869,17 @@
     /* filteropties volledig klikbaar */
     #MainContent .facets__inputs-list-item--disabled, #MainContent .facets__inputs-list-item--disabled *, #MainContent .variant-option--swatches-disabled { opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important; }
     #MainContent .facets__inputs-list-item label { cursor: pointer; }
+    /* filters NOOIT uitsluiten: elke waarde volledig zichtbaar + klikbaar (ook Shopify count-0) */
+    #MainContent .facets .facets__inputs-list-item,
+    #MainContent .facets .facets__inputs-list-item *,
+    #MainContent .facets .checkbox,
+    #MainContent .facets .checkbox *,
+    #MainContent .facets .facets__pill-label,
+    #MainContent .facets label,
+    #MainContent .facets input { opacity: 1 !important; pointer-events: auto !important; }
+    #MainContent .facets label { cursor: pointer !important; }
+    #MainContent .facets .checkbox__label-text,
+    #MainContent .facets .facets__label { color: #1a1a1a !important; }
   {% endstyle %}
 {%- endif -%}
 
