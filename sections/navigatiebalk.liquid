@@ -126,7 +126,7 @@
 
   /* ---------- TIER 2: hoofdbalk (logo groot links + zoekbalk) ---------- */
   .mm-{{ uid }}__main-inner {
-    max-width: var(--mm-max); margin: 0 auto; padding: 4px 20px;
+    max-width: var(--mm-max); margin: 0 auto; padding: 2px 20px;
     display: flex; align-items: center; gap: 28px;
   }
   .mm-{{ uid }}__main .mm-{{ uid }}__logo { flex: none; }
@@ -141,10 +141,10 @@
   .mm-{{ uid }}__search-input:focus { outline: none; border-color: var(--mm-gold); }
   .mm-{{ uid }}__search-btn {
     flex: none; width: 52px; border: 0; border-radius: 0 4px 4px 0; cursor: pointer;
-    background: var(--mm-gold); color: #0b0b0b; display: inline-flex; align-items: center; justify-content: center;
-    transition: filter .15s ease;
+    background: #ece9e2; color: #1a1a1a; display: inline-flex; align-items: center; justify-content: center;
+    transition: background .18s ease, color .18s ease;
   }
-  .mm-{{ uid }}__search-btn:hover { filter: brightness(1.08); }
+  .mm-{{ uid }}__search-btn:hover { background: #CE9D27; color: #0b0b0b; }
   .mm-{{ uid }}__search-btn svg { width: 20px; height: 20px; }
 
   /* ---------- TIER 3: menubalk ---------- */
@@ -152,22 +152,22 @@
   .mm-{{ uid }}__nav-inner { max-width: var(--mm-max); margin: 0 auto; padding: 0 20px; }
   .mm-{{ uid }}__navbar .mm-{{ uid }}__nav { padding: 5px 0; }
 
-  /* ---------- collapse bij scrollen (alleen desktop): alleen de menubalk blijft ---------- */
+  /* ---------- collapse bij scrollen (desktop): scroll-richting-gestuurd, soepele grid-animatie ---------- */
   @media (min-width: 901px) {
-    .mm-{{ uid }}__utility,
-    .mm-{{ uid }}__main {
+    .mm-{{ uid }}__top-wrap {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows .42s cubic-bezier(.4, 0, .2, 1);
+      will-change: grid-template-rows;
+    }
+    .mm-{{ uid }}__top {
       overflow: hidden;
-      max-height: 240px;
-      transition: max-height .38s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+      min-height: 0;
+      transition: opacity .3s ease;
     }
-    .mm-{{ uid }}.is-scrolled .mm-{{ uid }}__utility,
-    .mm-{{ uid }}.is-scrolled .mm-{{ uid }}__main {
-      max-height: 0;
-      opacity: 0;
-      border-bottom-width: 0;
-      pointer-events: none;
-    }
-    .mm-{{ uid }}.is-scrolled .mm-{{ uid }}__navbar { border-top-color: transparent; }
+    /* omlaag scrollen (voorbij drempel) -> bovenbalk + logo/zoekbalk vouwen weg, alleen menubalk blijft */
+    [data-mega-root][data-scrolling-started="true"][data-scrolling-direction="down"] .mm-{{ uid }}__top-wrap { grid-template-rows: 0fr; }
+    [data-mega-root][data-scrolling-started="true"][data-scrolling-direction="down"] .mm-{{ uid }}__top { opacity: 0; pointer-events: none; }
   }
 
   /* ---------- mega panel ---------- */
@@ -339,6 +339,7 @@
 
 <div class="mm-{{ uid }}" data-mega-root>
 
+  <div class="mm-{{ uid }}__top-wrap"><div class="mm-{{ uid }}__top">
   {%- comment -%} TIER 1 — bovenbalk {%- endcomment -%}
   <div class="mm-{{ uid }}__utility">
     <div class="mm-{{ uid }}__utility-inner">
@@ -391,6 +392,7 @@
       </form>
     </div>
   </div>
+  </div></div>
 
   {%- comment -%} TIER 3 — menubalk {%- endcomment -%}
   <div class="mm-{{ uid }}__navbar">
@@ -537,6 +539,28 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
+
+    // Scroll-richting detecteren (menubalk-collapse). Zet attributen op de root; animatie is puur CSS.
+    (function () {
+      var lastTop = 0, ticking = false, threshold = 10, thresholdTop = 70, dir = 'up', started = 'false';
+      root.setAttribute('data-scrolling-direction', 'up');
+      root.setAttribute('data-scrolling-started', 'false');
+      var raf = window.requestAnimationFrame || function (f) { return setTimeout(f, 16); };
+      function apply() {
+        var now = Math.max(getScroll(), 0);
+        if (Math.abs(lastTop - now) >= threshold) {
+          var d = now > lastTop ? 'down' : 'up';
+          var st = now > thresholdTop ? 'true' : 'false';
+          if (d !== dir) { root.setAttribute('data-scrolling-direction', d); dir = d; }
+          if (st !== started) { root.setAttribute('data-scrolling-started', st); started = st; }
+          lastTop = now;
+        }
+        ticking = false;
+      }
+      function onDir() { if (!ticking) { ticking = true; raf(apply); } }
+      window.addEventListener('scroll', onDir, { passive: true });
+      if (scroller) scroller.addEventListener('scroll', onDir, { passive: true });
+    })();
 
     var trigger = root.querySelector('[data-mega-trigger]');
     var panel   = root.querySelector('[data-mega-panel]');
