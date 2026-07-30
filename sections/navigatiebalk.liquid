@@ -105,6 +105,53 @@
   .mm-{{ uid }}__icon svg { width: 19px; height: 19px; }
   .mm-{{ uid }}__burger { display: none; }
 
+  /* ---------- TIER 1: bovenbalk (utility) ---------- */
+  .mm-{{ uid }}__utility { background: var(--mm-bar-bg); border-bottom: 1px solid var(--mm-hair); }
+  .mm-{{ uid }}__utility-inner {
+    max-width: var(--mm-max); margin: 0 auto; padding: 8px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .mm-{{ uid }}__usps { display: flex; align-items: center; gap: 26px; margin: 0; padding: 0; list-style: none; flex-wrap: wrap; }
+  .mm-{{ uid }}__usps li { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--mm-bar-text); letter-spacing: .01em; }
+  .mm-{{ uid }}__usps li::before {
+    content: ""; width: 13px; height: 13px; flex: none; background: var(--mm-gold);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+  .mm-{{ uid }}__utility-right { display: flex; align-items: center; gap: 20px; }
+  .mm-{{ uid }}__util-link { display: inline-flex; align-items: center; gap: 7px; color: var(--mm-bar-text); text-decoration: none; font-size: 12px; letter-spacing: .01em; transition: color .15s ease; }
+  .mm-{{ uid }}__util-link:hover { color: var(--mm-gold); }
+  .mm-{{ uid }}__util-link svg { width: 18px; height: 18px; }
+  .mm-{{ uid }}__badge { position: absolute; top: -6px; right: -8px; min-width: 16px; height: 16px; padding: 0 4px; background: var(--mm-gold); color: #0b0b0b; font-size: 10px; font-weight: 700; line-height: 16px; text-align: center; border-radius: 9px; }
+
+  /* ---------- TIER 2: hoofdbalk (logo groot links + zoekbalk) ---------- */
+  .mm-{{ uid }}__main-inner {
+    max-width: var(--mm-max); margin: 0 auto; padding: 18px 20px;
+    display: flex; align-items: center; gap: 28px;
+  }
+  .mm-{{ uid }}__main .mm-{{ uid }}__logo { flex: none; }
+  .mm-{{ uid }}__main .mm-{{ uid }}__logo-text img { height: calc({{ section.settings.logo_height }}px * 1.7); }
+  .mm-{{ uid }}__search { flex: 1; display: flex; align-items: stretch; max-width: 620px; margin-left: auto; }
+  .mm-{{ uid }}__search-input {
+    flex: 1; min-width: 0; height: 46px; padding: 0 16px;
+    border: 1px solid rgba(230,227,221,.28); border-right: 0; border-radius: 4px 0 0 4px;
+    background: #ffffff; color: #1a1a1a; font: inherit; font-size: 14px;
+  }
+  .mm-{{ uid }}__search-input::placeholder { color: #8a8a8a; }
+  .mm-{{ uid }}__search-input:focus { outline: none; border-color: var(--mm-gold); }
+  .mm-{{ uid }}__search-btn {
+    flex: none; width: 52px; border: 0; border-radius: 0 4px 4px 0; cursor: pointer;
+    background: var(--mm-gold); color: #0b0b0b; display: inline-flex; align-items: center; justify-content: center;
+    transition: filter .15s ease;
+  }
+  .mm-{{ uid }}__search-btn:hover { filter: brightness(1.08); }
+  .mm-{{ uid }}__search-btn svg { width: 20px; height: 20px; }
+
+  /* ---------- TIER 3: menubalk ---------- */
+  .mm-{{ uid }}__navbar { border-top: 1px solid var(--mm-hair); }
+  .mm-{{ uid }}__nav-inner { max-width: var(--mm-max); margin: 0 auto; padding: 0 20px; }
+  .mm-{{ uid }}__navbar .mm-{{ uid }}__nav { padding: 5px 0; }
+
   /* ---------- mega panel ---------- */
   .mm-{{ uid }}__panel {
     position: absolute;
@@ -168,6 +215,18 @@
   @media (max-width: 900px) {
     .mm-{{ uid }}__burger { display: inline-flex; justify-self: start; }
     .mm-{{ uid }}__logo { justify-content: center; }
+
+    .mm-{{ uid }}__usps { display: none; }
+    .mm-{{ uid }}__util-label { display: none; }
+    .mm-{{ uid }}__utility-inner { justify-content: flex-end; padding: 7px 16px; }
+    .mm-{{ uid }}__utility-right { gap: 16px; }
+    .mm-{{ uid }}__main-inner { flex-wrap: wrap; gap: 12px 14px; padding: 12px 16px; }
+    .mm-{{ uid }}__main .mm-{{ uid }}__logo { order: 2; flex: 1; justify-content: center; }
+    .mm-{{ uid }}__main .mm-{{ uid }}__burger { order: 1; }
+    .mm-{{ uid }}__main .mm-{{ uid }}__logo-text img { height: calc({{ section.settings.logo_height }}px * 1.25); }
+    .mm-{{ uid }}__search { order: 3; flex-basis: 100%; max-width: none; margin-left: 0; }
+    .mm-{{ uid }}__navbar { border: 0; }
+    .mm-{{ uid }}__nav-inner { padding: 0; }
 
     .mm-{{ uid }}__nav {
       display: none;
@@ -261,13 +320,43 @@
 </style>
 
 <div class="mm-{{ uid }}" data-mega-root>
+
+  {%- comment -%} TIER 1 — bovenbalk {%- endcomment -%}
+  <div class="mm-{{ uid }}__utility">
+    <div class="mm-{{ uid }}__utility-inner">
+      <ul class="mm-{{ uid }}__usps">
+        {%- if section.settings.usp_1 != blank -%}<li>{{ section.settings.usp_1 }}</li>{%- endif -%}
+        {%- if section.settings.usp_2 != blank -%}<li>{{ section.settings.usp_2 }}</li>{%- endif -%}
+        {%- if section.settings.usp_3 != blank -%}<li>{{ section.settings.usp_3 }}</li>{%- endif -%}
+      </ul>
+      <div class="mm-{{ uid }}__utility-right">
+        <a class="mm-{{ uid }}__util-link" href="{{ section.settings.service_link | default: '/pages/contact' }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 13a8 8 0 0 1 16 0"/><path d="M4 13v3a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 1z"/><path d="M20 13v3a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 1z"/></svg>
+          <span class="mm-{{ uid }}__util-label">Klantenservice</span>
+        </a>
+        <a class="mm-{{ uid }}__util-link" href="{{ routes.account_url }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+          <span class="mm-{{ uid }}__util-label">Account</span>
+        </a>
+        <a class="mm-{{ uid }}__util-link" href="/pages/favorieten" aria-label="Favorieten" style="position:relative;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20.5l-1.4-1.28C5.4 14.5 2.5 11.86 2.5 8.6 2.5 6.06 4.5 4.1 7 4.1c1.54 0 3.02.72 3.95 1.86l.05.06.05-.06C11.98 4.82 13.46 4.1 15 4.1c2.5 0 4.5 1.96 4.5 4.5 0 3.26-2.9 5.9-8.1 10.62L12 20.5z"/></svg>
+          <span data-wishlist-count class="mm-{{ uid }}__badge" style="display:none;">0</span>
+        </a>
+        <a class="mm-{{ uid }}__util-link" href="{{ routes.cart_url }}" aria-label="Winkelwagen" style="position:relative;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2.4 3.2h2.4l1.9 10.9a1.7 1.7 0 0 0 1.7 1.4h8.1a1.7 1.7 0 0 0 1.7-1.35L21 7.4H6.1"/></svg>
+          {%- if cart.item_count > 0 -%}<span class="mm-{{ uid }}__badge">{{ cart.item_count }}</span>{%- endif -%}
+        </a>
+      </div>
+    </div>
+  </div>
+
   {%- if section.settings.announcement != blank -%}
     <div class="mm-{{ uid }}__bar">{{ section.settings.announcement }}</div>
   {%- endif -%}
 
-  <div class="mm-{{ uid }}__inner">
-    <div class="mm-{{ uid }}__row">
-
+  {%- comment -%} TIER 2 — hoofdbalk: groot logo links + zoekbalk {%- endcomment -%}
+  <div class="mm-{{ uid }}__main">
+    <div class="mm-{{ uid }}__main-inner">
       <button class="mm-{{ uid }}__icon mm-{{ uid }}__burger" type="button" data-mega-burger aria-expanded="false" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
@@ -280,7 +369,18 @@
           {%- endif -%}
         </a>
       </div>
+      <form class="mm-{{ uid }}__search" action="{{ routes.search_url }}" method="get" role="search">
+        <input class="mm-{{ uid }}__search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder | default: 'Waar ben je naar op zoek?' }}" aria-label="Zoeken">
+        <button class="mm-{{ uid }}__search-btn" type="submit" aria-label="Zoeken">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
 
+  {%- comment -%} TIER 3 — menubalk {%- endcomment -%}
+  <div class="mm-{{ uid }}__navbar">
+    <div class="mm-{{ uid }}__nav-inner">
       <nav class="mm-{{ uid }}__nav" data-mega-nav aria-label="Hoofdmenu">
         <li class="mm-{{ uid }}__drawer-head">
           <span class="mm-{{ uid }}__drawer-title">Menu</span>
@@ -303,13 +403,9 @@
                     {%- for block in section.blocks -%}
                       <div class="mm-{{ uid }}__col" {{ block.shopify_attributes }}>
                         {%- if block.settings.heading != blank -%}
-                          <p class="mm-{{ uid }}__heading">
-                            {%- if block.settings.url != blank -%}
-                              <a href="{{ block.settings.url }}">{{ block.settings.heading }}</a>
-                            {%- else -%}
-                              {{ block.settings.heading }}
-                            {%- endif -%}
-                          </p>
+                          {%- assign col_url = block.settings.url -%}
+                          {%- if col_url == blank -%}{%- assign col_url = block.settings.heading | handleize | prepend: '/collections/' -%}{%- endif -%}
+                          <p class="mm-{{ uid }}__heading"><a href="{{ col_url }}">{{ block.settings.heading }}</a></p>
                         {%- endif -%}
                         <ul class="mm-{{ uid }}__list">
                           {%- for link in block.settings.menu.links -%}
@@ -385,23 +481,6 @@
           </a>
         </li>
       </nav>
-
-      <div class="mm-{{ uid }}__icons">
-        <a class="mm-{{ uid }}__icon" href="{{ routes.search_url }}" aria-label="Zoeken">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        </a>
-        <a class="mm-{{ uid }}__icon" href="{{ routes.account_url }}" aria-label="Account">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/></svg>
-        </a>
-        <a class="mm-{{ uid }}__icon" href="/pages/favorieten" aria-label="Favorieten" style="position:relative;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20.5l-1.4-1.28C5.4 14.5 2.5 11.86 2.5 8.6 2.5 6.06 4.5 4.1 7 4.1c1.54 0 3.02.72 3.95 1.86l.05.06.05-.06C11.98 4.82 13.46 4.1 15 4.1c2.5 0 4.5 1.96 4.5 4.5 0 3.26-2.9 5.9-8.1 10.62L12 20.5z"/></svg>
-          <span data-wishlist-count class="mm-{{ uid }}__cart-count" style="position:absolute;top:-5px;right:-7px;min-width:16px;height:16px;padding:0 4px;background:#CE9D27;color:#0b0b0b;font-size:10px;font-weight:700;line-height:16px;text-align:center;display:none;">0</span>
-        </a>
-        <a class="mm-{{ uid }}__icon" href="{{ routes.cart_url }}" aria-label="Winkelmand" style="position:relative;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-          {%- if cart.item_count > 0 -%}<span class="mm-{{ uid }}__cart-count" style="position:absolute;top:-5px;right:-7px;min-width:16px;height:16px;padding:0 4px;background:#CE9D27;color:#0b0b0b;font-size:10px;font-weight:700;line-height:16px;text-align:center;">{{ cart.item_count }}</span>{%- endif -%}
-        </a>
-      </div>
     </div>
   </div>
 
@@ -527,6 +606,13 @@
       "label": "Balk bovenaan",
       "default": "Discreet geleverd — premium kwaliteit"
     },
+    { "type": "header", "content": "Bovenbalk (USP's)" },
+    { "type": "text", "id": "usp_1", "label": "USP 1", "default": "Voor 22:00 besteld, morgen in huis" },
+    { "type": "text", "id": "usp_2", "label": "USP 2", "default": "Discreet verpakt & bezorgd" },
+    { "type": "text", "id": "usp_3", "label": "USP 3", "default": "Veilig en anoniem betalen" },
+    { "type": "url", "id": "service_link", "label": "Klantenservice-link" },
+    { "type": "header", "content": "Zoekbalk" },
+    { "type": "text", "id": "search_placeholder", "label": "Placeholder-tekst", "default": "Waar ben je naar op zoek?" },
     { "type": "header", "content": "Logo" },
     { "type": "image_picker", "id": "logo", "label": "Logo" },
     {
