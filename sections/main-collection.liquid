@@ -151,6 +151,90 @@
     }
   })();
 </script>
+<script>
+  /* OF-logica voor tagfilters: Shopify combineert meerdere filter.p.tag-waarden met EN
+     (product moet alle tags hebben -> vrijwel altijd 0 resultaten). Bij 2+ tags halen we
+     per tag de resultaten op en voegen ze samen (ontdubbeld op product-id). */
+  (function () {
+    var TAG = 'filter.p.tag';
+    var applying = false;
+
+    function tagsOf(href) {
+      try { return new URL(href, location.origin).searchParams.getAll(TAG); } catch (e) { return []; }
+    }
+    function keyOf(list) { return list.slice().sort().join('||'); }
+
+    function apply() {
+      var tags = tagsOf(location.href);
+      var results = document.querySelector('results-list');
+      if (!results) return;
+      if (tags.length < 2) { results.removeAttribute('data-pf-or'); return; }
+      var key = keyOf(tags);
+      if (applying || results.getAttribute('data-pf-or') === key) return;
+      applying = true;
+
+      Promise.all(tags.map(function (tag) {
+        var u = new URL(location.href);
+        u.searchParams.delete(TAG);
+        u.searchParams.append(TAG, tag);
+        u.searchParams.delete('page');
+        return fetch(u.toString(), { credentials: 'same-origin' })
+          .then(function (r) { return r.ok ? r.text() : ''; })
+          .catch(function () { return ''; });
+      })).then(function (pages) {
+        var items = [], seen = {}, firstResultsList = null;
+        pages.forEach(function (html) {
+          if (!html) return;
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var rl = doc.querySelector('results-list');
+          if (rl && !firstResultsList && rl.querySelector('.product-grid')) firstResultsList = rl;
+          var grid = rl && rl.querySelector('.product-grid');
+          if (!grid) return;
+          grid.querySelectorAll('.product-grid__item').forEach(function (li) {
+            var id = li.getAttribute('data-product-id') || li.id;
+            if (id && !seen[id]) { seen[id] = 1; items.push(li); }
+          });
+        });
+
+        var grid = results.querySelector('.product-grid');
+        if (!grid && firstResultsList) {
+          // server toonde "geen producten": vervang de lege staat door een echte grid-structuur
+          var curWrap = results.querySelector('#ResultsList');
+          var newWrap = firstResultsList.querySelector('#ResultsList');
+          if (curWrap && newWrap) {
+            curWrap.replaceWith(newWrap);
+            grid = results.querySelector('.product-grid');
+          }
+        }
+        if (grid) {
+          grid.innerHTML = '';
+          items.forEach(function (li) { grid.appendChild(li); });
+          var empty = results.querySelector('.main-collection-grid__empty');
+          if (empty) empty.remove();
+          // samengevoegde weergave kent geen paginering
+          results.querySelectorAll('.pagination, .pagination-next-cta').forEach(function (el) { el.style.display = 'none'; });
+        }
+        document.querySelectorAll('.products-count-wrapper [role="status"]').forEach(function (el) {
+          el.textContent = items.length === 1 ? '1 artikel' : items.length + ' artikelen';
+        });
+        results.setAttribute('data-pf-or', key);
+        applying = false;
+      }).catch(function () { applying = false; });
+    }
+
+    var timer;
+    function schedule() { clearTimeout(timer); timer = setTimeout(apply, 80); }
+    schedule();
+    document.addEventListener('DOMContentLoaded', schedule);
+    window.addEventListener('popstate', schedule);
+    window.addEventListener('pageshow', schedule);
+    // facets.js vervangt de sectie-DOM na elke filterklik: opnieuw samenvoegen
+    if (typeof MutationObserver !== 'undefined') {
+      var mo = new MutationObserver(function () { if (!applying) schedule(); });
+      try { mo.observe(document.getElementById('MainContent') || document.body, { childList: true, subtree: true }); } catch (e) {}
+    }
+  })();
+</script>
 
 {% schema %}
 {

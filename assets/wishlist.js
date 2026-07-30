@@ -63,12 +63,6 @@
     var empty = root.querySelector('[data-wishlist-empty]');
     var countEl = root.querySelector('[data-wishlist-page-count]');
     var list = read();
-    var dbg = root.querySelector('[data-wishlist-debug]');
-    if (dbg) {
-      dbg.style.display = 'block';
-      dbg.textContent = 'debug — opslag: ' + list.length + ' item(s)' +
-        (list.length ? ' (' + list.map(function (x) { return (x.title || x.id); }).join(', ') + ')' : '');
-    }
     if (countEl) countEl.textContent = list.length === 1 ? '1 favoriet' : list.length + ' favorieten';
     if (!grid) return;
     if (!list.length) {
