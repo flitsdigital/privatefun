@@ -1,0 +1,79 @@
+/* Privatefun — losse correcties bovenop het thema.
+   Staat apart van theme-styles-variables.liquid zodat het los naar het thema kan. */
+
+/* Filterkolom: sticky, maar scrollt intern mee als de lijst langer is dan het scherm */
+@media screen and (min-width: 990px) {
+  .facets-block-wrapper--vertical {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+    max-height: calc(100dvh - 130px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(26 26 26 / 0.25) transparent;
+    padding-inline-end: 6px;
+  }
+
+  .facets-block-wrapper--vertical .facets__form-wrapper {
+    position: static;
+    max-height: none;
+  }
+
+  .facets-block-wrapper--vertical::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .facets-block-wrapper--vertical::-webkit-scrollbar-thumb {
+    background: rgb(26 26 26 / 0.25);
+    border-radius: 3px;
+  }
+}
+
+/* Producttitels in het grid: zwart */
+#MainContent product-card [class*='title'],
+#MainContent product-card [class*='title'] a,
+#MainContent .product-grid__item .product-card__link,
+#MainContent .product-grid__item a {
+  color: #000000 !important;
+}
+
+/* "Naar volgende pagina" onder het grid */
+.pf-next-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pf-next-page__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  background: #ce9d27;
+  color: #0b0b0b;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.pf-next-page__btn:hover {
+  opacity: 0.88;
+}
+
+.pf-next-page__btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.pf-next-page__meta {
+  margin: 0;
+  font-size: 13px;
+  color: #1a1a1a;
+  opacity: 0.65;
+}

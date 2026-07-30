@@ -800,20 +800,12 @@
 {%- if request.page_type == 'collection' -%}
   {% style %}
     @media screen and (min-width: 990px) {
+      .facets--vertical .facets__form-wrapper,
       .facets-block-wrapper--vertical {
         position: sticky;
         top: 110px;
         align-self: start;
-        /* kolom kan langer zijn dan het scherm: binnen de kolom scrollen (dunne scrollbar) */
-        max-height: calc(100vh - 130px);
-        max-height: calc(100dvh - 130px);
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        scrollbar-width: thin;
-        scrollbar-color: rgb(26 26 26 / 0.25) transparent;
-        padding-inline-end: 6px;
       }
-      .facets-block-wrapper--vertical .facets__form-wrapper { position: static; }
     }
     @media screen and (min-width: 750px) {
       .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
@@ -852,11 +844,6 @@
     #MainContent .product-count, #MainContent .product-count *,
     #MainContent .collection-back { color: #1a1a1a !important; }
     #MainContent [class*="badge--sold"] { background: #0b0b0b !important; color: #ffffff !important; }
-    /* Producttitels in het grid: gewoon zwart */
-    #MainContent product-card [class*="title"],
-    #MainContent product-card [class*="title"] a,
-    #MainContent .product-grid__item .product-card__link,
-    #MainContent .product-grid__item a { color: #000000 !important; }
 
     /* ===== FILTERMENU WIT (leesbaar op de witte collectiepagina) ===== */
     #MainContent .facets-block-wrapper--vertical,

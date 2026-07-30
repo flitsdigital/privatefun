@@ -17,21 +17,6 @@
 {%- enddoc -%}
 
 {%- if paginate.pages > 1 -%}
-  {%- if request.page_type == 'collection' -%}
-    {%- assign pf_pages_left = paginate.pages | minus: paginate.current_page -%}
-    <div class="pagination-next-cta">
-      {%- if paginate.next -%}
-        <a href="{{ paginate.next.url }}" class="pagination-next-cta__btn">
-          Naar volgende pagina
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </a>
-      {%- endif -%}
-      <p class="pagination-next-cta__meta">
-        Pagina {{ paginate.current_page }} van {{ paginate.pages }}
-        {%- if pf_pages_left > 0 %} &middot; nog {{ pf_pages_left }} pagina{% if pf_pages_left > 1 %}'s{% endif %}{% endif %}
-      </p>
-    </div>
-  {%- endif -%}
   <nav
     class="pagination"
     aria-label="{{ 'content.pagination.nav_label' | t }}"
@@ -177,44 +162,6 @@
 {%- endif -%}
 
 {% stylesheet %}
-  .pagination-next-cta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 40px;
-  }
-
-  .pagination-next-cta__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 34px;
-    background: #CE9D27;
-    color: #0b0b0b;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-  }
-
-  .pagination-next-cta__btn:hover {
-    opacity: 0.88;
-  }
-
-  .pagination-next-cta__btn svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .pagination-next-cta__meta {
-    margin: 0;
-    font-size: 13px;
-    opacity: 0.65;
-  }
-
   .pagination {
     --pagination-size: 36px;
     --pagination-inset: 2px;

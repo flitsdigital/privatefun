@@ -147,5 +147,9 @@
       {% render 'quick-add-modal' %}
     {% endif %}
     <script src="{{ 'wishlist.js' | asset_url }}" defer></script>
+    <link rel="stylesheet" href="{{ 'pf-fixes.css' | asset_url }}">
+    {% if request.page_type == 'collection' or request.page_type == 'search' %}
+      <script src="{{ 'pf-collection.js' | asset_url }}" defer></script>
+    {% endif %}
   </body>
 </html>
