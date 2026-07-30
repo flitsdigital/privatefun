@@ -10,6 +10,7 @@
   /* ponytail: sticky op de group-wrapper — sticky op de sectie zelf blijft binnen de parent hangen */
   #header-group { position: sticky; top: 0; z-index: 50; }
   #shopify-section-{{ uid }} { position: relative; z-index: 50; }
+  .page-wrapper, html, body { overflow-anchor: none; }
 
   .mm-{{ uid }} {
     --mm-bg: {{ section.settings.color_bg }};
@@ -166,8 +167,8 @@
       transition: opacity .3s ease;
     }
     /* omlaag scrollen (voorbij drempel) -> bovenbalk + logo/zoekbalk vouwen weg, alleen menubalk blijft */
-    [data-mega-root][data-scrolling-started="true"][data-scrolling-direction="down"] .mm-{{ uid }}__top-wrap { grid-template-rows: 0fr; }
-    [data-mega-root][data-scrolling-started="true"][data-scrolling-direction="down"] .mm-{{ uid }}__top { opacity: 0; pointer-events: none; }
+    [data-mega-root][data-nav-collapsed="true"] .mm-{{ uid }}__top-wrap { grid-template-rows: 0fr; }
+    [data-mega-root][data-nav-collapsed="true"] .mm-{{ uid }}__top { opacity: 0; pointer-events: none; }
   }
 
   /* ---------- mega panel ---------- */
@@ -540,26 +541,22 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
 
-    // Scroll-richting detecteren (menubalk-collapse). Zet attributen op de root; animatie is puur CSS.
+    // Menubalk-collapse: POSITIE-gebaseerd met hysterese -> geen heen-en-weer geflikker.
     (function () {
-      var lastTop = 0, ticking = false, threshold = 10, thresholdTop = 70, dir = 'up', started = 'false';
-      root.setAttribute('data-scrolling-direction', 'up');
-      root.setAttribute('data-scrolling-started', 'false');
+      var ticking = false, collapsed = false;
+      var COLLAPSE_AT = 150, EXPAND_AT = 50; // brede hysterese-band voorkomt flikkeren rond de drempel
       var raf = window.requestAnimationFrame || function (f) { return setTimeout(f, 16); };
+      root.setAttribute('data-nav-collapsed', 'false');
       function apply() {
         var now = Math.max(getScroll(), 0);
-        if (Math.abs(lastTop - now) >= threshold) {
-          var d = now > lastTop ? 'down' : 'up';
-          var st = now > thresholdTop ? 'true' : 'false';
-          if (d !== dir) { root.setAttribute('data-scrolling-direction', d); dir = d; }
-          if (st !== started) { root.setAttribute('data-scrolling-started', st); started = st; }
-          lastTop = now;
-        }
+        if (!collapsed && now > COLLAPSE_AT) { collapsed = true; root.setAttribute('data-nav-collapsed', 'true'); }
+        else if (collapsed && now < EXPAND_AT) { collapsed = false; root.setAttribute('data-nav-collapsed', 'false'); }
         ticking = false;
       }
       function onDir() { if (!ticking) { ticking = true; raf(apply); } }
       window.addEventListener('scroll', onDir, { passive: true });
       if (scroller) scroller.addEventListener('scroll', onDir, { passive: true });
+      apply();
     })();
 
     var trigger = root.querySelector('[data-mega-trigger]');
