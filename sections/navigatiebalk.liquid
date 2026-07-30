@@ -126,7 +126,7 @@
 
   /* ---------- TIER 2: hoofdbalk (logo groot links + zoekbalk) ---------- */
   .mm-{{ uid }}__main-inner {
-    max-width: var(--mm-max); margin: 0 auto; padding: 10px 20px;
+    max-width: var(--mm-max); margin: 0 auto; padding: 4px 20px;
     display: flex; align-items: center; gap: 28px;
   }
   .mm-{{ uid }}__main .mm-{{ uid }}__logo { flex: none; }
@@ -512,8 +512,8 @@
     #shopify-section-{{ uid }} .mm-{{ uid }}__logo { grid-row: 1; grid-column: 2; justify-content: center; }
     #shopify-section-{{ uid }} .mm-{{ uid }}__icons { grid-row: 1; grid-column: 3; }
     /* logo groter zonder hogere balk: 96px venster, 132px beeld -> verticale lucht wordt weggesneden */
-    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text { height: 96px; overflow: hidden; }
-    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text img { height: 132px !important; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text { height: 115px; overflow: hidden; }
+    #shopify-section-{{ uid }} .mm-{{ uid }}__logo-text img { height: 158px !important; }
     /* nav + iconen groter */
     #shopify-section-{{ uid }} .mm-{{ uid }}__nav { gap: 34px; }
     #shopify-section-{{ uid }} .mm-{{ uid }}__nav-link { font-size: 16px; white-space: nowrap; }
@@ -525,11 +525,18 @@
     var root = document.querySelector('#shopify-section-{{ uid }} [data-mega-root]');
     if (!root) return;
 
+    // Op desktop scrollt .page-wrapper (overflow-y:auto), niet het venster.
+    var scroller = document.querySelector('.page-wrapper');
+    var getScroll = function () {
+      var a = scroller ? scroller.scrollTop : 0;
+      return Math.max(a, window.scrollY || document.documentElement.scrollTop || 0);
+    };
     var onScroll = function () {
-      root.classList.toggle('is-scrolled', (window.scrollY || document.documentElement.scrollTop) > 70);
+      root.classList.toggle('is-scrolled', getScroll() > 70);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+    if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
 
     var trigger = root.querySelector('[data-mega-trigger]');
     var panel   = root.querySelector('[data-mega-panel]');
