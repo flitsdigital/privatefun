@@ -126,7 +126,7 @@
 
   /* ---------- TIER 2: hoofdbalk (logo groot links + zoekbalk) ---------- */
   .mm-{{ uid }}__main-inner {
-    max-width: var(--mm-max); margin: 0 auto; padding: 18px 20px;
+    max-width: var(--mm-max); margin: 0 auto; padding: 10px 20px;
     display: flex; align-items: center; gap: 28px;
   }
   .mm-{{ uid }}__main .mm-{{ uid }}__logo { flex: none; }
@@ -151,6 +151,24 @@
   .mm-{{ uid }}__navbar { border-top: 1px solid var(--mm-hair); }
   .mm-{{ uid }}__nav-inner { max-width: var(--mm-max); margin: 0 auto; padding: 0 20px; }
   .mm-{{ uid }}__navbar .mm-{{ uid }}__nav { padding: 5px 0; }
+
+  /* ---------- collapse bij scrollen (alleen desktop): alleen de menubalk blijft ---------- */
+  @media (min-width: 901px) {
+    .mm-{{ uid }}__utility,
+    .mm-{{ uid }}__main {
+      overflow: hidden;
+      max-height: 240px;
+      transition: max-height .38s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+    }
+    .mm-{{ uid }}.is-scrolled .mm-{{ uid }}__utility,
+    .mm-{{ uid }}.is-scrolled .mm-{{ uid }}__main {
+      max-height: 0;
+      opacity: 0;
+      border-bottom-width: 0;
+      pointer-events: none;
+    }
+    .mm-{{ uid }}.is-scrolled .mm-{{ uid }}__navbar { border-top-color: transparent; }
+  }
 
   /* ---------- mega panel ---------- */
   .mm-{{ uid }}__panel {
@@ -350,10 +368,6 @@
     </div>
   </div>
 
-  {%- if section.settings.announcement != blank -%}
-    <div class="mm-{{ uid }}__bar">{{ section.settings.announcement }}</div>
-  {%- endif -%}
-
   {%- comment -%} TIER 2 — hoofdbalk: groot logo links + zoekbalk {%- endcomment -%}
   <div class="mm-{{ uid }}__main">
     <div class="mm-{{ uid }}__main-inner">
@@ -512,7 +526,7 @@
     if (!root) return;
 
     var onScroll = function () {
-      root.classList.toggle('is-scrolled', (window.scrollY || document.documentElement.scrollTop) > 40);
+      root.classList.toggle('is-scrolled', (window.scrollY || document.documentElement.scrollTop) > 70);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
