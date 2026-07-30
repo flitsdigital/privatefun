@@ -144,7 +144,6 @@
     }
     enableFilters();
     document.addEventListener('DOMContentLoaded', enableFilters);
-    // facets.js re-rendert de sectie bij elke filterklik -> opnieuw inschakelen
     document.addEventListener('collection:update', function () { setTimeout(enableFilters, 30); });
     var box = document.querySelector('.facets-block-wrapper--vertical') || document.querySelector('.facets');
     if (box && typeof MutationObserver !== 'undefined') {
