@@ -8,7 +8,7 @@
   {{ section.settings.font_body | font_face: font_display: 'swap' }}
 
   /* ponytail: sticky op de group-wrapper — sticky op de sectie zelf blijft binnen de parent hangen */
-  #header-group { position: sticky; top: 0; z-index: 50; }
+  #header-group { position: static; z-index: 50; }
   #shopify-section-{{ uid }} { position: relative; z-index: 50; }
   .page-wrapper, html, body { overflow-anchor: none; }
 
@@ -149,26 +149,27 @@
   .mm-{{ uid }}__search-btn svg { width: 20px; height: 20px; }
 
   /* ---------- TIER 3: menubalk ---------- */
-  .mm-{{ uid }}__navbar { border-top: 1px solid var(--mm-hair); }
+  .mm-{{ uid }}__navbar { position: relative; z-index: 60; background: var(--mm-bg); border-top: 1px solid var(--mm-hair); }
   .mm-{{ uid }}__nav-inner { max-width: var(--mm-max); margin: 0 auto; padding: 0 20px; }
   .mm-{{ uid }}__navbar .mm-{{ uid }}__nav { padding: 5px 0; }
 
-  /* ---------- collapse bij scrollen (desktop): scroll-richting-gestuurd, soepele grid-animatie ---------- */
+  /* ---------- header scrollt volledig weg; menubalk zweeft daarna vast in met fade ---------- */
+  .mm-{{ uid }}__navbar-spacer { display: none; }
   @media (min-width: 901px) {
-    .mm-{{ uid }}__top-wrap {
-      display: grid;
-      grid-template-rows: 1fr;
-      transition: grid-template-rows .42s cubic-bezier(.4, 0, .2, 1);
-      will-change: grid-template-rows;
+    [data-mega-root][data-nav-floating="true"] .mm-{{ uid }}__navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 60;
+      animation: mm-fadein-{{ uid }} .34s cubic-bezier(.4, 0, .2, 1) both;
     }
-    .mm-{{ uid }}__top {
-      overflow: hidden;
-      min-height: 0;
-      transition: opacity .3s ease;
+    [data-mega-root][data-nav-floating="true"] .mm-{{ uid }}__navbar-spacer { display: block; }
+    @keyframes mm-fadein-{{ uid }} {
+      from { opacity: 0; transform: translateY(-100%); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    /* omlaag scrollen (voorbij drempel) -> bovenbalk + logo/zoekbalk vouwen weg, alleen menubalk blijft */
-    [data-mega-root][data-nav-collapsed="true"] .mm-{{ uid }}__top-wrap { grid-template-rows: 0fr; }
-    [data-mega-root][data-nav-collapsed="true"] .mm-{{ uid }}__top { opacity: 0; pointer-events: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-mega-root][data-nav-floating="true"] .mm-{{ uid }}__navbar { animation: none; }
   }
 
   /* ---------- mega panel ---------- */
@@ -340,7 +341,7 @@
 
 <div class="mm-{{ uid }}" data-mega-root>
 
-  <div class="mm-{{ uid }}__top-wrap"><div class="mm-{{ uid }}__top">
+  <div class="mm-{{ uid }}__top-wrap"><div class="mm-{{ uid }}__top" data-top>
   {%- comment -%} TIER 1 — bovenbalk {%- endcomment -%}
   <div class="mm-{{ uid }}__utility">
     <div class="mm-{{ uid }}__utility-inner">
@@ -396,7 +397,7 @@
   </div></div>
 
   {%- comment -%} TIER 3 — menubalk {%- endcomment -%}
-  <div class="mm-{{ uid }}__navbar">
+  <div class="mm-{{ uid }}__navbar" data-navbar>
     <div class="mm-{{ uid }}__nav-inner">
       <nav class="mm-{{ uid }}__nav" data-mega-nav aria-label="Hoofdmenu">
         <li class="mm-{{ uid }}__drawer-head">
@@ -500,6 +501,7 @@
       </nav>
     </div>
   </div>
+  <div class="mm-{{ uid }}__navbar-spacer" data-navbar-spacer></div>
 
   <div class="mm-{{ uid }}__overlay" data-mega-overlay hidden></div>
 </div>
@@ -541,21 +543,38 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
 
-    // Menubalk-collapse: POSITIE-gebaseerd met hysterese -> geen heen-en-weer geflikker.
+    // Header scrollt volledig weg; zodra 'ie uit beeld is, zweeft de menubalk vast in met fade.
     (function () {
-      var ticking = false, collapsed = false;
-      var COLLAPSE_AT = 150, EXPAND_AT = 50; // brede hysterese-band voorkomt flikkeren rond de drempel
+      var ticking = false, floating = false;
+      var navbar = root.querySelector('[data-navbar]');
+      var topEl = root.querySelector('[data-top]');
+      var spacer = root.querySelector('[data-navbar-spacer]');
       var raf = window.requestAnimationFrame || function (f) { return setTimeout(f, 16); };
-      root.setAttribute('data-nav-collapsed', 'false');
+      var FLOAT_AT = 320, UNFLOAT_AT = 200, navH = 60;
+      function measure() {
+        if (navbar && !floating) { navH = navbar.offsetHeight || navH; }
+        var topH = topEl ? (topEl.offsetHeight || 0) : 0;
+        if (topH) { FLOAT_AT = topH + navH; UNFLOAT_AT = topH; }
+      }
       function apply() {
         var now = Math.max(getScroll(), 0);
-        if (!collapsed && now > COLLAPSE_AT) { collapsed = true; root.setAttribute('data-nav-collapsed', 'true'); }
-        else if (collapsed && now < EXPAND_AT) { collapsed = false; root.setAttribute('data-nav-collapsed', 'false'); }
+        if (!floating && now > FLOAT_AT) {
+          floating = true;
+          if (spacer) spacer.style.height = navH + 'px';
+          root.setAttribute('data-nav-floating', 'true');
+        } else if (floating && now < UNFLOAT_AT) {
+          floating = false;
+          root.setAttribute('data-nav-floating', 'false');
+          if (spacer) spacer.style.height = '';
+        }
         ticking = false;
       }
       function onDir() { if (!ticking) { ticking = true; raf(apply); } }
+      root.setAttribute('data-nav-floating', 'false');
+      measure();
       window.addEventListener('scroll', onDir, { passive: true });
       if (scroller) scroller.addEventListener('scroll', onDir, { passive: true });
+      window.addEventListener('resize', function () { measure(); apply(); }, { passive: true });
       apply();
     })();
 
