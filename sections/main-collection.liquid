@@ -56,13 +56,6 @@
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
-    <div style="max-width: 1240px; margin: 0 auto; padding: 0 24px 6px; width: 100%; box-sizing: border-box;">
-      <a class="collection-back" href="/collections/all" style="display: inline-flex; align-items: center; gap: 6px; color: #1a1a1a; text-decoration: none; font-size: 13px; letter-spacing: .02em; opacity: .75;">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" style="flex: none;"><path d="M15 6l-6 6 6 6"/></svg>
-        Terug naar overzicht
-      </a>
-    </div>
-
     <nav class="collection-breadcrumbs" aria-label="Kruimelpad" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 20px; font-size: 13px; letter-spacing: .02em; color: rgb(var(--color-foreground-rgb) / .6);">
       <a href="{{ routes.root_url }}" style="color: inherit; text-decoration: none;">Home</a>
       <span style="opacity: .5; margin: 0 7px;">/</span>
@@ -116,6 +109,41 @@
     </div>
   </results-list>
 </collection-component>
+
+<style>
+  .col-back { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; margin-right: 16px; color: #1a1a1a; text-decoration: none; transition: color .15s ease, transform .15s ease; }
+  .col-back:hover { color: #CE9D27; transform: translateX(-3px); }
+  .col-back svg { width: 30px; height: 30px; }
+  @media (max-width: 749px) { .col-back svg { width: 24px; height: 24px; } .col-back { margin-right: 10px; } }
+</style>
+<script>
+  (function () {
+    var title = {{ collection.title | json }};
+    function place() {
+      var hs = document.querySelectorAll('#MainContent h1');
+      for (var i = 0; i < hs.length; i++) {
+        var h = hs[i];
+        if (h.querySelector('.col-back')) return true;
+        if ((h.textContent || '').trim() === title) {
+          var a = document.createElement('a');
+          a.className = 'col-back'; a.href = '#';
+          a.setAttribute('aria-label', 'Terug naar vorige pagina');
+          a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 6l-6 6 6 6"/></svg>';
+          a.addEventListener('click', function (e) { e.preventDefault(); if (history.length > 1) history.back(); else window.location.href = '/collections/all'; });
+          h.insertBefore(a, h.firstChild);
+          return true;
+        }
+      }
+      return false;
+    }
+    if (!place()) {
+      document.addEventListener('DOMContentLoaded', place);
+      var mo = new MutationObserver(function () { if (place()) mo.disconnect(); });
+      try { mo.observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
+      setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 6000);
+    }
+  })();
+</script>
 
 {% schema %}
 {

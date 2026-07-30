@@ -140,6 +140,8 @@
   }
   .mm-{{ uid }}__search-input::placeholder { color: #8a8a8a; }
   .mm-{{ uid }}__search-input:focus { outline: none; border-color: var(--mm-gold); }
+  #shopify-section-{{ uid }} .mm-{{ uid }}__search-input { background: #141414 !important; color: #f2efe9 !important; }
+  #shopify-section-{{ uid }} .mm-{{ uid }}__search-input::placeholder { color: #9a958c !important; }
   .mm-{{ uid }}__search-btn {
     flex: none; width: 52px; border: 0; border-radius: 0 4px 4px 0; cursor: pointer;
     background: #ece9e2; color: #1a1a1a; display: inline-flex; align-items: center; justify-content: center;
@@ -554,7 +556,7 @@
       function measure() {
         if (navbar && !floating) { navH = navbar.offsetHeight || navH; }
         var topH = topEl ? (topEl.offsetHeight || 0) : 0;
-        if (topH) { FLOAT_AT = topH + navH; UNFLOAT_AT = topH; }
+        if (topH) { FLOAT_AT = topH + navH + 150; UNFLOAT_AT = topH + 40; }
       }
       function apply() {
         var now = Math.max(getScroll(), 0);
