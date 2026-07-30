@@ -22,20 +22,6 @@
   }
 {% endjavascript %}
 
-{% javascript %}
-  // Standaard 'Op voorraad' aangevinkt op collectiepagina's (verbergt uitverkocht)
-  (function () {
-    try {
-      if (window.Shopify && window.Shopify.designMode) return;
-      if (/\/collections\/[^/]+/.test(window.location.pathname) && !/filter\./.test(window.location.search)) {
-        var s = window.location.search;
-        var sep = s ? '&' : '?';
-        window.location.replace(window.location.pathname + s + sep + 'filter.v.availability=1');
-      }
-    } catch (e) {}
-  })();
-{% endjavascript %}
-
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 {% liquid
   if section.settings.background_color != blank
