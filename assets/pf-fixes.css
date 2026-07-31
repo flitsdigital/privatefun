@@ -32,20 +32,12 @@
 
 /* ---------- Filter-vinkjes in huisstijl ----------
    Het echte invoervakje stond zichtbaar bovenop de svg van het thema (twee vakjes over
-   elkaar). We maken het invoervakje onzichtbaar maar klikbaar, en sturen de vakjes via
-   de themavariabelen: wit met dunne rand, goud met wit vinkje zodra het aan staat. */
+   elkaar). Het invoervakje is nu onzichtbaar maar klikbaar; de svg is het vakje:
+   wit met dunne rand, goud met wit vinkje zodra het aan staat. */
 #MainContent .facets .checkbox {
   --checkbox-size: 18px;
   --checkbox-border-radius: 4px;
   --checkbox-border: 1.5px solid rgb(26 26 26 / 0.3);
-  --color-background: #ffffff;
-  --color-background-rgb: 255 255 255;
-  --color-foreground: #ce9d27;
-  --color-foreground-rgb: 206 157 39;
-}
-
-#MainContent .facets .checkbox:hover {
-  --checkbox-border: 1.5px solid #ce9d27;
 }
 
 #MainContent .facets .checkbox input.checkbox__input {
@@ -57,10 +49,23 @@
 }
 
 #MainContent .facets .checkbox .icon-checkmark {
+  border-color: rgb(26 26 26 / 0.3) !important;
+  background-color: #ffffff !important;
   transition: background-color 0.16s ease, border-color 0.16s ease;
 }
 
+#MainContent .facets .checkbox:hover .icon-checkmark {
+  border-color: #ce9d27 !important;
+}
+
+#MainContent .facets .checkbox .checkbox__input:checked + .checkbox__label .icon-checkmark,
+#MainContent .facets .checkbox:hover .checkbox__input:checked + .checkbox__label .icon-checkmark {
+  border-color: #ce9d27 !important;
+  background-color: #ce9d27 !important;
+}
+
 #MainContent .facets .checkbox .icon-checkmark path {
+  stroke: #ffffff !important;
   stroke-width: 2.2;
 }
 
