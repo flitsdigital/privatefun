@@ -156,6 +156,16 @@
       input.style.setProperty('background', 'transparent', 'important');
       mark.style.setProperty('display', 'none', 'important');
 
+      // Na een filterklik bleef er een kadertje om elke titel hangen; die randen
+      // halen we hier weg. De focusring zetten we op ons eigen vakje.
+      [box.querySelector('.checkbox__label'), box.querySelector('.checkbox__label-text')].forEach(function (el) {
+        if (!el) return;
+        el.style.setProperty('outline', 'none', 'important');
+        el.style.setProperty('border', '0', 'important');
+        el.style.setProperty('box-shadow', 'none', 'important');
+        el.style.setProperty('background', 'transparent', 'important');
+      });
+
       var custom = box.querySelector('.pf-cb');
       if (!custom) {
         custom = document.createElement('span');
@@ -183,6 +193,17 @@
 
       if (!box.dataset.pfCb) {
         box.dataset.pfCb = '1';
+        // Toetsenbordgebruikers houden een duidelijke ring, maar dan om ons eigen vakje.
+        input.addEventListener('focus', function () {
+          if (input.matches(':focus-visible')) {
+            custom.style.setProperty('outline', '2px solid #ce9d27', 'important');
+            custom.style.setProperty('outline-offset', '2px', 'important');
+          }
+        });
+        input.addEventListener('blur', function () {
+          custom.style.removeProperty('outline');
+          custom.style.removeProperty('outline-offset');
+        });
         box.addEventListener('mouseenter', function () {
           if (!input.checked) {
             custom.style.setProperty('box-shadow', 'inset 0 0 0 1.5px #ce9d27', 'important');
