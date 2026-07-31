@@ -1,5 +1,5 @@
-/* Privatefun — collectiepagina: OF-logica voor tagfilters + "naar volgende pagina"-knop.
-   Staat apart van main-collection.liquid zodat het los naar het thema kan. */
+/* Privatefun — collectiepagina: OF-logica voor tagfilters, "naar volgende pagina"-knop
+   en de opmaak van de filter-vinkjes. */
 (function () {
   'use strict';
 
@@ -143,9 +143,13 @@
     nav.parentNode.insertBefore(box, nav);
   }
 
+<<<<<<< HEAD
   /* ---------- 3. Filter-vinkjes in huisstijl ----------
      Het thema zet de rand van het vakje met een regel die via CSS niet te overrulen is,
      dus zetten we het vakje hier rechtstreeks (inline, important). */
+=======
+  /* ---------- 3. Filter-vinkjes in huisstijl ---------- */
+>>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
   function styleCheckboxes() {
     document.querySelectorAll('.facets .checkbox').forEach(function (box) {
       var input = box.querySelector('.checkbox__input');
