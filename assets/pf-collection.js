@@ -144,11 +144,7 @@
 
   /* ---------- 3. Filter-vinkjes in huisstijl ----------
      Het thema zet de rand van het vakje met een regel die via CSS niet te overrulen is,
-<<<<<<< HEAD
-     dus zetten we het vakje hier rechtstreeks (inline, important). */
-=======
      dus zetten we ons eigen vakje ernaast. */
->>>>>>> 6cb6cd257b269c18f20d4a8707c684a071b79669
   function styleCheckboxes() {
     document.querySelectorAll('.facets .checkbox').forEach(function (box) {
       var input = box.querySelector('.checkbox__input');
@@ -202,7 +198,61 @@
     });
   }
 
+  /* ---------- 4. Blijf staan waar je stond bij het aanklikken van een filter ----------
+     Bij een filterklik vervangt het thema de sectie-DOM en verspringt de pagina naar
+     beneden. We onthouden de scrollpositie en zetten die ruim een seconde lang terug,
+     tenzij de bezoeker zelf gaat scrollen. */
+  var scrollGuardTimer = null;
+
+  function scrollContainer() {
+    if (window.matchMedia('(min-width: 990px)').matches) {
+      return document.querySelector('.page-wrapper') || document.scrollingElement || document.documentElement;
+    }
+    return document.scrollingElement || document.documentElement;
+  }
+
+  function stopScrollGuard() {
+    if (scrollGuardTimer) {
+      clearInterval(scrollGuardTimer);
+      scrollGuardTimer = null;
+    }
+  }
+
+  function initScrollGuard() {
+    if (window.__pfScrollGuard) return;
+    window.__pfScrollGuard = true;
+
+    ['wheel', 'touchstart', 'keydown'].forEach(function (name) {
+      window.addEventListener(name, stopScrollGuard, { passive: true, capture: true });
+    });
+
+    document.addEventListener(
+      'click',
+      function (event) {
+        var target = event.target;
+        if (!target || !target.closest) return;
+        if (!target.closest('.facets, .facets-block-wrapper')) return;
+        // Echte links (bv. "wis alle filters") gewoon hun gang laten gaan.
+        if (target.closest('a[href]')) return;
+
+        var top = scrollContainer().scrollTop;
+        stopScrollGuard();
+
+        var ticks = 0;
+        scrollGuardTimer = setInterval(function () {
+          var el = scrollContainer();
+          if (Math.abs(el.scrollTop - top) > 2) {
+            el.scrollTo({ top: top, behavior: 'instant' });
+          }
+          if (++ticks > 24) stopScrollGuard();
+        }, 50);
+      },
+      true
+    );
+  }
+
   function run() {
+    initScrollGuard();
     styleCheckboxes();
     if (!results()) return;
     mergeFilters();
