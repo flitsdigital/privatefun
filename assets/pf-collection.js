@@ -1,5 +1,5 @@
-/* Privatefun — collectiepagina: OF-logica voor tagfilters + "naar volgende pagina"-knop.
-   Staat apart van main-collection.liquid zodat het los naar het thema kan. */
+/* Privatefun — collectiepagina: OF-logica voor tagfilters, "naar volgende pagina"-knop
+   en de opmaak van de filter-vinkjes. */
 (function () {
   'use strict';
 
@@ -143,7 +143,48 @@
     nav.parentNode.insertBefore(box, nav);
   }
 
+  /* ---------- 3. Filter-vinkjes in huisstijl ----------
+     Het thema zet de rand van het vakje met een regel die via CSS niet te overrulen is,
+     dus zetten we het vakje hier rechtstreeks (inline, important). */
+  function styleCheckboxes() {
+    document.querySelectorAll('.facets .checkbox').forEach(function (box) {
+      var input = box.querySelector('.checkbox__input');
+      var mark = box.querySelector('svg.icon-checkmark');
+      if (!input || !mark) return;
+
+      input.style.setProperty('opacity', '0', 'important');
+      input.style.setProperty('border', '0', 'important');
+      input.style.setProperty('background', 'transparent', 'important');
+
+      var on = input.checked;
+      mark.style.setProperty('width', '18px', 'important');
+      mark.style.setProperty('height', '18px', 'important');
+      mark.style.setProperty('border-radius', '4px', 'important');
+      mark.style.setProperty('border', '1.5px solid ' + (on ? '#ce9d27' : 'rgba(26,26,26,0.3)'), 'important');
+      mark.style.setProperty('background-color', on ? '#ce9d27' : '#ffffff', 'important');
+      mark.style.setProperty('transition', 'background-color .16s ease, border-color .16s ease', 'important');
+
+      var path = mark.querySelector('path');
+      if (path) {
+        path.style.setProperty('stroke', '#ffffff', 'important');
+        path.style.setProperty('opacity', on ? '1' : '0', 'important');
+      }
+
+      if (!box.dataset.pfCb) {
+        box.dataset.pfCb = '1';
+        box.addEventListener('mouseenter', function () {
+          if (!input.checked) mark.style.setProperty('border-color', '#ce9d27', 'important');
+        });
+        box.addEventListener('mouseleave', function () {
+          if (!input.checked) mark.style.setProperty('border-color', 'rgba(26,26,26,0.3)', 'important');
+        });
+        input.addEventListener('change', function () { styleCheckboxes(); });
+      }
+    });
+  }
+
   function run() {
+    styleCheckboxes();
     if (!results()) return;
     mergeFilters();
     addNextPageButton();
