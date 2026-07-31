@@ -110,13 +110,6 @@ details[class*='__item'] > div[class*='__answer'] {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
-details[class*='__item'] > div[class*='__answer'] > * {
-  transition: opacity 0.22s ease;
-}
-
-=======
->>>>>>> 6cb6cd257b269c18f20d4a8707c684a071b79669
 /* ---------- "Naar volgende pagina" onder het grid ---------- */
 .pf-next-page {
   display: flex;
