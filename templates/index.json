@@ -204,11 +204,7 @@
         "heading": "Alles voor een intiemer moment.",
         "emphasis": "intiemer",
         "subtext": "<p>Zorgvuldig geselecteerd. Neutraal verpakt. Niemand hoeft het te weten.</p>",
-<<<<<<< HEAD
-        "cta_label": "Ontdek de collectie",
-=======
         "cta_label": "ontdek alle categorieën",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "cta_link": "/collections/all",
         "link_label": "Bestsellers",
         "link_url": "#bestsellers",
@@ -219,22 +215,14 @@
         "g_count": "184 reviews",
         "g_url": "",
         "image": "shopify://shop_images/AdobeStock_480916530.jpg",
-<<<<<<< HEAD
-        "overlay_opacity": 62,
-=======
         "overlay_opacity": 50,
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "height": 540,
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "heading_size": 56,
         "sub_size": 17,
         "color_bg": "#241a0e",
-<<<<<<< HEAD
-        "color_accent": "#CE9D27",
-=======
         "color_accent": "#ce9d27",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#ffffff",
         "color_cta_text": "#0b0b0b"
       }
@@ -275,13 +263,8 @@
       ],
       "name": "USP-balk",
       "settings": {
-<<<<<<< HEAD
-        "color_bg": "#0b0b0b",
-        "color_accent": "#CE9D27",
-=======
         "color_bg": "{{ settings.color_palette.background }}",
         "color_accent": "#ce9d27",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#a49f97",
         "padding_y": 18
       }
@@ -335,11 +318,7 @@
         "title_size": 34,
         "card_size": 26,
         "color_bg": "#0b0b0b",
-<<<<<<< HEAD
-        "color_accent": "#CE9D27",
-=======
         "color_accent": "#ce9d27",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -364,11 +343,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-<<<<<<< HEAD
-        "color_accent": "#CE9D27",
-=======
         "color_accent": "#ce9d27",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -413,13 +388,8 @@
         "font_display": "playfair_display_n4",
         "font_body": "assistant_n4",
         "title_size": 32,
-<<<<<<< HEAD
-        "color_bg": "#1a1308",
-        "color_accent": "#CE9D27",
-=======
         "color_bg": "#15120a",
         "color_accent": "#ce9d27",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -469,11 +439,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-<<<<<<< HEAD
-        "color_accent": "#CE9D27",
-=======
         "color_accent": "#ce9d27",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -526,11 +492,7 @@
         "font_body": "assistant_n4",
         "title_size": 34,
         "color_bg": "#0b0b0b",
-<<<<<<< HEAD
-        "color_accent": "#CE9D27",
-=======
         "color_accent": "{{ settings.color_palette.color1 }}",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "color_text": "#e6e3dd"
       }
     },
@@ -586,13 +548,8 @@
       ],
       "name": "Reviews",
       "settings": {
-<<<<<<< HEAD
-        "eyebrow": "Wat klanten zeggen",
-        "title": "Zonder omhaal",
-=======
         "eyebrow": "Ervaringen",
         "title": "Wat klanten zeggen",
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
         "tp_score": "4,7",
         "tp_count": "312 reviews",
         "tp_url": "",
@@ -609,116 +566,6 @@
         "title_size": 34,
         "quote_size": 17,
         "color_bg": "#0b0b0b",
-<<<<<<< HEAD
-        "color_accent": "#CE9D27",
-        "color_text": "#e6e3dd"
-      }
-    },
-    "faq_home_hp": {
-  "type": "faq-home",
-  "blocks": {
-    "topic_1": {
-      "type": "topic",
-      "settings": {
-        "title": "Verzenden",
-        "icon": "truck",
-        "button_label": "Bekijk alle vragen",
-        "button_url": "/pages/faq-verzenden",
-        "q1": "Hoe discreet wordt mijn bestelling verzonden?",
-        "a1": "<p>Volledig discreet. Je bestelling komt in een effen, stevige doos zonder logo, tekst of afbeelding. Ook op het verzendlabel staat niets dat naar de inhoud of naar onze winkel verwijst.</p>",
-        "q2": "Wanneer heb ik mijn pakket in huis?",
-        "a2": "<p>Bestel je op werkdagen vóór 22:00 uur, dan ligt je pakket de volgende dag op de mat (Nederland). Levering naar België duurt doorgaans 1 tot 2 werkdagen.</p>",
-        "q3": "Kan ik mijn pakket volgen?",
-        "a3": "<p>Ja. Zodra je bestelling is verzonden ontvang je per e-mail een track &amp; trace-code waarmee je de bezorging op de voet volgt.</p>",
-        "q4": "Kan ik mijn pakket ergens anders laten bezorgen?",
-        "a4": "<p>Zeker. Kies bij het afrekenen een afhaalpunt bij jou in de buurt, of een ander bezorgadres. Handig als je overdag niet thuis bent.</p>",
-        "q5": "Verzenden jullie ook naar België?",
-        "a5": "<p>Ja, met exact dezelfde discrete verpakking en zorg als binnen Nederland. De verzendkosten en levertijd zie je duidelijk bij het afrekenen.</p>"
-      }
-    },
-    "topic_2": {
-      "type": "topic",
-      "settings": {
-        "title": "Toys",
-        "icon": "sparkle",
-        "button_label": "Bekijk alle vragen",
-        "button_url": "/pages/faq-toys",
-        "q1": "Zijn de materialen lichaamsveilig?",
-        "a1": "<p>Wij selecteren producten van body-safe materialen zoals medisch siliconen en ABS-kunststof, vrij van ftalaten. Per product vind je de materiaalinformatie terug bij de details.</p>",
-        "q2": "Hoe maak ik mijn toy schoon?",
-        "a2": "<p>Reinig je toy voor en na gebruik met lauw water en een milde toycleaner. Laat 'm goed drogen en bewaar hem op een schone, droge plek — het liefst apart in een zakje of doosje.</p>",
-        "q3": "Welk glijmiddel kan ik het beste gebruiken?",
-        "a3": "<p>Glijmiddel op waterbasis is altijd veilig en werkt met elk materiaal. Gebruik siliconen glijmiddel nooit op siliconen toys: dat kan het oppervlak aantasten.</p>",
-        "q4": "Zijn de toys oplaadbaar?",
-        "a4": "<p>De meeste toys laad je eenvoudig op via USB, andere werken op batterijen. Of een product oplaadbaar is, staat altijd vermeld bij de productgegevens.</p>",
-        "q5": "Hoe stil zijn de toys?",
-        "a5": "<p>Discretie telt ook in geluid. Veel van onze modellen zijn fluisterstil; let op de omschrijving voor een indicatie van het geluidsniveau.</p>"
-      }
-    },
-    "topic_3": {
-      "type": "topic",
-      "settings": {
-        "title": "Betalen",
-        "icon": "card",
-        "button_label": "Bekijk alle vragen",
-        "button_url": "/pages/faq-betalen",
-        "q1": "Welke betaalmethoden kan ik gebruiken?",
-        "a1": "<p>Je betaalt veilig met iDEAL, creditcard, Bancontact, PayPal en met Klarna (achteraf betalen). De beschikbare opties zie je bij het afrekenen.</p>",
-        "q2": "Kan ik achteraf betalen?",
-        "a2": "<p>Ja. Met Klarna betaal je pas nadat je bestelling binnen is, zodat je alles eerst rustig kunt bekijken.</p>",
-        "q3": "Wat staat er op mijn bankafschrift?",
-        "a3": "<p>Een neutrale omschrijving — niet onze winkelnaam. Niemand die je afschrift onder ogen krijgt kan zien waar je hebt besteld.</p>",
-        "q4": "Is betalen bij jullie veilig?",
-        "a4": "<p>Absoluut. Alle betalingen lopen over een versleutelde verbinding via gecertificeerde, PCI-compliant betaalpartners. Je gegevens blijven van jou.</p>",
-        "q5": "Krijg ik een factuur?",
-        "a5": "<p>Ja, je ontvangt een digitale factuur per e-mail. Netjes en discreet, zonder productafbeeldingen.</p>"
-      }
-    },
-    "topic_4": {
-      "type": "topic",
-      "settings": {
-        "title": "Retourneren",
-        "icon": "return",
-        "button_label": "Bekijk alle vragen",
-        "button_url": "/pages/faq-retourneren",
-        "q1": "Kan ik mijn bestelling retourneren?",
-        "a1": "<p>Je hebt 14 dagen bedenktijd. Ongeopende artikelen in de originele, verzegelde verpakking kun je binnen die termijn aan ons retourneren.</p>",
-        "q2": "Welke producten kan ik niet retourneren?",
-        "a2": "<p>Om hygiënische redenen kunnen geopende toys, lingerie en intieme artikelen niet retour. Twijfel je over een keuze? Stel ons gerust eerst je vraag.</p>",
-        "q3": "Hoe start ik een retour?",
-        "a3": "<p>Meld je retour aan via je account of stuur een e-mail naar onze klantenservice. Je krijgt van ons duidelijke instructies voor het terugsturen.</p>",
-        "q4": "Wanneer krijg ik mijn geld terug?",
-        "a4": "<p>Zodra we je retour hebben ontvangen en gecontroleerd, storten we het bedrag binnen 14 dagen terug op je rekening.</p>",
-        "q5": "Zijn er kosten verbonden aan een retour?",
-        "a5": "<p>De kosten van de retourzending zijn voor eigen rekening, tenzij een product defect of verkeerd geleverd is. In dat geval lossen we het uiteraard kosteloos voor je op.</p>"
-      }
-    }
-  },
-  "block_order": [
-    "topic_1",
-    "topic_2",
-    "topic_3",
-    "topic_4"
-  ],
-  "name": "FAQ — homepage",
-  "settings": {
-    "eyebrow": "Veelgestelde vragen",
-    "title": "Alles wat je wilt weten",
-    "emphasis": "wilt weten",
-    "sub": "<p>Per onderwerp de vragen die we het vaakst krijgen. Staat je vraag er niet bij? We helpen je graag verder.</p>",
-    "grid_gap": 20,
-    "padding_y": 92,
-    "title_size": 38,
-    "font_display": "playfair_display_n4",
-    "font_body": "assistant_n4",
-    "color_bg": "#0b0b0b",
-    "color_card": "#141414",
-    "color_accent": "#CE9D27",
-    "color_text": "#e6e3dd"
-  }
-}
-  },
-=======
         "color_accent": "#ce9d27",
         "color_text": "#e6e3dd"
       }
@@ -788,7 +635,6 @@
       }
     }
   },
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
   "order": [
     "media_with_content_HP7Qpp",
     "hero_section_FWipt7",
@@ -799,10 +645,6 @@
     "product_split_yNHD6h",
     "discretion_aeg7pt",
     "reviews_irNAGL",
-<<<<<<< HEAD
-    "faq_home_hp"
-=======
     "faq_hp"
->>>>>>> c4fdef178ca949f4cc9c830735a6442f52c4ec01
   ]
 }
