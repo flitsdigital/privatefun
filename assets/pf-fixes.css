@@ -1,7 +1,7 @@
 /* Privatefun — losse correcties bovenop het thema.
    Staat apart van theme-styles-variables.liquid zodat het los naar het thema kan. */
 
-/* Filterkolom: sticky, maar scrollt intern mee als de lijst langer is dan het scherm */
+/* ---------- Filterkolom: sticky, scrollt intern mee als de lijst langer is dan het scherm ---------- */
 @media screen and (min-width: 990px) {
   .facets-block-wrapper--vertical {
     position: sticky;
@@ -30,15 +30,108 @@
   }
 }
 
-/* Producttitels in het grid: zwart */
-#MainContent product-card [class*='title'],
-#MainContent product-card [class*='title'] a,
-#MainContent .product-grid__item .product-card__link,
-#MainContent .product-grid__item a {
+/* ---------- Filter-vinkjes in huisstijl ----------
+   Het echte invoervakje stond zichtbaar bovenop de svg van het thema (twee vakjes over
+   elkaar). We maken het invoervakje onzichtbaar maar klikbaar, en stylen de svg als
+   één net vakje: wit met dunne rand, goud met wit vinkje zodra het aan staat. */
+#MainContent .facets .checkbox .checkbox__input,
+#MainContent .facets .checkbox .checkbox__input:checked,
+#MainContent .facets .checkbox .checkbox__input:hover {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+#MainContent .facets .checkbox .icon-checkmark {
+  width: 18px !important;
+  height: 18px !important;
+  flex: none;
+  border: 1.5px solid rgb(26 26 26 / 0.28) !important;
+  border-radius: 4px;
+  background: #ffffff !important;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+#MainContent .facets .checkbox:hover .icon-checkmark {
+  border-color: #ce9d27 !important;
+}
+
+#MainContent .facets .checkbox .icon-checkmark path {
+  stroke: transparent !important;
+  stroke-width: 2.2 !important;
+}
+
+#MainContent .facets .checkbox .checkbox__input:checked + .checkbox__label .icon-checkmark {
+  background: #ce9d27 !important;
+  border-color: #ce9d27 !important;
+}
+
+#MainContent .facets .checkbox .checkbox__input:checked + .checkbox__label .icon-checkmark path {
+  stroke: #ffffff !important;
+}
+
+#MainContent .facets .checkbox .checkbox__input:focus-visible + .checkbox__label .icon-checkmark {
+  outline: 2px solid #ce9d27;
+  outline-offset: 2px;
+}
+
+#MainContent .facets .checkbox__label {
+  gap: 10px;
+}
+
+#MainContent .facets .checkbox__label-text {
+  color: #1a1a1a !important;
+}
+
+/* ---------- Producttitels zwart op de lichte pagina's ----------
+   Alleen waar de achtergrond wit is; de homepage is donker en houdt zijn lichte tekst. */
+#MainContent:is([data-template^='collection'], [data-template^='search'], [data-template^='product'])
+  :is(product-card, .product-card)
+  :is(a.contents, a[ref='productTitleLink'], [class*='title']) {
   color: #000000 !important;
 }
 
-/* "Naar volgende pagina" onder het grid */
+#MainContent:is([data-template^='collection'], [data-template^='search'], [data-template^='product'])
+  :is(product-card, .product-card)
+  :is(a.contents, a[ref='productTitleLink'], [class*='title']) * {
+  color: inherit !important;
+}
+
+#MainContent:is([data-template^='collection'], [data-template^='search'])
+  .product-grid__item
+  a[href*='/products/'] {
+  color: #000000 !important;
+}
+
+/* ---------- Productfoto's altijd volledig in beeld, nooit bijgesneden ---------- */
+#MainContent :is(.product-media, .product-media-container, .card-gallery) :is(img, video) {
+  object-fit: contain !important;
+  background: #ffffff;
+}
+
+/* ---------- Favorietenpagina (witte achtergrond, zoals de productpagina's) ---------- */
+#MainContent[data-template*='favorieten'] .wl-card__media {
+  border: 1px solid rgb(26 26 26 / 0.08);
+}
+
+#MainContent[data-template*='favorieten'] .wl-card__price {
+  color: #1a1a1a !important;
+}
+
+/* ---------- "Contact" in de menubalk alleen als die zwevend meescrollt ----------
+   Bovenaan de pagina staat Contact al in de bovenste balk, dus daar is het dubbel. */
+@media screen and (min-width: 901px) {
+  [data-mega-nav] > li:has(> a[href*='/pages/contact']) {
+    display: none;
+  }
+
+  [data-mega-root][data-nav-floating='true'] [data-mega-nav] > li:has(> a[href*='/pages/contact']) {
+    display: block;
+  }
+}
+
+/* ---------- "Naar volgende pagina" onder het grid ---------- */
 .pf-next-page {
   display: flex;
   flex-direction: column;
