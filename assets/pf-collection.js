@@ -84,7 +84,6 @@
           items.forEach(function (item) { grid.appendChild(document.importNode(item, true)); });
           var empty = root.querySelector('.main-collection-grid__empty');
           if (empty) empty.remove();
-          // De samengevoegde lijst is compleet; paginering hoort er niet bij.
           root.querySelectorAll('.pagination, .pf-next-page').forEach(function (el) {
             el.style.display = 'none';
           });
@@ -156,6 +155,16 @@
       input.style.setProperty('background', 'transparent', 'important');
       mark.style.setProperty('display', 'none', 'important');
 
+      // Na een filterklik bleef er een kadertje om elke titel hangen; die randen
+      // halen we hier weg. De focusring zetten we op ons eigen vakje.
+      [box.querySelector('.checkbox__label'), box.querySelector('.checkbox__label-text')].forEach(function (el) {
+        if (!el) return;
+        el.style.setProperty('outline', 'none', 'important');
+        el.style.setProperty('border', '0', 'important');
+        el.style.setProperty('box-shadow', 'none', 'important');
+        el.style.setProperty('background', 'transparent', 'important');
+      });
+
       var custom = box.querySelector('.pf-cb');
       if (!custom) {
         custom = document.createElement('span');
@@ -183,6 +192,17 @@
 
       if (!box.dataset.pfCb) {
         box.dataset.pfCb = '1';
+        // Toetsenbordgebruikers houden een duidelijke ring, maar dan om ons eigen vakje.
+        input.addEventListener('focus', function () {
+          if (input.matches(':focus-visible')) {
+            custom.style.setProperty('outline', '2px solid #ce9d27', 'important');
+            custom.style.setProperty('outline-offset', '2px', 'important');
+          }
+        });
+        input.addEventListener('blur', function () {
+          custom.style.removeProperty('outline');
+          custom.style.removeProperty('outline-offset');
+        });
         box.addEventListener('mouseenter', function () {
           if (!input.checked) {
             custom.style.setProperty('box-shadow', 'inset 0 0 0 1.5px #ce9d27', 'important');
@@ -198,10 +218,7 @@
     });
   }
 
-  /* ---------- 4. Blijf staan waar je stond bij het aanklikken van een filter ----------
-     Bij een filterklik vervangt het thema de sectie-DOM en verspringt de pagina naar
-     beneden. We onthouden de scrollpositie en zetten die ruim een seconde lang terug,
-     tenzij de bezoeker zelf gaat scrollen. */
+  /* ---------- 4. Blijf staan waar je stond bij het aanklikken van een filter ---------- */
   var scrollGuardTimer = null;
 
   function scrollContainer() {
@@ -232,7 +249,6 @@
         var target = event.target;
         if (!target || !target.closest) return;
         if (!target.closest('.facets, .facets-block-wrapper')) return;
-        // Echte links (bv. "wis alle filters") gewoon hun gang laten gaan.
         if (target.closest('a[href]')) return;
 
         var top = scrollContainer().scrollTop;
