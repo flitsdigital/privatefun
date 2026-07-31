@@ -31,19 +31,8 @@
   }
 }
 
-<<<<<<< HEAD
-/* ---------- Filter-vinkjes in huisstijl ----------
-   Het echte invoervakje stond zichtbaar bovenop de svg van het thema (twee vakjes over
-   elkaar). Het invoervakje is nu onzichtbaar maar klikbaar; de svg is het vakje. */
-=======
-/* ---------- Filter-vinkjes in huisstijl ---------- */
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
-html body #MainContent .facets .checkbox {
-  --checkbox-size: 18px;
-  --checkbox-border-radius: 4px;
-  --checkbox-border: 1.5px solid rgb(26 26 26 / 0.3);
-}
-
+/* ---------- Filter-vinkjes: het invoervakje onzichtbaar houden ----------
+   Het eigenlijke vakje wordt door pf-collection.js getekend. */
 html body #MainContent .facets .checkbox input.checkbox__input {
   opacity: 0 !important;
   background: transparent !important;
@@ -52,38 +41,12 @@ html body #MainContent .facets .checkbox input.checkbox__input {
   outline: none !important;
 }
 
-html body #MainContent .facets .checkbox svg.icon-checkmark {
-  border: 1.5px solid rgb(26 26 26 / 0.3) !important;
-  border-radius: 4px !important;
-  background-color: #ffffff !important;
-  transition: background-color 0.16s ease, border-color 0.16s ease;
-}
-
-html body #MainContent .facets .checkbox:hover svg.icon-checkmark {
-  border-color: #ce9d27 !important;
-}
-
-html body #MainContent .facets .checkbox input.checkbox__input:checked + .checkbox__label svg.icon-checkmark,
-html body #MainContent .facets .checkbox:hover input.checkbox__input:checked + .checkbox__label svg.icon-checkmark {
-  border-color: #ce9d27 !important;
-  background-color: #ce9d27 !important;
-}
-
-html body #MainContent .facets .checkbox svg.icon-checkmark path {
-  stroke: #ffffff !important;
-  stroke-width: 2.2;
-}
-
 html body #MainContent .facets .checkbox__label-text {
   color: #1a1a1a !important;
 }
 
-<<<<<<< HEAD
 /* ---------- Producttitels zwart op de lichte pagina's ----------
    Alleen waar de achtergrond wit is; de homepage is donker en houdt zijn lichte tekst. */
-=======
-/* ---------- Producttitels zwart op de lichte pagina's ---------- */
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
 html body #MainContent:is([data-template^='collection'], [data-template^='search'], [data-template^='product'])
   :is(product-card, .product-card)
   :is(a.contents, a[ref='productTitleLink'], [class*='title']) {
@@ -102,13 +65,9 @@ html body #MainContent:is([data-template^='collection'], [data-template^='search
   color: #000000 !important;
 }
 
-<<<<<<< HEAD
 /* ---------- Productfoto's altijd volledig in beeld, nooit bijgesneden ----------
    Het thema regelt dit via --product-media-fit; die zetten we om, en we forceren
    het daarnaast rechtstreeks op de afbeelding zelf. */
-=======
-/* ---------- Productfoto's altijd volledig in beeld, nooit bijgesneden ---------- */
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
 html body #MainContent :is(.product-media-container, .product-media, .card-gallery, product-card, .product-card) {
   --product-media-fit: contain;
 }
@@ -134,12 +93,8 @@ html body [data-wishlist-count] {
   color: #0b0b0b !important;
 }
 
-<<<<<<< HEAD
 /* ---------- "Contact" in de menubalk alleen als die zwevend meescrollt ----------
    Bovenaan de pagina staat Contact al in de bovenste balk, dus daar is het dubbel. */
-=======
-/* ---------- "Contact" in de menubalk alleen als die zwevend meescrollt ---------- */
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
 @media screen and (min-width: 901px) {
   [data-mega-nav] > li:has(> a[href*='/pages/contact']) {
     display: none;
@@ -150,31 +105,11 @@ html body [data-wishlist-count] {
   }
 }
 
-/* ---------- Aanmeldknop nieuwsbrief: wit, goud bij hover (zoals de zoekknop) ---------- */
-html body footer form button[type='submit'] {
-  background: #ece9e2 !important;
-  color: #1a1a1a !important;
-  transition: background-color 0.18s ease, color 0.18s ease !important;
-}
-
-html body footer form button[type='submit']:hover {
-  background: #ce9d27 !important;
-  color: #0b0b0b !important;
-  opacity: 1 !important;
-}
-
 /* ---------- FAQ: rustig uitschuiven van het antwoord ---------- */
 details[class*='__item'] > div[class*='__answer'] {
   overflow: hidden;
 }
 
-<<<<<<< HEAD
-details[class*='__item'] > div[class*='__answer'] > * {
-  transition: opacity 0.22s ease;
-}
-
-=======
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
 /* ---------- "Naar volgende pagina" onder het grid ---------- */
 .pf-next-page {
   display: flex;

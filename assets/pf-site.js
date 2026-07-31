@@ -1,11 +1,7 @@
 /* Privatefun — kleine gedragsaanpassingen die op elke pagina gelden:
    1. FAQ-antwoorden schuiven rustig open en dicht.
-<<<<<<< HEAD
-   2. De reviewcarrousel bladert oneindig door (van laatste terug naar eerste). */
-=======
    2. De reviewcarrousel bladert oneindig door (van laatste terug naar eerste).
    3. De aanmeldknop van de nieuwsbrief is wit en wordt goud bij hover. */
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
 (function () {
   'use strict';
 
@@ -72,12 +68,10 @@
       };
       enable();
 
-      // De sectie zet de knoppen zelf weer op uitgeschakeld aan begin/eind.
       if (typeof MutationObserver !== 'undefined') {
         new MutationObserver(enable).observe(button, { attributes: true, attributeFilter: ['disabled'] });
       }
 
-      // In de capture-fase, zodat we vóór de eigen handler van de sectie zitten.
       button.addEventListener(
         'click',
         function (event) {
@@ -100,11 +94,7 @@
     });
   }
 
-<<<<<<< HEAD
-  /* ---------- 3. Aanmeldknop nieuwsbrief: wit, goud bij hover (zoals de zoekknop) ---------- */
-=======
   /* ---------- 3. Aanmeldknop nieuwsbrief: wit, goud bij hover ---------- */
->>>>>>> e247a877a8c29ca299aca2d3587b2b8a6c33c1cf
   function styleNewsletterButton() {
     document.querySelectorAll('footer form button[type="submit"]').forEach(function (button) {
       if (button.dataset.pfNl) return;
