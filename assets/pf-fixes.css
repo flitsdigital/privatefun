@@ -105,28 +105,18 @@ html body [data-wishlist-count] {
   }
 }
 
-/* ---------- Aanmeldknop nieuwsbrief: wit, goud bij hover (zoals de zoekknop) ---------- */
-html body footer form button[type='submit'] {
-  background: #ece9e2 !important;
-  color: #1a1a1a !important;
-  transition: background-color 0.18s ease, color 0.18s ease !important;
-}
-
-html body footer form button[type='submit']:hover {
-  background: #ce9d27 !important;
-  color: #0b0b0b !important;
-  opacity: 1 !important;
-}
-
 /* ---------- FAQ: rustig uitschuiven van het antwoord ---------- */
 details[class*='__item'] > div[class*='__answer'] {
   overflow: hidden;
 }
 
+<<<<<<< HEAD
 details[class*='__item'] > div[class*='__answer'] > * {
   transition: opacity 0.22s ease;
 }
 
+=======
+>>>>>>> 6cb6cd257b269c18f20d4a8707c684a071b79669
 /* ---------- "Naar volgende pagina" onder het grid ---------- */
 .pf-next-page {
   display: flex;

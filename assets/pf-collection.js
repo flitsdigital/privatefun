@@ -57,10 +57,10 @@
           if (!html) return;
           var doc = new DOMParser().parseFromString(html, 'text/html');
           var list = doc.querySelector('results-list');
-          var grid = list && list.querySelector('.product-grid');
-          if (!grid) return;
+          var found = list && list.querySelector('.product-grid');
+          if (!found) return;
           if (!donor) donor = list;
-          grid.querySelectorAll('.product-grid__item').forEach(function (item) {
+          found.querySelectorAll('.product-grid__item').forEach(function (item) {
             var id = item.getAttribute('data-product-id') || item.id;
             if (!id || seen[id]) return;
             seen[id] = true;
@@ -116,7 +116,6 @@
 
     var arrows = nav.querySelectorAll('a.pagination__link--arrow');
     var next = arrows.length ? arrows[arrows.length - 1] : null;
-    // De laatste pijl is alleen "volgende" als hij niet ook de vorige-pijl is.
     if (next && current > 1 && arrows.length === 1 && current === total) next = null;
 
     var left = total - current;
@@ -145,7 +144,11 @@
 
   /* ---------- 3. Filter-vinkjes in huisstijl ----------
      Het thema zet de rand van het vakje met een regel die via CSS niet te overrulen is,
+<<<<<<< HEAD
      dus zetten we het vakje hier rechtstreeks (inline, important). */
+=======
+     dus zetten we ons eigen vakje ernaast. */
+>>>>>>> 6cb6cd257b269c18f20d4a8707c684a071b79669
   function styleCheckboxes() {
     document.querySelectorAll('.facets .checkbox').forEach(function (box) {
       var input = box.querySelector('.checkbox__input');
@@ -155,9 +158,6 @@
       input.style.setProperty('opacity', '0', 'important');
       input.style.setProperty('border', '0', 'important');
       input.style.setProperty('background', 'transparent', 'important');
-
-      // Het vakje van het thema verbergen en ons eigen vakje ernaast zetten: op de svg
-      // van het thema blijft de randkleur door themaregels overschreven worden.
       mark.style.setProperty('display', 'none', 'important');
 
       var custom = box.querySelector('.pf-cb');

@@ -68,12 +68,10 @@
       };
       enable();
 
-      // De sectie zet de knoppen zelf weer op uitgeschakeld aan begin/eind.
       if (typeof MutationObserver !== 'undefined') {
         new MutationObserver(enable).observe(button, { attributes: true, attributeFilter: ['disabled'] });
       }
 
-      // In de capture-fase, zodat we vóór de eigen handler van de sectie zitten.
       button.addEventListener(
         'click',
         function (event) {
