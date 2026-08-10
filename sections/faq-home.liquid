@@ -109,7 +109,10 @@
             assign out = out | replace: s.emphasis, em_html
           endif
         -%}
-        <h2 class="fh-{{ uid }}__title">{{ out }}</h2>
+        {%- comment -%} ponytail: op de FAQ-pagina is deze titel de paginakop {%- endcomment -%}
+        {%- assign heading_tag = 'h2' -%}
+        {%- if template.suffix contains 'faq' -%}{%- assign heading_tag = 'h1' -%}{%- endif -%}
+        <{{ heading_tag }} class="fh-{{ uid }}__title">{{ out }}</{{ heading_tag }}>
       {%- endif -%}
       {%- if s.sub != blank -%}<div class="fh-{{ uid }}__sub">{{ s.sub }}</div>{%- endif -%}
     </div>

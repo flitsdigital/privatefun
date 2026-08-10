@@ -781,10 +781,10 @@
     .product-details h1, .product-details .product-title { letter-spacing: -0.01em; line-height: 1.15; }
     /* 'Was'-prijs subtiel gedempt zodat de actuele prijs spreekt */
     .compare-at-price { color: rgb(var(--color-foreground-rgb) / 0.45); }
-    /* USP-blok als omlijst premium kader met hairlines */
+    /* USP-blok met hairline erboven; onderrand weggelaten — de accordion
+       eronder tekent z'n eigen bovenrand (anders dubbele lijn) */
     .usp-list {
       border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
-      border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
       padding-block: 20px;
       margin-block: 10px 4px;
       row-gap: 12px;
@@ -938,5 +938,27 @@
       object-fit: contain !important;
       background: #ffffff;
     }
+  {% endstyle %}
+{%- endif -%}
+
+{%- comment -%} Wettelijke pagina's (Shopify-policies): leesbare kolom i.p.v. Shopify's smalle default {%- endcomment -%}
+{%- if request.page_type == 'policy' -%}
+  {% style %}
+    /* ponytail: alleen breedte + typografie bijstellen, Shopify's eigen markup blijft */
+    .shopify-policy__container {
+      max-width: 760px;
+      padding: 40px 24px 80px;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .shopify-policy__title { text-align: left; margin-bottom: 8px; }
+    .shopify-policy__title h1 {
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.2;
+      text-align: left;
+    }
+    .shopify-policy__body { font-size: 1rem; line-height: 1.75; }
+    .shopify-policy__body h2 { font-size: 1.25rem; line-height: 1.3; margin-block: 1.75em 0.5em; }
+    .shopify-policy__body p { margin-block: 0 1em; }
   {% endstyle %}
 {%- endif -%}

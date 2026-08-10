@@ -612,13 +612,21 @@
       trigger.addEventListener('focus', function () { if (desktop.matches) open(); });
     }
 
-    [trigger, panel].forEach(function (el) {
-      if (!el) return;
-      el.addEventListener('mouseleave', function () {
+    // ponytail: hover-zone is de hele navbalk (panel zit erin als descendant),
+    // zodat de dode ruimte tussen knop en panel het menu niet sluit.
+    var hoverZone = root.querySelector('[data-navbar]');
+    if (hoverZone) {
+      hoverZone.addEventListener('mouseleave', function () {
         if (!desktop.matches) return;
         timer = setTimeout(close, 160);
       });
-      el.addEventListener('mouseenter', function () { clearTimeout(timer); });
+      hoverZone.addEventListener('mouseenter', function () { clearTimeout(timer); });
+    }
+
+    // andere menu-items sluiten het panel wel meteen
+    root.querySelectorAll('[data-mega-nav] .mm-{{ uid }}__nav-link').forEach(function (el) {
+      if (el === trigger) return;
+      el.addEventListener('mouseenter', function () { if (desktop.matches) close(); });
     });
 
     if (overlay) overlay.addEventListener('click', close);

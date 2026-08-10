@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "name": "FAQ — Retourneren",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik mijn bestelling retourneren?",
+            "answer": "<p>Je hebt 14 dagen bedenktijd. Ongeopende artikelen in de originele, verzegelde verpakking kun je binnen die termijn aan ons retourneren.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Welke producten kan ik niet retourneren?",
+            "answer": "<p>Om hygiënische redenen kunnen geopende toys, lingerie en intieme artikelen niet retour. Twijfel je over een keuze? Stel ons gerust eerst je vraag.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe start ik een retour?",
+            "answer": "<p>Meld je retour aan via je account of stuur een e-mail naar onze klantenservice. Je krijgt van ons duidelijke instructies voor het terugsturen.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Wanneer krijg ik mijn geld terug?",
+            "answer": "<p>Zodra we je retour hebben ontvangen en gecontroleerd, storten we het bedrag binnen 14 dagen terug op je rekening.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Zijn er kosten verbonden aan een retour?",
+            "answer": "<p>De kosten van de retourzending zijn voor eigen rekening, tenzij een product defect of verkeerd geleverd is. In dat geval lossen we het uiteraard kosteloos op.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "Mijn product is defect — wat nu?",
+            "answer": "<p>Vervelend! Neem contact met ons op met je bestelnummer en een korte omschrijving. We zorgen kosteloos voor een passende oplossing of vervanging.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik een product ruilen voor een ander?",
+            "answer": "<p>Bij ongeopende artikelen kan dat via een retour gevolgd door een nieuwe bestelling. Zo krijg je het snelst het juiste product in huis.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "settings": {
+        "eyebrow": "Retourneren",
+        "title": "Ruilen en retourneren, netjes geregeld",
+        "emphasis": "netjes geregeld",
+        "text": "<p>Retourneren kan binnen 14 dagen. Vanwege de aard van onze producten gelden er een paar hygiënische spelregels — hier lees je precies hoe het werkt.</p>",
+        "contact_label": "Hulp nodig bij je retour? Neem contact op",
+        "contact_link": "/pages/contact",
+        "open_first": true,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["faq"]
+}

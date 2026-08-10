@@ -146,8 +146,13 @@
             assign em_html = '<em>' | append: s.emphasis | append: '</em>'
             assign out = out | replace: s.emphasis, em_html
           endif
+          # ponytail: op de FAQ-pagina's is deze titel de paginakop, elders een subkop
+          assign heading_tag = 'h2'
+          if template.suffix contains 'faq'
+            assign heading_tag = 'h1'
+          endif
         -%}
-        <h2 class="fq-{{ uid }}__title">{{ out }}</h2>
+        <{{ heading_tag }} class="fq-{{ uid }}__title">{{ out }}</{{ heading_tag }}>
       {%- endif -%}
       {%- if s.text != blank -%}
         <div class="fq-{{ uid }}__text">{{ s.text }}</div>

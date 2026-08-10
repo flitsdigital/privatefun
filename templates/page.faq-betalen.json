@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "name": "FAQ — Betalen",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Welke betaalmethoden kan ik gebruiken?",
+            "answer": "<p>Je betaalt veilig met iDEAL, creditcard, Bancontact, PayPal en met Klarna (achteraf betalen). De beschikbare opties zie je bij het afrekenen.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik achteraf betalen?",
+            "answer": "<p>Ja. Met Klarna betaal je pas nadat je bestelling binnen is, zodat je alles eerst rustig kunt bekijken.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat staat er op mijn bankafschrift?",
+            "answer": "<p>Een neutrale omschrijving — niet onze winkelnaam. Niemand die je afschrift onder ogen krijgt kan zien waar je hebt besteld.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Is betalen bij jullie veilig?",
+            "answer": "<p>Absoluut. Alle betalingen lopen over een versleutelde verbinding via gecertificeerde, PCI-compliant betaalpartners.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Krijg ik een factuur?",
+            "answer": "<p>Ja, je ontvangt een digitale factuur per e-mail. Netjes en discreet, zonder productafbeeldingen.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "Worden mijn betaalgegevens opgeslagen?",
+            "answer": "<p>Nee. Je betaalgegevens worden veilig verwerkt door de betaalpartner en niet door ons bewaard.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik een kortingscode gebruiken?",
+            "answer": "<p>Ja. Vul je kortingscode in het daarvoor bestemde veld in tijdens het afrekenen; de korting wordt direct verrekend.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7"],
+      "settings": {
+        "eyebrow": "Betalen",
+        "title": "Veilig en discreet afrekenen",
+        "emphasis": "discreet",
+        "text": "<p>Veilig en discreet afrekenen, met de betaalmethode die jou het beste past. Dit zijn de vragen die we het vaakst krijgen over betalen.</p>",
+        "contact_label": "Een vraag over je betaling of factuur? Neem contact op",
+        "contact_link": "/pages/contact",
+        "open_first": true,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["faq"]
+}
