@@ -326,7 +326,7 @@
       "type": "bestsellers",
       "name": "Bestsellers",
       "settings": {
-        "collection": "best-verkocht",
+        "collection": "best-sellers",
         "eyebrow": "Wat anderen kiezen",
         "title": "Onze bestsellers",
         "all_label": "Bekijk alles",
