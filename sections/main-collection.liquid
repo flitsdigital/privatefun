@@ -42,10 +42,10 @@
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
-    <nav class="collection-breadcrumbs" aria-label="Kruimelpad" style="max-width: 1240px; margin: 0 auto; padding: 0 24px 20px; font-size: 13px; letter-spacing: .02em; color: rgb(var(--color-foreground-rgb) / .6);">
-      <a href="{{ routes.root_url }}" style="color: inherit; text-decoration: none;">Home</a>
-      <span style="opacity: .5; margin: 0 7px;">/</span>
-      <span aria-current="page" style="color: rgb(var(--color-foreground-rgb) / .9);">{{ collection.title }}</span>
+    <nav class="collection-breadcrumbs" aria-label="Kruimelpad">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="collection-breadcrumbs__sep" aria-hidden="true">/</span>
+      <span class="collection-breadcrumbs__current" aria-current="page">{{ collection.title }}</span>
     </nav>
 
     <div
@@ -101,7 +101,67 @@
   .col-back:hover { color: #CE9D27; transform: translateX(-3px); }
   .col-back svg { width: 30px; height: 30px; }
   @media (max-width: 749px) { .col-back svg { width: 24px; height: 24px; } .col-back { margin-right: 10px; } }
+
+  /* Kruimelpad lijnt links uit met de productkolom. --bc-offset wordt live gemeten (script hieronder)
+     en op :root gezet, zodat hydratatie van results-list de waarde niet wegpoetst.
+     Zonder zijbalk (mobiel) valt de offset terug op de normale paginamarge. */
+  .collection-breadcrumbs {
+    margin: 0;
+    padding: 0 0 20px;
+    padding-inline-start: max(var(--bc-offset, 0px), 16px);
+    padding-inline-end: 16px;
+    font-size: 13px;
+    letter-spacing: .02em;
+    color: rgb(var(--color-foreground-rgb) / .6);
+  }
+  .collection-breadcrumbs a { color: inherit; text-decoration: none; transition: color .15s ease; }
+  .collection-breadcrumbs a:hover { color: #CE9D27; }
+  .collection-breadcrumbs__sep { opacity: .5; margin: 0 7px; }
+  .collection-breadcrumbs__current { color: rgb(var(--color-foreground-rgb) / .9); }
 </style>
+<script>
+  (function () {
+    var raf = window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (f) { return setTimeout(f, 16); };
+    var queued = false;
+
+    function sync() {
+      queued = false;
+      var wrap = document.querySelector('.collection-wrapper');
+      var grid = document.querySelector('.main-collection-grid');
+      if (!wrap || !grid) return;
+      var offset = grid.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
+      if (!isFinite(offset) || offset < 1) offset = 0;
+      document.documentElement.style.setProperty('--bc-offset', Math.round(offset) + 'px');
+    }
+
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      raf(sync);
+    }
+
+    sync();
+    schedule();
+    document.addEventListener('DOMContentLoaded', schedule);
+    window.addEventListener('load', schedule);
+    window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('orientationchange', schedule, { passive: true });
+    document.addEventListener('collection:update', function () { setTimeout(sync, 30); });
+    setTimeout(sync, 300);
+    setTimeout(sync, 1200);
+
+    if (typeof ResizeObserver !== 'undefined') {
+      var target = document.querySelector('.collection-wrapper');
+      if (target) {
+        try { new ResizeObserver(schedule).observe(target); } catch (e) {}
+      }
+    }
+
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(schedule);
+    }
+  })();
+</script>
 <script>
   (function () {
     var title = {{ collection.title | json }};
