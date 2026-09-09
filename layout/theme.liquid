@@ -7,63 +7,51 @@
 >
   <head>
     <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1645774663632980');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1645774663632980&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1645774663632980');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1645774663632980&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
     <meta name="google-site-verification" content="prlqcXvpXm48ChfR7-NsPurNmPdwG1g4CItTBo5HLtY">
 
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N2QPMTR2');</script>
+    <script>
+      (function(w,d,s,l,i){
+        w[l]=w[l]||[];
+        w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+        var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),
+        dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+        f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-N2QPMTR2');
+    </script>
     <!-- End Google Tag Manager -->
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDW6RFKQ6E"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-VDW6RFKQ6E');
-    </script>
-
     {%- if settings.favicon != blank -%}
-      <link
-        rel="icon"
-        type="image/png"
-        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
-      >
+      <link rel="icon" type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- else -%}
-      <link
-        rel="icon"
-        type="image/svg+xml"
-        href="{{ 'favicon.svg' | asset_url }}"
-      >
+      <link rel="icon" type="image/svg+xml"
+        href="{{ 'favicon.svg' | asset_url }}">
     {%- endif -%}
 
-    {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
     {% if settings.transition_to_main_product or settings.page_transition_enabled %}
-      <link
-        rel="expect"
-        href="#MainContent"
-        blocking="render"
-        id="view-transition-render-blocker"
-      >
+      <link rel="expect" href="#MainContent" blocking="render" id="view-transition-render-blocker">
     {% endif %}
 
     {%- render 'meta-tags' -%}
@@ -81,9 +69,12 @@ src="https://www.facebook.com/tr?id=1645774663632980&ev=PageView&noscript=1"
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2QPMTR2"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2QPMTR2"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
@@ -94,74 +85,6 @@ src="https://www.facebook.com/tr?id=1645774663632980&ev=PageView&noscript=1"
       <div id="header-group">
         {% sections 'header-group' %}
       </div>
-
-      <script>
-        // Inline header height and menu style calculations to prevent layout shift
-        // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
-        (function setHeaderHeighCustomProperties() {
-          /*
-           * Header calculation functions for maintaining CSS variables
-           * Mimic calculateHeaderGroupHeight() in utilities.js
-           */
-          const header = document.querySelector('header-component');
-          const headerGroup = document.querySelector('#header-group');
-          const hasHeaderSection = headerGroup?.querySelector('.header-section');
-
-          if (!header || !headerGroup) return;
-
-          const headerTopRow = header.querySelector('.header__row--top');
-          const headerHeight = header.offsetHeight;
-
-          // Calculate the total height of the header group
-          let headerGroupHeight = 0;
-          const children = headerGroup.children;
-          for (let i = 0; i < children.length; i++) {
-            const element = children[i];
-            if (element === header || !(element instanceof HTMLElement)) continue;
-            headerGroupHeight += element.offsetHeight;
-          }
-
-          // Check for transparent header special case
-          if (header.hasAttribute('transparent') && header.parentElement?.nextElementSibling) {
-            headerGroupHeight += headerHeight;
-          }
-
-          // Set CSS variables
-          document.body.style.setProperty('--header-height', `${headerHeight}px`);
-          document.body.style.setProperty('--header-group-height', `${headerGroupHeight}px`);
-
-          if (headerTopRow) {
-            window.requestAnimationFrame(function () {
-              document.body.style.setProperty('--top-row-height', `${headerTopRow.offsetHeight}px`);
-            });
-          }
-
-          /**
-           * Updates CSS custom properties for transparent header offset calculation
-           * Mimic updateTransparentHeaderOffset() in utilities.js
-           */
-
-          if (!hasHeaderSection || !header?.hasAttribute('transparent')) {
-            document.body.style.setProperty('--transparent-header-offset-boolean', '0');
-            return;
-          }
-
-          const hasImmediateSection = hasHeaderSection.nextElementSibling?.classList.contains('shopify-section');
-
-          const shouldApplyOffset = !hasImmediateSection ? '1' : '0';
-          document.body.style.setProperty('--transparent-header-offset-boolean', shouldApplyOffset);
-        })();
-
-        (function setHeaderMenuStyle() {
-          const headerComponent = document.querySelector('#header-component');
-          if (headerComponent) {
-            const isTouchDevice = 'ontouchstart' in window && navigator.maxTouchPoints > 0;
-            const overflowList = headerComponent?.querySelector('overflow-list');
-            const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-            headerComponent.dataset.menuStyle = isTouchDevice || hasReachedMinimum ? 'drawer' : 'menu';
-          }
-        })();
-      </script>
 
       <main
         id="MainContent"
@@ -181,17 +104,19 @@ src="https://www.facebook.com/tr?id=1645774663632980&ev=PageView&noscript=1"
 
     {% render 'cart-drawer', render_wrapper: true %}
     {% render 'theme-drawer' %}
-
     {% render 'search-modal' %}
 
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
     <script src="{{ 'wishlist.js' | asset_url }}" defer></script>
     <link rel="stylesheet" href="{{ 'pf-fixes.css' | asset_url }}">
     <script src="{{ 'pf-site.js' | asset_url }}" defer></script>
+
     {% if request.page_type == 'collection' or request.page_type == 'search' %}
       <script src="{{ 'pf-collection.js' | asset_url }}" defer></script>
     {% endif %}
+
   </body>
 </html>
