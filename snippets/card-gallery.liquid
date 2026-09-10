@@ -33,8 +33,12 @@
       render 'util-product-grid-card-size', section: section
     endcapture
     assign card_size = card_size | strip | replace: 'px', '' | plus: 0
+    assign mobile_cols = 1
+    if section.settings.mobile_product_card_size == 'small'
+      assign mobile_cols = 2
+    endif
     capture sizes_attribute
-      render 'util-autofill-img-size-attr', card_size: card_size, card_gap: section.settings.columns_gap_horizontal
+      render 'util-autofill-img-size-attr', card_size: card_size, card_gap: section.settings.columns_gap_horizontal, mobile_cols: mobile_cols
     endcapture
     assign image_sizes = sizes_attribute | strip
   elsif section.settings.columns and section.settings.layout_type != 'editorial'

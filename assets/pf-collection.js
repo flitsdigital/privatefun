@@ -218,14 +218,10 @@
     });
   }
 
-<<<<<<< HEAD
   /* ---------- 4. Blijf staan waar je stond bij het aanklikken van een filter ----------
      Bij een filterklik vervangt het thema de sectie-DOM en verspringt de pagina naar
      beneden. We onthouden de scrollpositie en zetten die ruim een seconde lang terug,
      tenzij de bezoeker zelf gaat scrollen. */
-=======
-  /* ---------- 4. Blijf staan waar je stond bij het aanklikken van een filter ---------- */
->>>>>>> 5390266aef9319011eec6ccc5020c65d7e653b06
   var scrollGuardTimer = null;
 
   function scrollContainer() {
@@ -256,10 +252,7 @@
         var target = event.target;
         if (!target || !target.closest) return;
         if (!target.closest('.facets, .facets-block-wrapper')) return;
-<<<<<<< HEAD
         // Echte links (bv. "wis alle filters") gewoon hun gang laten gaan.
-=======
->>>>>>> 5390266aef9319011eec6ccc5020c65d7e653b06
         if (target.closest('a[href]')) return;
 
         var top = scrollContainer().scrollTop;

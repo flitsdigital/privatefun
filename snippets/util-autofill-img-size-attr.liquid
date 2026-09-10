@@ -3,6 +3,7 @@
 
   @param {number} card_size - The minimum pixel-width of the product card.
   @param {number} [card_gap] - The pixel-width of the gap between product cards.
+  @param {number} [mobile_cols] - Number of cards per row below 750px. Defaults to 1.
 
   @example
   {% capture size_attribute %}
@@ -66,7 +67,15 @@
   endif
   assign sizes_attr = sizes_attr | append: '(min-width: ' | append: min_breakpoint | append: 'px) 50vw'
 
-  assign sizes_attr = sizes_attr | append: ', 100vw'
+  # ponytail: de mobiele fallback moet het echte aantal kolommen volgen.
+  # Stond hardcoded op 100vw, waardoor een 2-koloms grid van 182px per kaart
+  # de 832px-variant ophaalde in plaats van 352px.
+  if mobile_cols and mobile_cols > 1
+    assign mobile_vw = 100 | divided_by: mobile_cols
+    assign sizes_attr = sizes_attr | append: ', ' | append: mobile_vw | append: 'vw'
+  else
+    assign sizes_attr = sizes_attr | append: ', 100vw'
+  endif
 
   # Echo the sizes attribute
   echo sizes_attr
