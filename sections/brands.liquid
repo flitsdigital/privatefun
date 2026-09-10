@@ -1,0 +1,256 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+
+  assign excluded = ''
+  if s.exclude != blank
+    assign excluded = s.exclude | downcase | split: ','
+  endif
+
+  assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ','
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .br-{{ uid }} {
+    --br-accent: {{ s.color_accent }};
+    --br-text: {{ s.color_text }};
+    --br-line: color-mix(in srgb, {{ s.color_text }} 15%, transparent);
+    background: {{ s.color_bg }};
+    color: var(--br-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .br-{{ uid }} *, .br-{{ uid }} *::before, .br-{{ uid }} *::after { box-sizing: border-box; }
+
+  .br-{{ uid }}__inner { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  .br-{{ uid }}__head { text-align: center; max-width: 620px; margin: 0 auto 40px; }
+  .br-{{ uid }}__eyebrow {
+    margin: 0 0 12px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 500; color: var(--br-accent);
+  }
+  .br-{{ uid }}__title {
+    margin: 0; font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px; line-height: 1.14; font-weight: 400;
+  }
+  .br-{{ uid }}__title em { font-style: italic; color: var(--br-accent); }
+  .br-{{ uid }}__sub { margin: 16px 0 0; font-size: 15px; line-height: 1.7; opacity: .8; }
+
+  /* ---------- zoekveld ---------- */
+  .br-{{ uid }}__search { max-width: 420px; margin: 0 auto 28px; }
+  .br-{{ uid }}__search input {
+    width: 100%; padding: 13px 16px;
+    background: transparent; color: var(--br-text);
+    border: 1px solid var(--br-line); border-radius: 0;
+    font: inherit; font-size: 15px;
+  }
+  .br-{{ uid }}__search input::placeholder { color: var(--br-text); opacity: .45; }
+  .br-{{ uid }}__search input:focus-visible { outline: 2px solid var(--br-accent); outline-offset: 2px; }
+
+  /* ---------- letternavigatie ---------- */
+  .br-{{ uid }}__az {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 4px;
+    margin: 0 0 40px; padding: 0 0 24px; border-bottom: 1px solid var(--br-line);
+  }
+  .br-{{ uid }}__az a {
+    min-width: 30px; padding: 5px 4px; text-align: center; text-decoration: none;
+    font-size: 13px; font-weight: 600; color: var(--br-text); opacity: .5;
+    transition: color var(--animation-speed-medium) var(--animation-timing-hover), opacity var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .br-{{ uid }}__az a[data-has] { opacity: 1; }
+  @media (hover: hover) { .br-{{ uid }}__az a[data-has]:hover { color: var(--br-accent); } }
+  .br-{{ uid }}__az a:not([data-has]) { pointer-events: none; }
+  .br-{{ uid }}__az a:focus-visible { outline: 2px solid var(--br-accent); outline-offset: 2px; }
+
+  /* ---------- groepen ---------- */
+  .br-{{ uid }}__group { margin: 0 0 38px; scroll-margin-top: 100px; }
+  .br-{{ uid }}__letter {
+    margin: 0 0 14px; padding: 0 0 10px; border-bottom: 1px solid var(--br-line);
+    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: 24px; font-weight: 400; color: var(--br-accent);
+  }
+  .br-{{ uid }}__list {
+    list-style: none; margin: 0; padding: 0;
+    columns: {{ s.columns }}; column-gap: 32px;
+  }
+  .br-{{ uid }}__list li { break-inside: avoid; }
+  .br-{{ uid }}__list a {
+    display: block; padding: 7px 0; font-size: 15px; line-height: 1.4;
+    color: var(--br-text); text-decoration: none;
+    transition: color var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  @media (hover: hover) { .br-{{ uid }}__list a:hover { color: var(--br-accent); } }
+  .br-{{ uid }}__list a:focus-visible { outline: 2px solid var(--br-accent); outline-offset: 2px; }
+
+  .br-{{ uid }}__empty { display: none; text-align: center; padding: 30px 0; opacity: .7; font-size: 15px; }
+
+  @media (max-width: 989px) { .br-{{ uid }}__list { columns: 3; } }
+  @media (max-width: 749px) {
+    .br-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .br-{{ uid }}__title { font-size: {{ s.title_size | times: 0.72 | round }}px; }
+    .br-{{ uid }}__list { columns: 2; column-gap: 20px; }
+    .br-{{ uid }}__az { gap: 2px; }
+  }
+</style>
+
+<div class="br-{{ uid }}" id="merken">
+  <div class="br-{{ uid }}__inner">
+
+    <div class="br-{{ uid }}__head">
+      {%- if s.eyebrow != blank -%}<p class="br-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.title != blank -%}
+        {%- liquid
+          assign out = s.title
+          if s.emphasis != blank
+            assign em_html = '<em>' | append: s.emphasis | append: '</em>'
+            assign out = out | replace: s.emphasis, em_html
+          endif
+        -%}
+        <h1 class="br-{{ uid }}__title">{{ out }}</h1>
+      {%- endif -%}
+      {%- if s.sub != blank -%}<div class="br-{{ uid }}__sub">{{ s.sub }}</div>{%- endif -%}
+    </div>
+
+    {%- comment -%} ponytail: merken = product-vendors, geen aparte collecties of metaobjects nodig {%- endcomment -%}
+    {%- liquid
+      assign brands = ''
+      for vendor in shop.vendors
+        assign v = vendor | strip
+        if v == blank
+          continue
+        endif
+        if excluded != blank
+          assign skip = false
+          assign v_low = v | downcase
+          for ex in excluded
+            assign ex_clean = ex | strip
+            if v_low == ex_clean
+              assign skip = true
+              break
+            endif
+          endfor
+          if skip
+            continue
+          endif
+        endif
+        assign brands = brands | append: v | append: '~~'
+      endfor
+      assign brands = brands | split: '~~'
+    -%}
+
+    {%- if brands.size > 0 -%}
+      {%- if s.show_search -%}
+        <div class="br-{{ uid }}__search">
+          <label class="visually-hidden" for="br-q-{{ uid }}">{{ s.search_label }}</label>
+          <input type="search" id="br-q-{{ uid }}" placeholder="{{ s.search_label | escape }}" autocomplete="off">
+        </div>
+      {%- endif -%}
+
+      <nav class="br-{{ uid }}__az" aria-label="{{ s.search_label | escape }}">
+        {%- for letter in letters -%}
+          {%- assign has = false -%}
+          {%- for brand in brands -%}
+            {%- assign first = brand | slice: 0 | upcase -%}
+            {%- if first == letter -%}{%- assign has = true -%}{%- break -%}{%- endif -%}
+          {%- endfor -%}
+          <a href="#br-{{ uid }}-{{ letter }}"{% if has %} data-has{% endif %}>{{ letter }}</a>
+        {%- endfor -%}
+      </nav>
+
+      {%- for letter in letters -%}
+        {%- assign group = '' -%}
+        {%- for brand in brands -%}
+          {%- assign first = brand | slice: 0 | upcase -%}
+          {%- if first == letter -%}{%- assign group = group | append: brand | append: '~~' -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if group != blank -%}
+          {%- assign group = group | split: '~~' -%}
+          <section class="br-{{ uid }}__group" id="br-{{ uid }}-{{ letter }}" data-group>
+            <h2 class="br-{{ uid }}__letter">{{ letter }}</h2>
+            <ul class="br-{{ uid }}__list">
+              {%- for brand in group -%}
+                <li data-brand="{{ brand | downcase | escape }}">
+                  <a href="{{ routes.collections_url }}/vendors?q={{ brand | url_encode }}">{{ brand }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </section>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <p class="br-{{ uid }}__empty" data-empty>{{ s.empty_text }}</p>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- if s.show_search -%}
+  <script>
+    (function () {
+      var root = document.getElementById('br-q-{{ uid }}');
+      if (!root) return;
+      var scope = root.closest('.br-{{ uid }}');
+      var groups = scope.querySelectorAll('[data-group]');
+      var empty = scope.querySelector('[data-empty]');
+      var az = scope.querySelector('.br-{{ uid }}__az');
+      root.addEventListener('input', function () {
+        var q = root.value.trim().toLowerCase();
+        var total = 0;
+        groups.forEach(function (group) {
+          var shown = 0;
+          group.querySelectorAll('[data-brand]').forEach(function (li) {
+            var hit = !q || li.dataset.brand.indexOf(q) !== -1;
+            li.hidden = !hit;
+            if (hit) shown++;
+          });
+          group.hidden = shown === 0;
+          total += shown;
+        });
+        if (az) az.hidden = q.length > 0;
+        empty.style.display = total === 0 ? 'block' : 'none';
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Merken A–Z",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Alle merken" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Merken van A tot Z" },
+    { "type": "text", "id": "emphasis", "label": "Accentwoord", "default": "A tot Z" },
+    { "type": "richtext", "id": "sub", "label": "Subtekst", "default": "<p>Van vertrouwde klassiekers tot nieuwe favorieten. Kies een merk en bekijk het hele assortiment.</p>" },
+
+    { "type": "header", "content": "Zoeken" },
+    { "type": "checkbox", "id": "show_search", "label": "Zoekveld tonen", "default": true },
+    { "type": "text", "id": "search_label", "label": "Placeholder zoekveld", "default": "Zoek een merk" },
+    { "type": "text", "id": "empty_text", "label": "Tekst bij geen resultaat", "default": "Geen merk gevonden." },
+
+    { "type": "header", "content": "Merken" },
+    { "type": "textarea", "id": "exclude", "label": "Merken verbergen", "info": "Komma-gescheiden, bijv: Anal, Bondage, Couples. Handig voor vendors die geen echt merk zijn." },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "range", "id": "columns", "min": 2, "max": 6, "step": 1, "label": "Kolommen", "default": 4 },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+    { "type": "range", "id": "title_size", "min": 24, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 38 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titels", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "presets": [
+    { "name": "Merken A–Z" }
+  ]
+}
+{% endschema %}

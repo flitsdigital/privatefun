@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "name": "FAQ — Verzenden",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe discreet wordt mijn bestelling verzonden?",
+            "answer": "<p>Volledig discreet. Je bestelling komt in een effen, stevige doos zonder logo, tekst of afbeelding. Ook op het verzendlabel staat niets dat naar de inhoud of naar onze winkel verwijst.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Wanneer heb ik mijn pakket in huis?",
+            "answer": "<p>Bestel je op werkdagen vóór 22:00 uur, dan ligt je pakket de volgende dag op de mat (Nederland). Levering naar België duurt doorgaans 1 tot 2 werkdagen.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik mijn pakket volgen?",
+            "answer": "<p>Ja. Zodra je bestelling is verzonden ontvang je per e-mail een track &amp; trace-code waarmee je de bezorging op de voet volgt.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Kan ik mijn pakket ergens anders laten bezorgen?",
+            "answer": "<p>Zeker. Kies bij het afrekenen een afhaalpunt bij jou in de buurt, of een afwijkend bezorgadres. Handig als je overdag niet thuis bent.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat staat er als afzender op het pakket?",
+            "answer": "<p>Een neutrale afzendernaam. Nergens op de doos of het label is te zien dat het pakket van een erotiekwinkel komt.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat betaal ik aan verzendkosten?",
+            "answer": "<p>Boven een bepaald bestelbedrag verzenden we gratis. Daaronder rekenen we een klein, vast tarief dat je duidelijk ziet bij het afrekenen.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat als ik niet thuis ben bij de bezorging?",
+            "answer": "<p>De bezorger biedt het pakket aan bij de buren of levert het bij een afhaalpunt in de buurt. Je ontvangt hierover altijd bericht.</p>"
+          }
+        },
+        "q8": {
+          "type": "faq",
+          "settings": {
+            "question": "Verzenden jullie ook naar België?",
+            "answer": "<p>Ja, met exact dezelfde discrete verpakking en zorg als binnen Nederland. De verzendkosten en levertijd voor België zie je bij het afrekenen.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "settings": {
+        "eyebrow": "Verzenden",
+        "title": "Discreet bezorgd, zonder gedoe",
+        "emphasis": "Discreet bezorgd",
+        "text": "<p>Alles over onze discrete bezorging — van verpakking tot levertijd. Staat je vraag er niet tussen? Neem gerust contact met ons op.</p>",
+        "contact_label": "Nog een vraag over je bezorging? Neem contact op",
+        "contact_link": "/pages/contact",
+        "open_first": true,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["faq"]
+}

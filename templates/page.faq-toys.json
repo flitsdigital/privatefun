@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "name": "FAQ — Producten & gebruik",
+      "blocks": {
+        "q1": {
+          "type": "faq",
+          "settings": {
+            "question": "Zijn de materialen lichaamsveilig?",
+            "answer": "<p>Wij selecteren producten van body-safe materialen zoals medisch siliconen en ABS-kunststof, vrij van ftalaten. Per product vind je de materiaalinformatie terug bij de details.</p>"
+          }
+        },
+        "q2": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe maak ik mijn toy schoon?",
+            "answer": "<p>Reinig je toy voor en na gebruik met lauw water en een milde toycleaner. Laat 'm goed drogen en bewaar hem op een schone, droge plek.</p>"
+          }
+        },
+        "q3": {
+          "type": "faq",
+          "settings": {
+            "question": "Welk glijmiddel kan ik het beste gebruiken?",
+            "answer": "<p>Glijmiddel op waterbasis is altijd veilig en werkt met elk materiaal. Gebruik siliconen glijmiddel nooit op siliconen toys: dat kan het oppervlak aantasten.</p>"
+          }
+        },
+        "q4": {
+          "type": "faq",
+          "settings": {
+            "question": "Zijn de toys oplaadbaar?",
+            "answer": "<p>De meeste toys laad je eenvoudig op via USB, andere werken op batterijen. Of een product oplaadbaar is, staat altijd vermeld bij de productgegevens.</p>"
+          }
+        },
+        "q5": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe stil zijn de toys?",
+            "answer": "<p>Discretie telt ook in geluid. Veel van onze modellen zijn fluisterstil; let op de omschrijving voor een indicatie van het geluidsniveau.</p>"
+          }
+        },
+        "q6": {
+          "type": "faq",
+          "settings": {
+            "question": "Hoe bewaar ik mijn toys het beste?",
+            "answer": "<p>Schoon, droog en het liefst apart in een stoffen zakje of doosje, uit direct zonlicht. Zo blijven materiaal en motor langer in topconditie.</p>"
+          }
+        },
+        "q7": {
+          "type": "faq",
+          "settings": {
+            "question": "Wat betekent 'waterdicht' of IPX7?",
+            "answer": "<p>Spatwaterdicht betekent bestand tegen opspattend water; volledig waterdicht (bijv. IPX7) mag kort onder water. Check de productdetails of een toy geschikt is voor bad of douche.</p>"
+          }
+        },
+        "q8": {
+          "type": "faq",
+          "settings": {
+            "question": "Zijn er toys geschikt voor beginners?",
+            "answer": "<p>Zeker. Onze starterskeuzes zijn bewust eenvoudig, veelzijdig en toegankelijk gekozen. Kom je er niet uit? We denken graag met je mee, zonder oordeel.</p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "settings": {
+        "eyebrow": "Producten & gebruik",
+        "title": "Materiaal, onderhoud en gebruik",
+        "emphasis": "onderhoud",
+        "text": "<p>Materiaal, onderhoud, glijmiddel en gebruik — hier vind je alles om met een gerust hart te genieten van je aankoop.</p>",
+        "contact_label": "Twijfel je over een keuze? Stel ons gerust je vraag",
+        "contact_link": "/pages/contact",
+        "open_first": true,
+        "padding_y": 92,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "title_size": 32,
+        "color_bg": "#15120a",
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["faq"]
+}

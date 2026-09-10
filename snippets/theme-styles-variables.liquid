@@ -729,8 +729,8 @@
   }
 {% endstyle %}
 
-{%- comment -%} Merk-designsysteem op content-pagina's (collectie + product) — thema "Licht" {%- endcomment -%}
-{%- if request.page_type == 'product' or request.page_type == 'collection' -%}
+{%- comment -%} Merk-designsysteem 'Na Middernacht' — donker doorgetrokken op content-pagina's {%- endcomment -%}
+{%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'search' or request.page_type == 'cart' -%}
   {% style %}
     /* Koppen → Playfair, body → Assistant (labels/eyebrows houden accent-font).
        Op :root want de --font-hN--family presets substitueren daar. */
@@ -739,10 +739,9 @@
       --font-subheading--family: var(--font-brand-display--family);
       --font-body--family: var(--font-brand-body--family);
     }
-    /* Koppen in ink — alleen native theme-koppen (.hN / text-block), NIET de custom
-       dark-secties (reviews/faq) die hun eigen lichte tekstkleur zetten */
+    /* Koppen volgen de lichte voorgrondkleur op donker; nooit bold — kracht uit grootte + serif */
     .h1, .h2, .h3, .h5,
-    .text-block.h1, .text-block.h2, .text-block.h3, .text-block.h5 { color: #1a1a1a; }
+    .text-block.h1, .text-block.h2, .text-block.h3, .text-block.h5 { font-weight: 400; }
     /* Lijsten in RTE (o.a. productomschrijving) tonen expliciet bullets */
     .rte :is(ul, ol) { padding-inline-start: 1.25em; margin-block: .4em 1em; }
     .rte ul { list-style: disc outside; }
@@ -750,9 +749,9 @@
     .rte li { display: list-item; }
     /* Primaire knoppen → goud (ATC gebruikt al .button-custom) */
     .button:not(.button-secondary, .button-unstyled, .button-custom) {
-      --color-primary-button-background: #c9a063;
+      --color-primary-button-background: #CE9D27;
       --color-primary-button-text: #0b0b0b;
-      --color-primary-button-border: #c9a063;
+      --color-primary-button-border: #CE9D27;
     }
   {% endstyle %}
 {%- endif -%}
@@ -776,5 +775,190 @@
         column-gap: 48px;
       }
     }
+
+    /* ── 'Na Middernacht' · PDP-verfijning ── */
+    /* Producttitel: rustige serif met strakke regelval */
+    .product-details h1, .product-details .product-title { letter-spacing: -0.01em; line-height: 1.15; }
+    /* 'Was'-prijs subtiel gedempt zodat de actuele prijs spreekt */
+    .compare-at-price { color: rgb(var(--color-foreground-rgb) / 0.45); }
+    /* USP-blok met hairline erboven; onderrand weggelaten — de accordion
+       eronder tekent z'n eigen bovenrand (anders dubbele lijn) */
+    .usp-list {
+      border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+      padding-block: 20px;
+      margin-block: 10px 4px;
+      row-gap: 12px;
+    }
+    /* Accordion: meer lucht, rustige koppen */
+    .accordion .details__header { letter-spacing: 0.01em; padding-block: 18px; }
+    /* Add-to-cart label: uppercase, letterspaced (premium knop-stijl) */
+    .add-to-cart-text { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
+  {% endstyle %}
+{%- endif -%}
+
+{%- comment -%} 'Na Middernacht' — collectie: sticky filterkolom op desktop {%- endcomment -%}
+{%- if request.page_type == 'collection' -%}
+  {% style %}
+    @media screen and (min-width: 990px) {
+      .facets--vertical .facets__form-wrapper,
+      .facets-block-wrapper--vertical {
+        position: sticky;
+        top: 110px;
+        align-self: start;
+      }
+    }
+    @media screen and (min-width: 750px) {
+      .product-grid { --product-grid-columns-desktop: repeat(auto-fill, minmax(230px, 1fr)) !important; }
+    }
+
+    /* ---- Collectie: witte pagina + witte kaarten, ZWART filtermenu ---- */
+    body { background: #ffffff !important; }
+    #MainContent { background: #ffffff !important; }
+    #MainContent {
+      --palette-lightest: #1a1a1a; --palette-lightest-rgb: 26 26 26;
+      --palette-darkest: #1a1a1a; --palette-darkest-rgb: 26 26 26;
+      --color-background: #ffffff; --color-background-rgb: 255 255 255;
+      --color-foreground: #1a1a1a; --color-foreground-rgb: 26 26 26;
+      --color: #1a1a1a; --color-rgb: 26 26 26;
+      --color-border: rgba(26,26,26,0.16); --color-border-rgb: 26 26 26;
+      --color-background-secondary: #f4f3f0; --color-background-secondary-rgb: 244 243 240;
+      --color-input-background: #ffffff; --color-input-text: #1a1a1a; --color-input-text-rgb: 26 26 26; --color-input-border: rgba(26,26,26,0.30);
+      color: #1a1a1a;
+    }
+    #MainContent [class*="color-custom-"] {
+      --color-background: #ffffff !important; --color-background-rgb: 255 255 255 !important;
+      --color-foreground: #1a1a1a !important; --color-foreground-rgb: 26 26 26 !important;
+      --color-border: rgba(26,26,26,0.16) !important; --color-border-rgb: 26 26 26 !important;
+      background-color: #ffffff !important; color: #1a1a1a !important;
+    }
+    /* witte vlakken (secties + kaarten) */
+    #MainContent .section-background, #MainContent results-list, #MainContent .product-grid-container,
+    #MainContent .collection-wrapper, #MainContent .product-grid, #MainContent product-card,
+    #MainContent .product-card, #MainContent .product-card__content, #MainContent .product-card__link,
+    #MainContent .card, #MainContent .card__content, #MainContent .product-grid__item { background-color: #ffffff !important; }
+    /* DONKERE tekst in de witte zone: paginatitel, breadcrumb, kaarttitels & prijzen, aantallen, sorteren */
+    #MainContent h1,
+    #MainContent .collection-breadcrumbs, #MainContent .collection-breadcrumbs *,
+    #MainContent product-card a, #MainContent product-card .price, #MainContent product-card [class*="title"],
+    #MainContent product-card h2, #MainContent product-card h3,
+    #MainContent .product-count, #MainContent .product-count *,
+    #MainContent .collection-back { color: #1a1a1a !important; }
+    #MainContent [class*="badge--sold"] { background: #0b0b0b !important; color: #ffffff !important; }
+
+    /* ===== FILTERMENU WIT (leesbaar op de witte collectiepagina) ===== */
+    #MainContent .facets-block-wrapper--vertical,
+    #MainContent .facets--vertical,
+    #MainContent .facets--vertical .facets__panel,
+    #MainContent .facets--vertical .facets__inputs,
+    #MainContent .facets--vertical [class*="color-custom-"] { background: #ffffff !important; background-color: #ffffff !important; }
+    #MainContent .facets-block-wrapper--vertical,
+    #MainContent .facets-block-wrapper--vertical *,
+    #MainContent .facets--vertical,
+    #MainContent .facets--vertical * { color: #1a1a1a !important; }
+    #MainContent .facets--filters-title,
+    #MainContent .facets--vertical .facets__label { color: #1a1a1a !important; }
+    #MainContent .facets--vertical .checkbox__input,
+    #MainContent .facets--vertical .facets__pill-input {
+      background: #ffffff !important; border: 1px solid rgba(26,26,26,0.45) !important; -webkit-appearance: none; appearance: none;
+    }
+    #MainContent .facets--vertical .checkbox__input:checked,
+    #MainContent .facets--vertical .facets__pill-input:checked { background: #1a1a1a !important; border-color: #1a1a1a !important; }
+    #MainContent .facets--vertical input,
+    #MainContent .facets--vertical .field,
+    #MainContent .facets--vertical .price-facet__field { background: #ffffff !important; color: #1a1a1a !important; border-color: rgba(26,26,26,0.30) !important; }
+    /* filteropties volledig klikbaar */
+    #MainContent .facets__inputs-list-item--disabled, #MainContent .facets__inputs-list-item--disabled *, #MainContent .variant-option--swatches-disabled { opacity: 1 !important; pointer-events: auto !important; cursor: pointer !important; }
+    #MainContent .facets__inputs-list-item label { cursor: pointer; }
+    /* filters NOOIT uitsluiten: elke waarde volledig zichtbaar + klikbaar (ook Shopify count-0) */
+    #MainContent .facets .facets__inputs-list-item,
+    #MainContent .facets .facets__inputs-list-item *,
+    #MainContent .facets .checkbox,
+    #MainContent .facets .checkbox *,
+    #MainContent .facets .facets__pill-label,
+    #MainContent .facets label,
+    #MainContent .facets input { opacity: 1 !important; pointer-events: auto !important; }
+    #MainContent .facets label { cursor: pointer !important; }
+    #MainContent .facets .checkbox__label-text,
+    #MainContent .facets .facets__label { color: #1a1a1a !important; }
+  {% endstyle %}
+{%- endif -%}
+
+{%- comment -%} Uniforme productkaart-media: rechthoekig behoudt verhouding, vierkant krijgt witruimte i.p.v. bijsnijden {%- endcomment -%}
+{% style %}
+  .card-gallery {
+    background: #ffffff;
+    --media-fit: contain;
+  }
+  .card-gallery .product-media-container,
+  .card-gallery slideshow-slide,
+  .card-gallery .slideshow-slide { background: #ffffff; }
+  .card-gallery .product-media-container > img,
+  .card-gallery .product-media-container > video,
+  .card-gallery img,
+  .card-gallery video {
+    object-fit: contain !important;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+  }
+{% endstyle %}
+
+{%- comment -%} PDP: witte pagina zodat productfoto's (witte achtergrond) naadloos overlopen {%- endcomment -%}
+{%- if request.page_type == 'product' -%}
+  {% style %}
+    /* Witte productpagina: licht kleurenschema op de product-content.
+       Header, footer en de zelf-gekleurde secties (reviews/FAQ) houden hun donkere stijl,
+       want die gebruiken hun eigen kleur-variabelen i.p.v. de thema-tokens. */
+    body { background: #ffffff; }
+    #MainContent {
+      --color-background: #ffffff;
+      --color-background-rgb: 255 255 255;
+      --color-foreground: #1a1a1a;
+      --color-foreground-rgb: 26 26 26;
+      --color: #1a1a1a;
+      --color-rgb: 26 26 26;
+      --color-border: rgba(26,26,26,0.14);
+      --color-border-rgb: 26 26 26;
+      --color-background-secondary: #f4f3f0;
+      --color-background-secondary-rgb: 244 243 240;
+    }
+    /* betaalmethoden/express-checkout weg op de productpagina */
+    #MainContent .shopify-payment-button,
+    #MainContent accelerated-checkout,
+    #MainContent .accelerated-checkout,
+    #MainContent .payment-icons { display: none !important; }
+    .product-media-gallery,
+    .product-information__media,
+    .media-gallery { background: #ffffff; }
+    .product-media-gallery .product-media-container > img,
+    .product-media-gallery .product-media-container > video,
+    .media-gallery .product-media-container > img,
+    .product-media-gallery img,
+    .media-gallery img {
+      object-fit: contain !important;
+      background: #ffffff;
+    }
+  {% endstyle %}
+{%- endif -%}
+
+{%- comment -%} Wettelijke pagina's (Shopify-policies): leesbare kolom i.p.v. Shopify's smalle default {%- endcomment -%}
+{%- if request.page_type == 'policy' -%}
+  {% style %}
+    /* ponytail: alleen breedte + typografie bijstellen, Shopify's eigen markup blijft */
+    .shopify-policy__container {
+      max-width: 760px;
+      padding: 40px 24px 80px;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    .shopify-policy__title { text-align: left; margin-bottom: 8px; }
+    .shopify-policy__title h1 {
+      font-size: clamp(28px, 4vw, 38px);
+      line-height: 1.2;
+      text-align: left;
+    }
+    .shopify-policy__body { font-size: 1rem; line-height: 1.75; }
+    .shopify-policy__body h2 { font-size: 1.25rem; line-height: 1.3; margin-block: 1.75em 0.5em; }
+    .shopify-policy__body p { margin-block: 0 1em; }
   {% endstyle %}
 {%- endif -%}

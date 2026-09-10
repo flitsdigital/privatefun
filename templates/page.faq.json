@@ -1,0 +1,96 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq_overzicht": {
+      "type": "faq-home",
+      "name": "FAQ — overzicht",
+      "blocks": {
+        "verzending": {
+          "type": "topic",
+          "settings": {
+            "title": "Verzending & discretie",
+            "icon": "truck",
+            "button_label": "Alle vragen over verzending",
+            "button_url": "/pages/faq-verzenden",
+            "q1": "Hoe discreet worden bestellingen verzonden?",
+            "a1": "<p>Volledig discreet. Je bestelling komt in een effen doos zonder logo, tekst of afbeelding. Ook het verzendlabel verraadt niets over de inhoud.</p>",
+            "q2": "Hoe snel heb ik mijn bestelling in huis?",
+            "a2": "<p>Voor 22:00 besteld is de volgende dag in huis. Liever niet thuis ontvangen? Kies bij het afrekenen een afhaalpunt bij jou in de buurt.</p>",
+            "q3": "Wat staat er als afzender op het pakket?",
+            "a3": "<p>Een neutrale afzendernaam. Nergens op de doos of het label is te zien dat het pakket van een erotiekwinkel komt.</p>"
+          }
+        },
+        "producten": {
+          "type": "topic",
+          "settings": {
+            "title": "Producten & gebruik",
+            "icon": "sparkle",
+            "button_label": "Alle vragen over producten",
+            "button_url": "/pages/faq-toys",
+            "q1": "Zijn de producten veilig voor het lichaam?",
+            "a1": "<p>Ja. We selecteren producten van body-safe materialen. Lees bij twijfel de productomschrijving of neem contact op, dan adviseren we je graag.</p>",
+            "q2": "Hoe reinig ik mijn producten?",
+            "a2": "<p>Reinig je product voor en na gebruik met lauw water en een milde, geurloze reiniger of een speciale toycleaner. Bewaar het schoon en droog op een discrete plek.</p>",
+            "q3": "Ik weet niet waar ik moet beginnen. Wat raden jullie aan?",
+            "a3": "<p>Begin rustig. Onze starterskeuzes zijn precies daarvoor gekozen: eenvoudig, veelzijdig en zonder gedoe. Kom je er niet uit, mail ons dan — we helpen je graag verder.</p>"
+          }
+        },
+        "betalen": {
+          "type": "topic",
+          "settings": {
+            "title": "Betalen",
+            "icon": "card",
+            "button_label": "Alle vragen over betalen",
+            "button_url": "/pages/faq-betalen",
+            "q1": "Welke betaalmethoden kan ik gebruiken?",
+            "a1": "<p>Je betaalt veilig met onder andere iDEAL, Bancontact, Visa, Mastercard, Klarna en PayPal.</p>",
+            "q2": "Wat staat er op mijn bankafschrift?",
+            "a2": "<p>Een neutrale bedrijfsnaam, niet onze winkelnaam. Niemand die je afschrift ziet, weet waar je besteld hebt.</p>",
+            "q3": "Kan ik achteraf betalen?",
+            "a3": "<p>Ja. Met Klarna betaal je pas nadat je bestelling binnen is, zodat je alles eerst rustig kunt bekijken.</p>"
+          }
+        },
+        "retourneren": {
+          "type": "topic",
+          "settings": {
+            "title": "Retourneren",
+            "icon": "return",
+            "button_label": "Alle vragen over retourneren",
+            "button_url": "/pages/faq-retourneren",
+            "q1": "Kan ik een product ruilen of retourneren?",
+            "a1": "<p>Ongeopende producten in verzegelde verpakking kun je binnen 14 dagen retourneren. Om hygiënische redenen kunnen geopende producten helaas niet retour — twijfel je over een keuze, stel ons dan gerust eerst je vraag.</p>",
+            "q2": "Welke producten kan ik niet retourneren?",
+            "a2": "<p>Om hygiënische redenen kunnen geopende toys, lingerie en intieme artikelen niet retour. Twijfel je over een keuze? Stel ons gerust eerst je vraag.</p>",
+            "q3": "Wanneer krijg ik mijn geld terug?",
+            "a3": "<p>Zodra we je retour hebben ontvangen en gecontroleerd, storten we het bedrag binnen 14 dagen terug op je rekening.</p>"
+          }
+        }
+      },
+      "block_order": ["verzending", "producten", "betalen", "retourneren"],
+      "settings": {
+        "eyebrow": "Veelgestelde vragen",
+        "title": "Alles wat je wilt weten",
+        "emphasis": "wilt weten",
+        "sub": "<p>Per onderwerp de vragen die we het vaakst krijgen. Staat je vraag er niet bij? We helpen je graag — discreet en zonder oordeel.</p>",
+        "grid_gap": 20,
+        "padding_y": 92,
+        "title_size": 38,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "color_bg": "#15120a",
+        "color_card": "#0f0d07",
+        "color_accent": "#ce9d27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["faq_overzicht"]
+}

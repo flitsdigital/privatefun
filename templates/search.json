@@ -43,7 +43,7 @@
       },
       "settings": {
         "alignment": "flex-start",
-        "background_color": "#ffffff",
+        "background_color": "#0b0b0b",
         "padding-block-start": 40,
         "padding-block-end": 0
       }
@@ -218,7 +218,7 @@
         "columns_gap_vertical": 16,
         "padding-inline-start": 0,
         "padding-inline-end": 0,
-        "background_color": "#ffffff",
+        "background_color": "#0b0b0b",
         "padding-block-start": 40,
         "padding-block-end": 40
       }

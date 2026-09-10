@@ -1,0 +1,151 @@
+/* Privatefun — losse correcties bovenop het thema.
+   Staat apart van theme-styles-variables.liquid zodat het los naar het thema kan.
+   De selectors zijn bewust zwaar (html body …): het thema zet veel waarden met !important. */
+
+/* ---------- Filterkolom: sticky, scrollt intern mee als de lijst langer is dan het scherm ---------- */
+@media screen and (min-width: 990px) {
+  .facets-block-wrapper--vertical {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+    max-height: calc(100dvh - 130px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(26 26 26 / 0.25) transparent;
+    padding-inline-end: 6px;
+  }
+
+  .facets-block-wrapper--vertical .facets__form-wrapper {
+    position: static;
+    max-height: none;
+  }
+
+  .facets-block-wrapper--vertical::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .facets-block-wrapper--vertical::-webkit-scrollbar-thumb {
+    background: rgb(26 26 26 / 0.25);
+    border-radius: 3px;
+  }
+}
+
+/* ---------- Filter-vinkjes: het invoervakje onzichtbaar houden ----------
+   Het eigenlijke vakje wordt door pf-collection.js getekend. */
+html body #MainContent .facets .checkbox input.checkbox__input {
+  opacity: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+html body #MainContent .facets .checkbox__label-text {
+  color: #1a1a1a !important;
+}
+
+/* ---------- Producttitels zwart op de lichte pagina's ----------
+   Alleen waar de achtergrond wit is; de homepage is donker en houdt zijn lichte tekst. */
+html body #MainContent:is([data-template^='collection'], [data-template^='search'], [data-template^='product'])
+  :is(product-card, .product-card)
+  :is(a.contents, a[ref='productTitleLink'], [class*='title']) {
+  color: #000000 !important;
+}
+
+html body #MainContent:is([data-template^='collection'], [data-template^='search'], [data-template^='product'])
+  :is(product-card, .product-card)
+  :is(a.contents, a[ref='productTitleLink'], [class*='title']) * {
+  color: inherit !important;
+}
+
+html body #MainContent:is([data-template^='collection'], [data-template^='search'])
+  .product-grid__item
+  a[href*='/products/'] {
+  color: #000000 !important;
+}
+
+/* ---------- Productfoto's altijd volledig in beeld, nooit bijgesneden ----------
+   Het thema regelt dit via --product-media-fit; die zetten we om, en we forceren
+   het daarnaast rechtstreeks op de afbeelding zelf. */
+html body #MainContent :is(.product-media-container, .product-media, .card-gallery, product-card, .product-card) {
+  --product-media-fit: contain;
+}
+
+html body #MainContent :is(.product-media, .product-media-container, .card-gallery) :is(img, video),
+html body #MainContent :is(product-card, .product-card) img {
+  object-fit: contain !important;
+  background: #ffffff;
+}
+
+/* ---------- Favorietenpagina (witte achtergrond, zoals de productpagina's) ---------- */
+html body #MainContent[data-template*='favorieten'] .wl-card__media {
+  border: 1px solid rgb(26 26 26 / 0.08);
+}
+
+html body #MainContent[data-template*='favorieten'] .wl-card__price {
+  color: #1a1a1a !important;
+}
+
+/* ---------- Favorieten-teller in de header: goud ---------- */
+html body [data-wishlist-count] {
+  background: #ce9d27 !important;
+  color: #0b0b0b !important;
+}
+
+/* ---------- "Contact" in de menubalk alleen als die zwevend meescrollt ----------
+   Bovenaan de pagina staat Contact al in de bovenste balk, dus daar is het dubbel. */
+@media screen and (min-width: 901px) {
+  [data-mega-nav] > li:has(> a[href*='/pages/contact']) {
+    display: none;
+  }
+
+  [data-mega-root][data-nav-floating='true'] [data-mega-nav] > li:has(> a[href*='/pages/contact']) {
+    display: block;
+  }
+}
+
+/* ---------- FAQ: rustig uitschuiven van het antwoord ---------- */
+details[class*='__item'] > div[class*='__answer'] {
+  overflow: hidden;
+}
+
+/* ---------- "Naar volgende pagina" onder het grid ---------- */
+.pf-next-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pf-next-page__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  background: #ce9d27;
+  color: #0b0b0b;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.pf-next-page__btn:hover {
+  opacity: 0.88;
+}
+
+.pf-next-page__btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.pf-next-page__meta {
+  margin: 0;
+  font-size: 13px;
+  color: #1a1a1a;
+  opacity: 0.65;
+}

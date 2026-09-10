@@ -1,0 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "favorites-grid",
+      "settings": {
+        "eyebrow": "Jouw selectie",
+        "title": "Favorieten",
+        "empty_text": "Je hebt nog geen favorieten bewaard. Tik op het hartje bij een product om het hier te bewaren.",
+        "cta_label": "Ontdek de collectie",
+        "cta_link": "/collections/all",
+        "title_size": 40,
+        "padding_y": 80,
+        "color_bg": "#ffffff",
+        "color_accent": "#CE9D27",
+        "color_text": "#1a1a1a"
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,240 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  {{ s.font_display | font_face: font_display: 'swap' }}
+  {{ s.font_body | font_face: font_display: 'swap' }}
+
+  .fh-{{ uid }} {
+    --fh-accent: {{ s.color_accent }};
+    --fh-text: {{ s.color_text }};
+    --fh-card: {{ s.color_card }};
+    --fh-line: color-mix(in srgb, {{ s.color_text }} 15%, transparent);
+    background: {{ s.color_bg }};
+    color: var(--fh-text);
+    padding: {{ s.padding_y }}px 0;
+    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+  }
+  .fh-{{ uid }} *, .fh-{{ uid }} *::before, .fh-{{ uid }} *::after { box-sizing: border-box; }
+
+  .fh-{{ uid }}__inner { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  .fh-{{ uid }}__head { text-align: center; max-width: 620px; margin: 0 auto 46px; }
+  .fh-{{ uid }}__eyebrow {
+    margin: 0 0 12px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 500; color: var(--fh-accent);
+  }
+  .fh-{{ uid }}__title {
+    margin: 0; font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: {{ s.title_size }}px; line-height: 1.14; font-weight: 400;
+  }
+  .fh-{{ uid }}__title em { font-style: italic; color: var(--fh-accent); }
+  .fh-{{ uid }}__sub { margin: 16px 0 0; font-size: 15px; line-height: 1.7; opacity: .8; }
+
+  /* ---------- 2x2 grid ---------- */
+  .fh-{{ uid }}__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: {{ s.grid_gap }}px;
+  }
+
+  .fh-{{ uid }}__card {
+    display: flex; flex-direction: column;
+    background: var(--fh-card);
+    border: 1px solid var(--fh-line);
+    padding: 30px 30px 26px;
+  }
+  .fh-{{ uid }}__card-head { display: flex; align-items: center; gap: 12px; margin: 0 0 8px; }
+  .fh-{{ uid }}__icon { flex: none; width: 26px; height: 26px; color: var(--fh-accent); }
+  .fh-{{ uid }}__card-title {
+    margin: 0; font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-size: 23px; font-weight: 400; line-height: 1.2;
+  }
+
+  .fh-{{ uid }}__list { margin: 10px 0 0; flex: 1 1 auto; }
+  .fh-{{ uid }}__item { border-top: 1px solid var(--fh-line); }
+  .fh-{{ uid }}__q {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 15px 0; cursor: pointer; list-style: none;
+    font-size: 15px; font-weight: 500; line-height: 1.4;
+    transition: color var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  .fh-{{ uid }}__q::-webkit-details-marker { display: none; }
+  .fh-{{ uid }}__q:hover { color: var(--fh-accent); }
+  .fh-{{ uid }}__q:focus-visible { outline: 2px solid var(--fh-accent); outline-offset: 3px; }
+  .fh-{{ uid }}__plus { flex: none; width: 15px; height: 15px; color: var(--fh-accent); transition: transform .25s ease; }
+  .fh-{{ uid }}__item[open] .fh-{{ uid }}__plus { transform: rotate(45deg); }
+  .fh-{{ uid }}__a { display: grid; grid-template-rows: 0fr; overflow: hidden; transition: grid-template-rows .28s var(--ease-out-quad); }
+  .fh-{{ uid }}__a-inner { min-height: 0; font-size: 14px; line-height: 1.7; opacity: 0; transition: opacity .28s var(--ease-out-quad); }
+  .fh-{{ uid }}__item[open] .fh-{{ uid }}__a { grid-template-rows: 1fr; }
+  .fh-{{ uid }}__item[open] .fh-{{ uid }}__a-inner { opacity: .82; padding-bottom: 16px; }
+  .fh-{{ uid }}__a-inner p { margin: 0 0 10px; }
+  .fh-{{ uid }}__a-inner p:last-child { margin-bottom: 0; }
+
+  .fh-{{ uid }}__btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 22px; align-self: flex-start;
+    padding: 12px 22px; border: 1px solid var(--fh-accent); color: var(--fh-accent);
+    font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none;
+    transition: background var(--animation-speed-medium) var(--animation-timing-hover), color var(--animation-speed-medium) var(--animation-timing-hover);
+  }
+  @media (hover: hover) { .fh-{{ uid }}__btn:hover { background: var(--fh-accent); color: {{ s.color_bg }}; } }
+  .fh-{{ uid }}__btn svg { width: 14px; height: 14px; }
+
+  @media (max-width: 749px) {
+    .fh-{{ uid }} { padding: {{ s.padding_y | times: 0.7 | round }}px 0; }
+    .fh-{{ uid }}__grid { grid-template-columns: 1fr; gap: 16px; }
+    .fh-{{ uid }}__card { padding: 24px 22px 22px; }
+    .fh-{{ uid }}__title { font-size: {{ s.title_size | times: 0.72 | round }}px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fh-{{ uid }} * { transition: opacity .01s, color .01s !important; animation: none !important; }
+  }
+</style>
+
+<div class="fh-{{ uid }}" id="faq">
+  <div class="fh-{{ uid }}__inner">
+
+    <div class="fh-{{ uid }}__head">
+      {%- if s.eyebrow != blank -%}<p class="fh-{{ uid }}__eyebrow">{{ s.eyebrow }}</p>{%- endif -%}
+      {%- if s.title != blank -%}
+        {%- liquid
+          assign out = s.title
+          if s.emphasis != blank
+            assign em_html = '<em>' | append: s.emphasis | append: '</em>'
+            assign out = out | replace: s.emphasis, em_html
+          endif
+        -%}
+        {%- comment -%} ponytail: op de FAQ-pagina is deze titel de paginakop {%- endcomment -%}
+        {%- assign heading_tag = 'h2' -%}
+        {%- if template.suffix contains 'faq' -%}{%- assign heading_tag = 'h1' -%}{%- endif -%}
+        <{{ heading_tag }} class="fh-{{ uid }}__title">{{ out }}</{{ heading_tag }}>
+      {%- endif -%}
+      {%- if s.sub != blank -%}<div class="fh-{{ uid }}__sub">{{ s.sub }}</div>{%- endif -%}
+    </div>
+
+    <div class="fh-{{ uid }}__grid">
+      {%- for block in section.blocks -%}
+        {%- assign bs = block.settings -%}
+        <div class="fh-{{ uid }}__card" {{ block.shopify_attributes }}>
+          <div class="fh-{{ uid }}__card-head">
+            <span class="fh-{{ uid }}__icon">
+              {%- case bs.icon -%}
+                {%- when 'truck' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16V6h11v10M14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+                {%- when 'sparkle' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></svg>
+                {%- when 'card' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 10h18"/></svg>
+                {%- when 'return' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h11a5 5 0 0 1 0 10H9"/><path d="m8 6-4 4 4 4"/></svg>
+                {%- when 'lock' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="10" width="14" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                {%- when 'chat' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v11H8l-4 4z"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3 2.4c-.6.2-1 .8-1 1.6M12 16h.01"/></svg>
+              {%- endcase -%}
+            </span>
+            <h3 class="fh-{{ uid }}__card-title">{{ bs.title }}</h3>
+          </div>
+
+          <div class="fh-{{ uid }}__list">
+            {%- for i in (1..5) -%}
+              {%- assign qkey = 'q' | append: i -%}
+              {%- assign akey = 'a' | append: i -%}
+              {%- assign q = bs[qkey] -%}
+              {%- assign a = bs[akey] -%}
+              {%- if q != blank -%}
+                <details class="fh-{{ uid }}__item">
+                  <summary class="fh-{{ uid }}__q">
+                    <span>{{ q }}</span>
+                    <svg class="fh-{{ uid }}__plus" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M2 8h12"/></svg>
+                  </summary>
+                  <div class="fh-{{ uid }}__a"><div class="fh-{{ uid }}__a-inner">{{ a }}</div></div>
+                </details>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if bs.button_label != blank and bs.button_url != blank -%}
+            <a class="fh-{{ uid }}__btn" href="{{ bs.button_url }}">
+              {{ bs.button_label }}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ — homepage",
+  "tag": "section",
+  "class": "faq-home-section",
+  "settings": [
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "eyebrow", "label": "Bovenkopje", "default": "Veelgestelde vragen" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Alles wat je wilt weten" },
+    { "type": "text", "id": "emphasis", "label": "Accentwoord", "default": "wilt weten" },
+    { "type": "richtext", "id": "sub", "label": "Subtekst", "default": "<p>Per onderwerp de vragen die we het vaakst krijgen. Staat je vraag er niet bij? We helpen je graag.</p>" },
+
+    { "type": "header", "content": "Weergave" },
+    { "type": "range", "id": "grid_gap", "min": 12, "max": 40, "step": 2, "unit": "px", "label": "Ruimte tussen kaarten", "default": 20 },
+    { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
+    { "type": "range", "id": "title_size", "min": 24, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 38 },
+
+    { "type": "header", "content": "Typografie" },
+    { "type": "font_picker", "id": "font_display", "label": "Titels", "default": "playfair_display_n4" },
+    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
+
+    { "type": "header", "content": "Kleuren" },
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_card", "label": "Kaart-achtergrond", "default": "#141414" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
+    { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
+  ],
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Onderwerp",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Onderwerp", "default": "Verzenden" },
+        {
+          "type": "select", "id": "icon", "label": "Icoon", "default": "truck",
+          "options": [
+            { "value": "truck", "label": "Bezorging" },
+            { "value": "sparkle", "label": "Ster/Toys" },
+            { "value": "card", "label": "Betaalkaart" },
+            { "value": "return", "label": "Retour" },
+            { "value": "lock", "label": "Slot" },
+            { "value": "chat", "label": "Chat" },
+            { "value": "help", "label": "Vraagteken" }
+          ]
+        },
+        { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Bekijk alle vragen" },
+        { "type": "url", "id": "button_url", "label": "Knoplink (overzichtspagina)" },
+        { "type": "header", "content": "Vraag 1" },
+        { "type": "text", "id": "q1", "label": "Vraag 1" },
+        { "type": "richtext", "id": "a1", "label": "Antwoord 1" },
+        { "type": "header", "content": "Vraag 2" },
+        { "type": "text", "id": "q2", "label": "Vraag 2" },
+        { "type": "richtext", "id": "a2", "label": "Antwoord 2" },
+        { "type": "header", "content": "Vraag 3" },
+        { "type": "text", "id": "q3", "label": "Vraag 3" },
+        { "type": "richtext", "id": "a3", "label": "Antwoord 3" },
+        { "type": "header", "content": "Vraag 4" },
+        { "type": "text", "id": "q4", "label": "Vraag 4" },
+        { "type": "richtext", "id": "a4", "label": "Antwoord 4" },
+        { "type": "header", "content": "Vraag 5" },
+        { "type": "text", "id": "q5", "label": "Vraag 5" },
+        { "type": "richtext", "id": "a5", "label": "Antwoord 5" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "FAQ — homepage" }
+  ]
+}
+{% endschema %}

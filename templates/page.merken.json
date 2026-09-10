@@ -1,0 +1,35 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "merken": {
+      "type": "brands",
+      "name": "Merken A–Z",
+      "settings": {
+        "eyebrow": "Alle merken",
+        "title": "Merken van A tot Z",
+        "emphasis": "A tot Z",
+        "sub": "<p>Van vertrouwde klassiekers tot nieuwe favorieten. Kies een merk en bekijk het hele assortiment.</p>",
+        "show_search": true,
+        "search_label": "Zoek een merk",
+        "empty_text": "Geen merk gevonden.",
+        "columns": 4,
+        "padding_y": 92,
+        "title_size": 38,
+        "font_display": "playfair_display_n4",
+        "font_body": "assistant_n4",
+        "color_bg": "#0b0b0b",
+        "color_accent": "#CE9D27",
+        "color_text": "#e6e3dd"
+      }
+    }
+  },
+  "order": ["merken"]
+}

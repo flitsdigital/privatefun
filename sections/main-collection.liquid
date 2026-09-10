@@ -42,6 +42,12 @@
   >
     {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
+    <nav class="collection-breadcrumbs" aria-label="Kruimelpad">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span class="collection-breadcrumbs__sep" aria-hidden="true">/</span>
+      <span class="collection-breadcrumbs__current" aria-current="page">{{ collection.title }}</span>
+    </nav>
+
     <div
       class="collection-wrapper grid gap-style{% if section.settings.product_grid_width == 'full-width' %} collection-wrapper--grid-full-width{% endif %}"
     >
@@ -89,6 +95,122 @@
     </div>
   </results-list>
 </collection-component>
+
+<style>
+  .col-back { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; margin-right: 16px; color: #1a1a1a; text-decoration: none; transition: color .15s ease, transform .15s ease; }
+  .col-back:hover { color: #CE9D27; transform: translateX(-3px); }
+  .col-back svg { width: 30px; height: 30px; }
+  @media (max-width: 749px) { .col-back svg { width: 24px; height: 24px; } .col-back { margin-right: 10px; } }
+
+  /* Kruimelpad lijnt links uit met de productkolom. --bc-offset wordt live gemeten (script hieronder)
+     en op :root gezet, zodat hydratatie van results-list de waarde niet wegpoetst.
+     Zonder zijbalk (mobiel) valt de offset terug op de normale paginamarge. */
+  .collection-breadcrumbs {
+    margin: 0;
+    padding: 0 0 20px;
+    padding-inline-start: max(var(--bc-offset, 0px), 16px);
+    padding-inline-end: 16px;
+    font-size: 13px;
+    letter-spacing: .02em;
+    color: rgb(var(--color-foreground-rgb) / .6);
+  }
+  .collection-breadcrumbs a { color: inherit; text-decoration: none; transition: color .15s ease; }
+  .collection-breadcrumbs a:hover { color: #CE9D27; }
+  .collection-breadcrumbs__sep { opacity: .5; margin: 0 7px; }
+  .collection-breadcrumbs__current { color: rgb(var(--color-foreground-rgb) / .9); }
+</style>
+<script>
+  (function () {
+    var raf = window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (f) { return setTimeout(f, 16); };
+    var queued = false;
+
+    function sync() {
+      queued = false;
+      var wrap = document.querySelector('.collection-wrapper');
+      var grid = document.querySelector('.main-collection-grid');
+      if (!wrap || !grid) return;
+      var offset = grid.getBoundingClientRect().left - wrap.getBoundingClientRect().left;
+      if (!isFinite(offset) || offset < 1) offset = 0;
+      document.documentElement.style.setProperty('--bc-offset', Math.round(offset) + 'px');
+    }
+
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      raf(sync);
+    }
+
+    sync();
+    schedule();
+    document.addEventListener('DOMContentLoaded', schedule);
+    window.addEventListener('load', schedule);
+    window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('orientationchange', schedule, { passive: true });
+    document.addEventListener('collection:update', function () { setTimeout(sync, 30); });
+    setTimeout(sync, 300);
+    setTimeout(sync, 1200);
+
+    if (typeof ResizeObserver !== 'undefined') {
+      var target = document.querySelector('.collection-wrapper');
+      if (target) {
+        try { new ResizeObserver(schedule).observe(target); } catch (e) {}
+      }
+    }
+
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(schedule);
+    }
+  })();
+</script>
+<script>
+  (function () {
+    var title = {{ collection.title | json }};
+    function place() {
+      var hs = document.querySelectorAll('#MainContent h1');
+      for (var i = 0; i < hs.length; i++) {
+        var h = hs[i];
+        if (h.querySelector('.col-back')) return true;
+        if ((h.textContent || '').trim() === title) {
+          var a = document.createElement('a');
+          a.className = 'col-back'; a.href = '#';
+          a.setAttribute('aria-label', 'Terug naar vorige pagina');
+          a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 6l-6 6 6 6"/></svg>';
+          a.addEventListener('click', function (e) { e.preventDefault(); if (history.length > 1) history.back(); else window.location.href = '/collections/all'; });
+          h.insertBefore(a, h.firstChild);
+          return true;
+        }
+      }
+      return false;
+    }
+    if (!place()) {
+      document.addEventListener('DOMContentLoaded', place);
+      var mo = new MutationObserver(function () { if (place()) mo.disconnect(); });
+      try { mo.observe(document.documentElement, { childList: true, subtree: true }); } catch (e) {}
+      setTimeout(function () { try { mo.disconnect(); } catch (e) {} }, 6000);
+    }
+  })();
+</script>
+<script>
+  (function () {
+    function enableFilters() {
+      document.querySelectorAll('.facets input, .facets .checkbox__input, .facets .facets__pill-input').forEach(function (el) {
+        if (el.disabled) el.disabled = false;
+        el.removeAttribute('disabled');
+      });
+      document.querySelectorAll('.facets .checkbox--disabled, .facets .facets__inputs-list-item--disabled').forEach(function (el) {
+        el.classList.remove('checkbox--disabled');
+        el.classList.remove('facets__inputs-list-item--disabled');
+      });
+    }
+    enableFilters();
+    document.addEventListener('DOMContentLoaded', enableFilters);
+    document.addEventListener('collection:update', function () { setTimeout(enableFilters, 30); });
+    var box = document.querySelector('.facets-block-wrapper--vertical') || document.querySelector('.facets');
+    if (box && typeof MutationObserver !== 'undefined') {
+      new MutationObserver(function () { enableFilters(); }).observe(box, { childList: true, subtree: true });
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -165,7 +287,7 @@
       "id": "products_per_page",
       "label": "t:settings.products_per_page",
       "min": 8,
-      "max": 36,
+      "max": 60,
       "step": 4,
       "default": 24,
       "visible_if": "{{ section.settings.enable_infinite_scroll == false }}"

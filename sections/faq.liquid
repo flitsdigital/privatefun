@@ -40,6 +40,8 @@
   }
   .fq-{{ uid }}__title {
     margin: 0;
+    /* ponytail: expliciet, anders erft de h2 op de witte productpagina de donkere themakleur */
+    color: var(--fq-text);
     font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
     font-size: {{ s.title_size }}px;
     line-height: 1.15;
@@ -146,8 +148,13 @@
             assign em_html = '<em>' | append: s.emphasis | append: '</em>'
             assign out = out | replace: s.emphasis, em_html
           endif
+          # ponytail: op de FAQ-pagina's is deze titel de paginakop, elders een subkop
+          assign heading_tag = 'h2'
+          if template.suffix contains 'faq'
+            assign heading_tag = 'h1'
+          endif
         -%}
-        <h2 class="fq-{{ uid }}__title">{{ out }}</h2>
+        <{{ heading_tag }} class="fq-{{ uid }}__title">{{ out }}</{{ heading_tag }}>
       {%- endif -%}
       {%- if s.text != blank -%}
         <div class="fq-{{ uid }}__text">{{ s.text }}</div>
@@ -219,7 +226,7 @@
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#f3eee1" },
-    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#a97d38" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
     { "type": "color", "id": "color_text", "label": "Teksten", "default": "#1a1a1a" }
   ],
   "blocks": [

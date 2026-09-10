@@ -54,7 +54,8 @@
     position: absolute;
     right: max(var(--quick-add-right), calc((var(--border-radius) + var(--quick-add-right)) * (1 - cos(45deg))));
     bottom: max(var(--quick-add-bottom), calc((var(--border-radius) + var(--quick-add-bottom)) * (1 - cos(45deg))));
-    backdrop-filter: blur(20px) saturate(180%);
+    /* ponytail: backdrop-filter weg — de achtergrond is al dekkend, dus onzichtbaar effect
+       dat wel 56 compositing-lagen kostte op een collectiepagina (Safari/mobiel liep vast) */
 
     &:hover {
       scale: 1.03;

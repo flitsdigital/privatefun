@@ -1,0 +1,80 @@
+{%- liquid
+  assign s = section.settings
+  assign uid = section.id | replace: '_', '' | downcase
+-%}
+{% style %}
+  .ub-{{ uid }} {
+    background: {{ s.color_bg }};
+    border-top: 1px solid color-mix(in srgb, {{ s.color_text }} 16%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, {{ s.color_text }} 16%, transparent);
+  }
+  .ub-{{ uid }}__wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: {{ s.padding_y }}px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px 28px;
+    flex-wrap: wrap;
+  }
+  .ub-{{ uid }}__item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-brand-body--family, var(--font-body--family));
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ s.color_text }};
+    white-space: nowrap;
+  }
+  .ub-{{ uid }}__item svg {
+    width: 13px;
+    height: 13px;
+    color: {{ s.color_accent }};
+    flex: none;
+  }
+  @media screen and (max-width: 749px) {
+    .ub-{{ uid }}__wrap { justify-content: flex-start; gap: 10px 20px; }
+    .ub-{{ uid }}__item { font-size: 11px; white-space: normal; }
+  }
+{% endstyle %}
+<div class="ub-{{ uid }}">
+  <div class="ub-{{ uid }}__wrap">
+    {%- for block in section.blocks -%}
+      <span class="ub-{{ uid }}__item" {{ block.shopify_attributes }}>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.7 7.2a2 2 0 0 0 1.1 1.1L22 12l-7.2 1.7a2 2 0 0 0-1.1 1.1L12 22l-1.7-7.2a2 2 0 0 0-1.1-1.1L2 12l7.2-1.7a2 2 0 0 0 1.1-1.1z"/></svg>
+        <span>{{ block.settings.text }}</span>
+      </span>
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "USP-balk",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
+    { "type": "color", "id": "color_text", "label": "Tekst", "default": "#a49f97" },
+    { "type": "range", "id": "padding_y", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Verticale ruimte", "default": 18 }
+  ],
+  "blocks": [
+    { "type": "usp", "name": "USP", "settings": [ { "type": "text", "id": "text", "label": "Tekst", "default": "Neutrale verpakking" } ] }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "USP-balk",
+      "blocks": [
+        { "type": "usp", "settings": { "text": "Neutrale verpakking" } },
+        { "type": "usp", "settings": { "text": "Discreet op je afschrift" } },
+        { "type": "usp", "settings": { "text": "Voor 22:00 besteld, morgen in huis" } },
+        { "type": "usp", "settings": { "text": "Vragen? Antwoord binnen een dag" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
