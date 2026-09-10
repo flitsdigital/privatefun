@@ -40,6 +40,8 @@
   }
   .fq-{{ uid }}__title {
     margin: 0;
+    /* ponytail: expliciet, anders erft de h2 op de witte productpagina de donkere themakleur */
+    color: var(--fq-text);
     font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
     font-size: {{ s.title_size }}px;
     line-height: 1.15;
