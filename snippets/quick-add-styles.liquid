@@ -5,12 +5,11 @@
   {% render 'quick-add-styles' %}
 {%- enddoc -%}
 
-{% style %}
-  .custom-color-quick-add {
-    --quick-add-background: {{ settings.quick_add_background }};
-    --quick-add-foreground: {{ settings.quick_add_text }};
-  }
-{% endstyle %}
+{%- comment -%}
+  ponytail: dit blok gebruikt alleen globale settings, dus de uitvoer was elke keer identiek
+  terwijl het per productkaart werd gerenderd (56x op een collectiepagina).
+  Staat nu een keer in layout/theme.liquid.
+{%- endcomment -%}
 
 {% stylesheet %}
   /* Quick Add */

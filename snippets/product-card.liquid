@@ -12,14 +12,19 @@
 
 {% assign block_settings = block.settings %}
 
-{% style %}
-  {% if request.visual_preview_mode %}
+{%- comment -%}
+  ponytail: de if stond binnen {% style %}, dus op de winkel kwam er per productkaart
+  een leeg <style>-element uit. 28 kaarten = 28 lege stylesheets die WebKit elk apart
+  parseert en een style-hertelling geeft. Nu andersom: geen tag tenzij nodig.
+{%- endcomment -%}
+{%- if request.visual_preview_mode -%}
+  {% style %}
     product-card[data-product-transition] {
       width: 100%;
       min-width: 250px;
     }
-  {% endif %}
-{% endstyle %}
+  {% endstyle %}
+{%- endif -%}
 
 {% liquid
   assign has_quick_add = false
