@@ -73,8 +73,6 @@
         "contact_link": "/pages/contact",
         "open_first": true,
         "padding_y": 92,
-        "font_display": "playfair_display_n4",
-        "font_body": "assistant_n4",
         "title_size": 32,
         "color_bg": "#15120a",
         "color_accent": "#ce9d27",

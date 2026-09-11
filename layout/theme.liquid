@@ -111,8 +111,15 @@
     {% endif %}
 
     <script src="{{ 'wishlist.js' | asset_url }}" defer></script>
+    {%- comment -%} ponytail: quick-add kleurvariabelen, een keer per pagina i.p.v. per productkaart {%- endcomment -%}
+    {% style %}
+      .custom-color-quick-add {
+        --quick-add-background: {{ settings.quick_add_background }};
+        --quick-add-foreground: {{ settings.quick_add_text }};
+      }
+    {% endstyle %}
+
     <link rel="stylesheet" href="{{ 'pf-fixes.css' | asset_url }}">
-    <script src="{{ 'pf-site.js' | asset_url }}" defer></script>
 
     {% if request.page_type == 'collection' or request.page_type == 'search' %}
       <script src="{{ 'pf-collection.js' | asset_url }}" defer></script>

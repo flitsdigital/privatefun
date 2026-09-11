@@ -168,6 +168,21 @@
       {% if enable_infinite_scroll != false %}
         <span ref="viewMoreNext"></span>
       {% else %}
+        {%- if paginate.pages > 1 -%}
+          {%- assign pages_left = paginate.pages | minus: paginate.current_page -%}
+          <div class="pf-next-page">
+            {%- if paginate.next -%}
+              <a class="pf-next-page__btn" href="{{ paginate.next.url }}">
+                Naar volgende pagina
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+              </a>
+            {%- endif -%}
+            <p class="pf-next-page__meta">
+              Pagina {{ paginate.current_page }} van {{ paginate.pages }}
+              {%- if pages_left > 0 %} · nog {{ pages_left }} pagina{% if pages_left > 1 %}'s{% endif %}{% endif -%}
+            </p>
+          </div>
+        {%- endif -%}
         {% render 'pagination-controls', paginate: paginate %}
       {% endif %}
     {% endif %}

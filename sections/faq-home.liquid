@@ -4,8 +4,6 @@
 -%}
 
 <style>
-  {{ s.font_display | font_face: font_display: 'swap' }}
-  {{ s.font_body | font_face: font_display: 'swap' }}
 
   .fh-{{ uid }} {
     --fh-accent: {{ s.color_accent }};
@@ -15,9 +13,8 @@
     background: {{ s.color_bg }};
     color: var(--fh-text);
     padding: {{ s.padding_y }}px 0;
-    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-family: var(--font-brand-body--family);
   }
-  .fh-{{ uid }} *, .fh-{{ uid }} *::before, .fh-{{ uid }} *::after { box-sizing: border-box; }
 
   .fh-{{ uid }}__inner { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
@@ -27,7 +24,7 @@
     font-weight: 500; color: var(--fh-accent);
   }
   .fh-{{ uid }}__title {
-    margin: 0; font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    margin: 0; font-family: var(--font-brand-display--family);
     font-size: {{ s.title_size }}px; line-height: 1.14; font-weight: 400;
   }
   .fh-{{ uid }}__title em { font-style: italic; color: var(--fh-accent); }
@@ -49,7 +46,7 @@
   .fh-{{ uid }}__card-head { display: flex; align-items: center; gap: 12px; margin: 0 0 8px; }
   .fh-{{ uid }}__icon { flex: none; width: 26px; height: 26px; color: var(--fh-accent); }
   .fh-{{ uid }}__card-title {
-    margin: 0; font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    margin: 0; font-family: var(--font-brand-display--family);
     font-size: 23px; font-weight: 400; line-height: 1.2;
   }
 
@@ -185,8 +182,6 @@
     { "type": "range", "id": "title_size", "min": 24, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 38 },
 
     { "type": "header", "content": "Typografie" },
-    { "type": "font_picker", "id": "font_display", "label": "Titels", "default": "playfair_display_n4" },
-    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },

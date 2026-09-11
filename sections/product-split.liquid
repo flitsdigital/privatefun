@@ -4,8 +4,6 @@
 -%}
 
 <style>
-  {{ s.font_display | font_face: font_display: 'swap' }}
-  {{ s.font_body | font_face: font_display: 'swap' }}
 
   .ps-{{ uid }} {
     --ps-accent: {{ s.color_accent }};
@@ -13,9 +11,8 @@
 
     background: {{ s.color_bg }};
     padding: {{ s.padding_y }}px 0;
-    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-family: var(--font-brand-body--family);
   }
-  .ps-{{ uid }} *, .ps-{{ uid }} *::before, .ps-{{ uid }} *::after { box-sizing: border-box; }
 
   .ps-{{ uid }}__inner {
     max-width: {{ s.max_height | times: 2 | plus: s.gap }}px;
@@ -87,7 +84,7 @@
   }
   .ps-{{ uid }}__title {
     margin: 0;
-    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-family: var(--font-brand-display--family);
     font-size: {{ s.title_size }}px;
     line-height: 1.1;
     font-weight: 400;
@@ -223,13 +220,11 @@
     { "type": "range", "id": "padding_y", "min": 0, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 80 },
 
     { "type": "header", "content": "Typografie" },
-    { "type": "font_picker", "id": "font_display", "label": "Titels", "default": "playfair_display_n4" },
-    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
     { "type": "range", "id": "title_size", "min": 22, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 36 },
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
-    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
     { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" }
   ],
   "blocks": [

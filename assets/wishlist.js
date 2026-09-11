@@ -8,7 +8,6 @@
   }
   function write(list) {
     try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
-    document.dispatchEvent(new CustomEvent('wishlist:change', { detail: { list: list } }));
   }
   function has(list, id) { return list.some(function (i) { return String(i.id) === String(id); }); }
 
@@ -26,7 +25,6 @@
   function itemFromButton(btn) {
     return {
       id: btn.getAttribute('data-wl-id'),
-      handle: btn.getAttribute('data-wl-handle'),
       title: btn.getAttribute('data-wl-title'),
       url: btn.getAttribute('data-wl-url'),
       image: btn.getAttribute('data-wl-image'),
@@ -52,7 +50,6 @@
     document.querySelectorAll('[data-wishlist-count]').forEach(function (el) {
       el.textContent = n;
       el.hidden = n === 0;
-      el.style.display = n === 0 ? 'none' : '';
     });
   }
 
@@ -105,34 +102,13 @@
     }
   });
 
-  document.addEventListener('wishlist:change', function () { updateCount(); });
-
   function init() { syncButtons(); updateCount(); renderPage(); }
 
-  // MutationObserver-vangnet: Horizon wisselt bij navigatie de pagina-inhoud client-side,
-  // waardoor DOMContentLoaded niet opnieuw vuurt. We her-renderen zodra er nieuwe nodes
-  // verschijnen (bv. de favorietenpagina). Observer wordt tijdens init losgekoppeld om
-  // een oneindige lus door onze eigen innerHTML-wijziging te voorkomen.
-  var scheduled = false, mo = null;
-  function observe() { if (mo && document.body) { try { mo.observe(document.body, { childList: true, subtree: true }); } catch (e) {} } }
-  function safeInit() { if (mo) mo.disconnect(); init(); observe(); }
-  function scheduleInit() {
-    if (scheduled) return;
-    scheduled = true;
-    setTimeout(function () { scheduled = false; safeInit(); }, 40);
-  }
-  if (typeof MutationObserver !== 'undefined') {
-    mo = new MutationObserver(function () { scheduleInit(); });
-  }
-
-  if (document.readyState !== 'loading') { init(); observe(); }
-  else document.addEventListener('DOMContentLoaded', function () { init(); observe(); });
-  // Horizon rehydrates sections on navigation; re-sync on those events too.
-  document.addEventListener('shopify:section:load', safeInit);
-  document.addEventListener('shopify:section:select', safeInit);
-  window.addEventListener('pageshow', safeInit);
-  window.addEventListener('popstate', scheduleInit);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) scheduleInit(); });
-
-  window.PFWishlist = { read: read, toggle: toggle, sync: safeInit };
+  if (document.readyState !== 'loading') init();
+  else document.addEventListener('DOMContentLoaded', init);
+  // Horizon navigeert cross-document (DOMContentLoaded vuurt per pagina); alleen
+  // de editor en de filters vervangen DOM zonder herlaad.
+  document.addEventListener('shopify:section:load', init);
+  document.addEventListener('shopify:collection:update', function (e) { Promise.resolve(e.promise).then(init, function () {}); });
+  document.addEventListener('shopify:search:update', function (e) { Promise.resolve(e.promise).then(init, function () {}); });
 })();

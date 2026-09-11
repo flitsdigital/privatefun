@@ -7,8 +7,6 @@
 -%}
 
 <style>
-  {{ s.font_display | font_face: font_display: 'swap' }}
-  {{ s.font_body | font_face: font_display: 'swap' }}
 
   .hc-{{ uid }} {
     --hc-accent: {{ s.color_accent }};
@@ -22,9 +20,8 @@
     padding: 48px 24px;
     overflow: hidden;
     background: {{ s.color_bg }};
-    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-family: var(--font-brand-body--family);
   }
-  .hc-{{ uid }} *, .hc-{{ uid }} *::before, .hc-{{ uid }} *::after { box-sizing: border-box; }
 
   /* ---------- achtergrond ---------- */
   .hc-{{ uid }}__bg { position: absolute; inset: 0; z-index: 0; }
@@ -68,7 +65,7 @@
   }
   .hc-{{ uid }}__eyebrow {
     margin: 0 0 14px;
-    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-family: var(--font-brand-body--family);
     font-size: 12px;
     font-weight: 500;
     letter-spacing: .24em;
@@ -77,7 +74,7 @@
   }
   .hc-{{ uid }}__heading {
     margin: 0;
-    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-family: var(--font-brand-display--family);
     font-size: {{ s.heading_size }}px;
     line-height: 1.05;
     letter-spacing: -0.01em;
@@ -349,12 +346,10 @@
 
     { "type": "header", "content": "Trustpilot" },
     { "type": "text", "id": "tp_score", "label": "Score", "default": "4,7" },
-    { "type": "text", "id": "tp_count", "label": "Aantal", "default": "312 reviews" },
     { "type": "url", "id": "tp_url", "label": "Link naar je Trustpilot-pagina" },
 
     { "type": "header", "content": "Google" },
     { "type": "text", "id": "g_score", "label": "Score", "default": "4,8" },
-    { "type": "text", "id": "g_count", "label": "Aantal", "default": "184 reviews" },
     { "type": "url", "id": "g_url", "label": "Link naar je Google-pagina" },
 
     { "type": "header", "content": "Achtergrond" },
@@ -363,14 +358,12 @@
     { "type": "range", "id": "height", "min": 320, "max": 900, "step": 20, "unit": "px", "label": "Hoogte", "default": 520 },
 
     { "type": "header", "content": "Typografie" },
-    { "type": "font_picker", "id": "font_display", "label": "Kop", "default": "playfair_display_n4" },
-    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
     { "type": "range", "id": "heading_size", "min": 28, "max": 88, "step": 2, "unit": "px", "label": "Grootte kop", "default": 58 },
     { "type": "range", "id": "sub_size", "min": 13, "max": 22, "step": 1, "unit": "px", "label": "Grootte subtekst", "default": 17 },
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },
-    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#CE9D27" },
+    { "type": "color", "id": "color_accent", "label": "Accent (goud)", "default": "#c9a063" },
     { "type": "color", "id": "color_text", "label": "Teksten", "default": "#e6e3dd" },
     { "type": "color", "id": "color_cta_text", "label": "Knop tekst", "default": "#1a1a1a" }
   ],

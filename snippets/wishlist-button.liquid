@@ -14,10 +14,8 @@
 <button
   type="button"
   class="wishlist-btn wishlist-btn--{{ ctx }}"
-  {%- if ctx == 'pdp' -%} style="display:inline-flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;white-space:nowrap;width:max-content;max-width:100%;height:44px;gap:8px;"{%- endif -%}
   data-wishlist-toggle
   data-wl-id="{{ product.id }}"
-  data-wl-handle="{{ product.handle }}"
   data-wl-title="{{ product.title | escape }}"
   data-wl-url="{{ product.url }}"
   data-wl-image="{{ img_url }}"

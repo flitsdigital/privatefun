@@ -2,17 +2,13 @@
   assign uid = section.id
   assign s = section.settings
 
-  assign excluded = ''
-  if s.exclude != blank
-    assign excluded = s.exclude | downcase | split: ','
-  endif
+  # ",merk a,merk b," zodat we op hele namen kunnen matchen
+  assign excluded = s.exclude | downcase | replace: ', ', ',' | replace: ' ,', ',' | prepend: ',' | append: ','
 
   assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ','
 -%}
 
 <style>
-  {{ s.font_display | font_face: font_display: 'swap' }}
-  {{ s.font_body | font_face: font_display: 'swap' }}
 
   .br-{{ uid }} {
     --br-accent: {{ s.color_accent }};
@@ -21,9 +17,8 @@
     background: {{ s.color_bg }};
     color: var(--br-text);
     padding: {{ s.padding_y }}px 0;
-    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-family: var(--font-brand-body--family);
   }
-  .br-{{ uid }} *, .br-{{ uid }} *::before, .br-{{ uid }} *::after { box-sizing: border-box; }
 
   .br-{{ uid }}__inner { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
 
@@ -33,7 +28,7 @@
     font-weight: 500; color: var(--br-accent);
   }
   .br-{{ uid }}__title {
-    margin: 0; font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    margin: 0; font-family: var(--font-brand-display--family);
     font-size: {{ s.title_size }}px; line-height: 1.14; font-weight: 400;
   }
   .br-{{ uid }}__title em { font-style: italic; color: var(--br-accent); }
@@ -69,7 +64,7 @@
   .br-{{ uid }}__group { margin: 0 0 38px; scroll-margin-top: 100px; }
   .br-{{ uid }}__letter {
     margin: 0 0 14px; padding: 0 0 10px; border-bottom: 1px solid var(--br-line);
-    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-family: var(--font-brand-display--family);
     font-size: 24px; font-weight: 400; color: var(--br-accent);
   }
   .br-{{ uid }}__list {
@@ -114,33 +109,25 @@
       {%- if s.sub != blank -%}<div class="br-{{ uid }}__sub">{{ s.sub }}</div>{%- endif -%}
     </div>
 
-    {%- comment -%} ponytail: merken = product-vendors, geen aparte collecties of metaobjects nodig {%- endcomment -%}
+    {%- comment -%} ponytail: merken = product-vendors (al alfabetisch), geen aparte collecties of metaobjects nodig {%- endcomment -%}
     {%- liquid
       assign brands = ''
-      for vendor in shop.vendors
+      assign present = ''
+      assign vendors = shop.vendors | sort_natural
+      for vendor in vendors
         assign v = vendor | strip
         if v == blank
           continue
         endif
-        if excluded != blank
-          assign skip = false
-          assign v_low = v | downcase
-          for ex in excluded
-            assign ex_clean = ex | strip
-            if v_low == ex_clean
-              assign skip = true
-              break
-            endif
-          endfor
-          if skip
-            continue
-          endif
+        assign v_key = v | downcase | prepend: ',' | append: ','
+        if excluded contains v_key
+          continue
         endif
         assign brands = brands | append: v | append: '~~'
+        assign present = present | append: v | slice: 0 | upcase
       endfor
       assign brands = brands | split: '~~'
     -%}
-
     {%- if brands.size > 0 -%}
       {%- if s.show_search -%}
         <div class="br-{{ uid }}__search">
@@ -148,39 +135,26 @@
           <input type="search" id="br-q-{{ uid }}" placeholder="{{ s.search_label | escape }}" autocomplete="off">
         </div>
       {%- endif -%}
-
       <nav class="br-{{ uid }}__az" aria-label="{{ s.search_label | escape }}">
         {%- for letter in letters -%}
-          {%- assign has = false -%}
-          {%- for brand in brands -%}
-            {%- assign first = brand | slice: 0 | upcase -%}
-            {%- if first == letter -%}{%- assign has = true -%}{%- break -%}{%- endif -%}
-          {%- endfor -%}
-          <a href="#br-{{ uid }}-{{ letter }}"{% if has %} data-has{% endif %}>{{ letter }}</a>
+          <a href="#br-{{ uid }}-{{ letter }}"{% if present contains letter %} data-has{% endif %}>{{ letter }}</a>
         {%- endfor -%}
       </nav>
-
-      {%- for letter in letters -%}
-        {%- assign group = '' -%}
-        {%- for brand in brands -%}
-          {%- assign first = brand | slice: 0 | upcase -%}
-          {%- if first == letter -%}{%- assign group = group | append: brand | append: '~~' -%}{%- endif -%}
-        {%- endfor -%}
-        {%- if group != blank -%}
-          {%- assign group = group | split: '~~' -%}
-          <section class="br-{{ uid }}__group" id="br-{{ uid }}-{{ letter }}" data-group>
-            <h2 class="br-{{ uid }}__letter">{{ letter }}</h2>
+      {%- assign current = '' -%}
+      {%- for brand in brands -%}
+        {%- assign first = brand | slice: 0 | upcase -%}
+        {%- if first != current -%}
+          {%- unless forloop.first -%}</ul></section>{%- endunless -%}
+          {%- assign current = first -%}
+          <section class="br-{{ uid }}__group" id="br-{{ uid }}-{{ first }}" data-group>
+            <h2 class="br-{{ uid }}__letter">{{ first }}</h2>
             <ul class="br-{{ uid }}__list">
-              {%- for brand in group -%}
-                <li data-brand="{{ brand | downcase | escape }}">
-                  <a href="{{ routes.collections_url }}/vendors?q={{ brand | url_encode }}">{{ brand }}</a>
-                </li>
-              {%- endfor -%}
-            </ul>
-          </section>
         {%- endif -%}
+              <li data-brand="{{ brand | downcase | escape }}">
+                <a href="{{ routes.collections_url }}/vendors?q={{ brand | url_encode }}">{{ brand }}</a>
+              </li>
+        {%- if forloop.last -%}</ul></section>{%- endif -%}
       {%- endfor -%}
-
       <p class="br-{{ uid }}__empty" data-empty>{{ s.empty_text }}</p>
     {%- endif -%}
 
@@ -241,8 +215,6 @@
     { "type": "range", "id": "title_size", "min": 24, "max": 56, "step": 2, "unit": "px", "label": "Grootte titel", "default": 38 },
 
     { "type": "header", "content": "Typografie" },
-    { "type": "font_picker", "id": "font_display", "label": "Titels", "default": "playfair_display_n4" },
-    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
 
     { "type": "header", "content": "Kleuren" },
     { "type": "color", "id": "color_bg", "label": "Achtergrond", "default": "#0b0b0b" },

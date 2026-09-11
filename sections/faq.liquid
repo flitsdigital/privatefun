@@ -4,8 +4,6 @@
 -%}
 
 <style>
-  {{ s.font_display | font_face: font_display: 'swap' }}
-  {{ s.font_body | font_face: font_display: 'swap' }}
 
   .fq-{{ uid }} {
     --fq-accent: {{ s.color_accent }};
@@ -15,9 +13,8 @@
     background: {{ s.color_bg }};
     color: var(--fq-text);
     padding: {{ s.padding_y }}px 0;
-    font-family: {{ s.font_body.family }}, {{ s.font_body.fallback_families }};
+    font-family: var(--font-brand-body--family);
   }
-  .fq-{{ uid }} *, .fq-{{ uid }} *::before, .fq-{{ uid }} *::after { box-sizing: border-box; }
 
   .fq-{{ uid }}__inner {
     max-width: 1240px;
@@ -42,7 +39,7 @@
     margin: 0;
     /* ponytail: expliciet, anders erft de h2 op de witte productpagina de donkere themakleur */
     color: var(--fq-text);
-    font-family: {{ s.font_display.family }}, {{ s.font_display.fallback_families }};
+    font-family: var(--font-brand-display--family);
     font-size: {{ s.title_size }}px;
     line-height: 1.15;
     font-weight: 400;
@@ -220,8 +217,6 @@
     { "type": "range", "id": "padding_y", "min": 20, "max": 140, "step": 4, "unit": "px", "label": "Ruimte boven/onder", "default": 92 },
 
     { "type": "header", "content": "Typografie" },
-    { "type": "font_picker", "id": "font_display", "label": "Titel", "default": "playfair_display_n4" },
-    { "type": "font_picker", "id": "font_body", "label": "Tekst", "default": "assistant_n4" },
     { "type": "range", "id": "title_size", "min": 22, "max": 52, "step": 2, "unit": "px", "label": "Grootte titel", "default": 32 },
 
     { "type": "header", "content": "Kleuren" },

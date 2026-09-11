@@ -31,17 +31,43 @@
   }
 }
 
-/* ---------- Filter-vinkjes: het invoervakje onzichtbaar houden ----------
-   Het eigenlijke vakje wordt door pf-collection.js getekend. */
-html body #MainContent .facets .checkbox input.checkbox__input {
-  opacity: 0 !important;
-  background: transparent !important;
+/* ---------- Filter-vinkjes in huisstijl ----------
+   Het thema tekent het vakje al zelf (svg.icon-checkmark, input is onzichtbaar);
+   we kleuren dat vakje alleen anders. */
+html body #MainContent .facets .checkbox .icon-checkmark {
+  width: 18px;
+  height: 18px;
   border: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
+  border-radius: 4px;
+  background-color: #ffffff !important;
+  box-shadow: inset 0 0 0 1.5px rgb(26 26 26 / 0.32);
+  transition: background-color 0.16s ease, box-shadow 0.16s ease;
 }
 
+html body #MainContent .facets .checkbox:hover .icon-checkmark {
+  box-shadow: inset 0 0 0 1.5px #ce9d27;
+}
+
+html body #MainContent .facets .checkbox:has(.checkbox__input:checked) .icon-checkmark {
+  background-color: #ce9d27 !important;
+  box-shadow: inset 0 0 0 1.5px #ce9d27;
+}
+
+html body #MainContent .facets .checkbox .icon-checkmark path {
+  stroke: #ffffff !important;
+  stroke-width: 2.6;
+}
+
+html body #MainContent .facets .checkbox:has(.checkbox__input:focus-visible) .icon-checkmark {
+  outline: 2px solid #ce9d27;
+  outline-offset: 2px;
+}
+
+/* Na een filterklik bleef er een kadertje om elke titel hangen. */
+html body #MainContent .facets .checkbox__label,
 html body #MainContent .facets .checkbox__label-text {
+  outline: none;
+  box-shadow: none;
   color: #1a1a1a !important;
 }
 
@@ -66,15 +92,21 @@ html body #MainContent:is([data-template^='collection'], [data-template^='search
 }
 
 /* ---------- Productfoto's altijd volledig in beeld, nooit bijgesneden ----------
-   Het thema regelt dit via --product-media-fit; die zetten we om, en we forceren
-   het daarnaast rechtstreeks op de afbeelding zelf. */
-html body #MainContent :is(.product-media-container, .product-media, .card-gallery, product-card, .product-card) {
+   Geldt voor productkaarten én de galerij op de productpagina. */
+.card-gallery,
+.product-media-gallery,
+.media-gallery,
+.product-information__media,
+:is(.card-gallery, .product-media-gallery, .media-gallery) :is(slideshow-slide, .slideshow-slide, .product-media-container) {
+  --media-fit: contain;
   --product-media-fit: contain;
+  background: #ffffff;
 }
 
-html body #MainContent :is(.product-media, .product-media-container, .card-gallery) :is(img, video),
-html body #MainContent :is(product-card, .product-card) img {
+:is(.card-gallery, .product-media-gallery, .media-gallery) :is(img, video) {
   object-fit: contain !important;
+  width: 100%;
+  height: 100%;
   background: #ffffff;
 }
 
@@ -105,9 +137,21 @@ html body [data-wishlist-count] {
   }
 }
 
-/* ---------- FAQ: rustig uitschuiven van het antwoord ---------- */
-details[class*='__item'] > div[class*='__answer'] {
+/* ---------- FAQ: rustig uitschuiven én inschuiven van het antwoord ----------
+   Openen animeert de sectie zelf al (grid-rows); dit regelt het sluiten.
+   Browsers zonder ::details-content klappen gewoon direct dicht. */
+details[class*='__item'] {
+  interpolate-size: allow-keywords;
+}
+
+details[class*='__item']::details-content {
+  height: 0;
   overflow: hidden;
+  transition: height 0.24s cubic-bezier(0.4, 0, 0.2, 1), content-visibility 0.24s allow-discrete;
+}
+
+details[class*='__item'][open]::details-content {
+  height: auto;
 }
 
 /* ---------- "Naar volgende pagina" onder het grid ---------- */
